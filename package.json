@@ -21,5 +21,9 @@
   "homepage": "https://github.com/jayeshbhole/MarsMello#readme",
   "devDependencies": {
     "openzeppelin-solidity": "^4.2.0"
+  },
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.4.1",
+    "truffle": "^5.4.0"
   }
 }
