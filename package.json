@@ -1,0 +1,25 @@
+{
+  "name": "marsmello",
+  "version": "1.0.0",
+  "description": "Decentralised Game to Colonise and Extract Martian Ores",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayeshbhole/MarsMello.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayeshbhole/MarsMello/issues"
+  },
+  "homepage": "https://github.com/jayeshbhole/MarsMello#readme",
+  "devDependencies": {
+    "openzeppelin-solidity": "^4.2.0"
+  }
+}
