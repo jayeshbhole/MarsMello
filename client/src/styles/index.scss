@@ -4,35 +4,44 @@ body {
 		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background: rgb(170, 115, 78);
+	background: rgb(185, 156, 141);
 }
 
 .grid-container {
 	height: 100vh;
 	width: 100vw;
-	overflow: visible;
+	overflow: hidden;
 	position: relative;
+	// background: rgb(138, 126, 118);
+	cursor: grab;
+
 	.grid {
 		position: absolute;
 		top: -50%;
 		left: -50%;
 		display: grid;
-		grid-template-columns: repeat(20, 200px);
+		grid-template-columns: repeat(30, 1fr);
 		grid-gap: 10px;
-		transform: skewY(20deg);
-		// transform: rotate(-15deg);
+		// transform: skewY(20deg);
+
 		touch-action: none;
-		cursor: grab;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 		.cell {
-			width: 200px;
-			height: 200px;
+			// width: calc(100vw / 10);
+			// height: calc(100vw / 10);
 			background: rgb(158, 26, 26);
 			text-align: center;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			transform: skew(-30deg);
+			// transform: skew(-30deg);
 			touch-action: none;
+			&.placeholder {
+				background-color: rgb(240, 157, 157);
+			}
 		}
 	}
 }

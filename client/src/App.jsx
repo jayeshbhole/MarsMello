@@ -1,46 +1,60 @@
 import { useState } from "react";
 import "./styles/index.scss";
-import { useDrag, useGesture, usePinch, useScroll, useWheel } from "react-use-gesture";
+import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
 
 function App() {
-	const [plots, setPlots] = useState(Array.from({ length: 400 }, (v, i) => i));
-	const windowHeight = window.innerHeight;
-	const windowWidth = window.innerWidth;
-	const [{ top, left, transform }, api] = useSpring(() => ({
-		top: -(windowHeight / 2),
-		left: -(windowWidth / 2),
-		transform: `scale(1)`,
+	const [plots, setPlots] = useState(
+		Array.from({ length: 30 }, (v, ind) => {
+			if (ind < 5 || ind >= 25) return Array.from({ length: 30 }, (v, i) => 2);
+			return Array.from({ length: 30 }, (v, i) => {
+				if (i < 5 || i >= 25) return 2;
+				return 1;
+			});
+		})
+	);
+
+	const cellSize = Math.max(window.innerWidth, window.innerHeight) / 10;
+	const gridSize = cellSize * 30 + 290;
+	// Springy
+	const [{ top, left }, dragApi] = useSpring(() => ({
+		top: -(gridSize / 2),
+		left: -(gridSize / 2),
 		config: config.molasses,
 	}));
 
-	const bind = useDrag(
-		({ movement: [mx, my], tap }) => {
+	const dragBind = useDrag(
+		({ movement: [mx, my], tap, last }) => {
 			if (tap) return;
-			api.start({
+			dragApi.start({
 				top: my,
 				left: mx,
 			});
+			if (last) {
+				// Check if out of bounds
+				// fetch new data
+				// Set data in the state
+				// Set offset to overflow delta
+			}
 		},
 		{ initial: () => [left.get(), top.get()] }
 	);
-	const scrollGesture = useWheel(({ distance, offset, xy }) => {
-		console.log(distance, offset, xy);
-		api.start({ transform: `scale(${distance / windowHeight})` });
-	});
-	// const scrollGesture = useWheel((state) => {
-	// 	console.log(state);
-	// });
+
 	return (
 		<div className="App">
-			<animated.div className="grid-container" style={transform} {...scrollGesture()}>
-				<animated.div className="grid" {...bind()} style={{ top, left }}>
-					{plots.map((_, index) => {
-						return (
-							<div key={index} className="cell">
-								{_}
-							</div>
-						);
+			<animated.div className="grid-container" {...dragBind()}>
+				<animated.div className="grid" style={{ top, left }}>
+					{plots.map((row, _) => {
+						return row.map((cell, index) => {
+							return (
+								<div
+									key={index}
+									className={`cell ${cell === 1 ? "render" : "placeholder"}`}
+									style={{ width: cellSize, height: cellSize }}>
+									{cell}
+								</div>
+							);
+						});
 					})}
 				</animated.div>
 			</animated.div>
