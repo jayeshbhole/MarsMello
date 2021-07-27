@@ -14,8 +14,6 @@ body {
 	overflow: hidden;
 	position: relative;
 	// background: rgb(138, 126, 118);
-	display: flex;
-	justify-content: center;
 	cursor: grab;
 
 	.grid {
@@ -46,11 +44,23 @@ body {
 		.row {
 			display: flex;
 			.cell {
+				position: relative;
 				background: rgb(214, 166, 110);
 				overflow: visible;
 				img {
 					width: 100%;
 					image-rendering: pixelated;
+				}
+				h1 {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin: auto;
+					text-align: center;
+					width: 70%;
+					transform: translate(-50%, -50%);
+					color: aliceblue;
+					background-color: black;
 				}
 				&.cloud {
 					background-color: rgb(255, 255, 255);
