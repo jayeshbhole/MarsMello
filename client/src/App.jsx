@@ -5,7 +5,7 @@ import { useSpring, animated } from "@react-spring/web";
 
 function App() {
 	const [hk, setHk] = useState([15, 15]);
-	const [plots, setPlots] = useState(
+	const [rows, setRows] = useState(
 		Array.from({ length: 31 }, (_, y) => {
 			if (y < 5 || y >= 26) return Array.from({ length: 31 }, () => [1]);
 			return Array.from({ length: 31 }, (_, x) => {
@@ -22,6 +22,10 @@ function App() {
 	const paddingSize = cellSize * 5;
 
 	// Springy
+	const [{ centreSpring, backgroundColor }, setCentreSpring] = useSpring(() => ({
+		centreSpring: [0, 0],
+		backgroundColor: "white",
+	}));
 	const [{ top, left }, dragApi] = useSpring(() => ({
 		top: -((gridSize - windowHeight) / 2),
 		left: -((gridSize - windowWidth) / 2),
@@ -31,43 +35,33 @@ function App() {
 	const dragBind = useDrag(
 		({ movement: [mx, my], tap, last, vxvy: [vx, vy], first }) => {
 			if (tap) return;
-			// if (first && (Math.abs(vx) < 1 || Math.abs(vy) < 1)) return;
 			dragApi.start({
 				top: my,
 				left: mx,
 			});
 			if (last) {
 				calculateCentre(top.goal, left.goal);
-				// console.log(top.goal, left.goal);
-				// Check if out of bounds
-				// fetch new data
-				// fetchData(top.goal, left.goal);
-				// Set data in the state
-				// setPlots()
-				// Set offset to overflow delta
-				// api.start()
 			}
 		},
 		{ initial: () => [left.get(), top.get()] }
 	);
 
-	const calculateCentre = (top, left, callback) => {
+	const calculateCentre = (top, left) => {
+		const padding = 0.75 * paddingSize;
 		const centre = [
 			Math.floor((-left - paddingSize - cellSize + windowWidth / 2) / cellSize) - 9,
 			-Math.floor((-top - paddingSize - cellSize + windowHeight / 2) / cellSize) + 9,
 		];
-		setCentre(centre);
+		if (
+			-top < padding ||
+			-left < padding ||
+			-top > gridSize - padding - windowHeight ||
+			-left > gridSize - padding - windowWidth
+		) {
+			setCentreSpring.set({ backgroundColor: "red", centreSpring: centre });
+		} else setCentreSpring.set({ centreSpring: centre, backgroundColor: "white" });
 	};
 
-	useEffect(() => {
-		console.log(...centre);
-	}, [centre]);
-	const fetchData = async ([x, y]) => {
-		// setHk(centre[0])
-		// setTimeout(() => {
-		// 	console.log("Coords", x, y);
-		// }, 2000);
-	};
 	const handleClick = () => {
 		if (top.idle && left.idle) alert("Hello");
 	};
@@ -76,7 +70,7 @@ function App() {
 		<div className="App">
 			<animated.div className="grid-container" {...dragBind()}>
 				<animated.div className="grid" style={{ top, left }}>
-					{plots.map((row, row_ind) => {
+					{rows.map((row, row_ind) => {
 						return (
 							<div className="row" key={row_ind}>
 								{row.map((cell, index) => {
@@ -89,15 +83,15 @@ function App() {
 											}`}
 											style={{ width: cellSize, height: cellSize }}>
 											{cell.length !== 1 ? (
-												<img
-													draggable="false"
-													src={`./assets/img/pixplot_${Math.floor(Math.random() * 1)}.png`}
-													alt="plot.png"
-												/>
+												!(cell[0] || cell[1]) ? (
+													<img draggable="false" src="./spawn.png" alt="spawn.png" />
+												) : (
+													<img draggable="false" src="./assets/img/locked.png" alt="plot.png" />
+												)
 											) : (
 												<img draggable="false" src="./assets/img/cloud.png" alt="" />
 											)}
-											<h1>{cell.toString()}</h1>
+											{/* <h1>{cell.toString()}</h1> */}
 										</div>
 									);
 								})}
@@ -106,16 +100,10 @@ function App() {
 					})}
 				</animated.div>
 			</animated.div>
-			<span
-				style={{
-					position: "fixed",
-					top: "50%",
-					left: "50%",
-					transform: "translate(-50%,-50%)",
-					background: "red",
-				}}>
-				H
-			</span>
+			<animated.span id="centre" style={{ backgroundColor }}>
+				{/* {[Math.floor(top.get()), Math.floor(top.get())].toString()} */}
+				{centreSpring}
+			</animated.span>
 		</div>
 	);
 }
