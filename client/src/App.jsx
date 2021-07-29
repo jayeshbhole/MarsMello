@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated, config } from "@react-spring/web";
 
 function App() {
-	const [hk, setHk] = useState([15, 15]);
+	const hk = [15, 15];
 	const [rows, setRows] = useState(
 		Array.from({ length: 31 }, (_, y) => {
 			if (y < 5 || y >= 26) return Array.from({ length: 31 }, () => [1]);
@@ -14,7 +14,6 @@ function App() {
 			});
 		})
 	);
-	const [centre, setCentre] = useState([0, 0]);
 	const windowHeight = window.innerHeight;
 	const windowWidth = window.innerWidth;
 	const cellSize = Math.max(windowWidth, windowHeight) / 10;
@@ -29,11 +28,11 @@ function App() {
 	const [{ top, left }, dragApi] = useSpring(() => ({
 		top: -((gridSize - windowHeight) / 2),
 		left: -((gridSize - windowWidth) / 2),
-		config: { tension: 500, friction: 120 },
+		config: config.molasses,
 	}));
 
 	const dragBind = useDrag(
-		({ movement: [mx, my], tap, last, vxvy: [vx, vy], first }) => {
+		({ movement: [mx, my], tap, last }) => {
 			if (tap) return;
 			dragApi.start({
 				top: my,
