@@ -1,13 +1,13 @@
 import React from "react";
 
-const BottomBar = () => {
+const BottomBar = ({ x, y }) => {
 	return (
-		<div className="bottom-bar">
-			<div className="x-cord">
-				X: <div className="span">{x}</div>
+		<div className="bottombar bar">
+			<div className="x-cord cords">
+				X: <span>{x}</span>
 			</div>
-			<div className="y-cord">
-				Y: <div className="span">{y}</div>
+			<div className="y-cord cords">
+				Y: <span>{y}</span>
 			</div>
 		</div>
 	);

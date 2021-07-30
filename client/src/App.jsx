@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
+import Menu from "./components/Menu";
 
 function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -148,6 +149,7 @@ function App() {
 				{centre}
 			</animated.span>
 			{/* Menus */}
+			<Menu />
 		</div>
 	);
 }
