@@ -6,6 +6,9 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background: rgb(241, 218, 207);
 	font-family: "JoystixW00-Monospace", monospace;
+	img {
+		image-rendering: pixelated;
+	}
 }
 #centre {
 	width: 2.5vw;
