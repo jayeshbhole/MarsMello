@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
+
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function App() {
 	const hk = [15, 15];
@@ -21,6 +25,8 @@ function App() {
 			});
 		})
 	);
+	const [loading, setLoading] = useState(false);
+
 	// Springy
 	const [{ top, left, centre, backgroundColor }, centreApi] = useSpring(() => ({
 		top: centredGridOffset[0],
@@ -32,12 +38,13 @@ function App() {
 
 	const dragBind = useDrag(
 		({ movement: [mx, my], tap, last }) => {
+			if (loading) return;
 			if (tap) {
 				centreApi.stop();
 				calculateCentre(top.goal, left.goal);
 				return;
 			} else if (last) {
-				centreApi.stop();
+				// centreApi.stop();
 				handleDragEnd(top.goal, left.goal);
 				return;
 			}
@@ -46,10 +53,7 @@ function App() {
 				left: mx,
 			});
 			centreApi.set({
-				centre: [
-					Math.floor((-left.goal - paddingSize + windowWidth / 2) / cellSize) - 10,
-					-Math.floor((-top.goal - paddingSize + windowHeight / 2) / cellSize) + 10,
-				],
+				centre: calculateCentre(top.goal, left.goal),
 				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
 			});
 		},
@@ -69,12 +73,18 @@ function App() {
 		if (-left < padding || -left > gridSize - padding - windowWidth) return true;
 		return false;
 	};
-	const handleDragEnd = (top, left) => {
+	const handleDragEnd = async (newTop, newLeft) => {
 		// const centre = calculateCentre(top, left);
-		if (isOutOfBounds(top, left)) {
+		if (isOutOfBounds(newTop, newLeft)) {
+			while (true) {
+				setLoading(true);
+				if (!top.idle || !left.idle) await sleep(500);
+				else break;
+			}
+
 			const displacement = [
-				(top - centredGridOffset[0]) % cellSize,
-				-((left - centredGridOffset[1]) % cellSize),
+				(newTop - centredGridOffset[0]) % cellSize,
+				-((newLeft - centredGridOffset[1]) % cellSize),
 			];
 			const newOffsets = [
 				centredGridOffset[0] + displacement[0],
@@ -86,9 +96,11 @@ function App() {
 				centre: calculateCentre(...newOffsets),
 				backgroundColor: "white",
 			});
+			setLoading(false);
 		} else {
 			centreApi.set({
-				centre: calculateCentre(top, left),
+				centre: calculateCentre(newTop, newLeft),
+				backgroundColor: "white",
 			});
 		}
 	};
