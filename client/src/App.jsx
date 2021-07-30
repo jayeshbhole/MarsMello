@@ -1,10 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
 
 function App() {
 	const hk = [15, 15];
+	const windowHeight = window.innerHeight;
+	const windowWidth = window.innerWidth;
+	const cellSize = Math.max(windowWidth, windowHeight) / 10;
+	const gridSize = cellSize * 31;
+	const paddingSize = cellSize * 5;
+	const centredGridOffset = [-((gridSize - windowHeight) / 2), -((gridSize - windowWidth) / 2)];
+
 	const [rows, setRows] = useState(
 		Array.from({ length: 31 }, (_, y) => {
 			if (y < 5 || y >= 26) return Array.from({ length: 31 }, () => [1]);
@@ -14,55 +21,81 @@ function App() {
 			});
 		})
 	);
-	const windowHeight = window.innerHeight;
-	const windowWidth = window.innerWidth;
-	const cellSize = Math.max(windowWidth, windowHeight) / 10;
-	const gridSize = cellSize * 31;
-	const paddingSize = cellSize * 5;
-
 	// Springy
-	const [{ centreSpring, backgroundColor }, setCentreSpring] = useSpring(() => ({
-		centreSpring: [0, 0],
+	const [{ top, left, centre, backgroundColor }, centreApi] = useSpring(() => ({
+		top: centredGridOffset[0],
+		left: centredGridOffset[1],
+		centre: [0, 0],
 		backgroundColor: "white",
-	}));
-	const [{ top, left }, dragApi] = useSpring(() => ({
-		top: -((gridSize - windowHeight) / 2),
-		left: -((gridSize - windowWidth) / 2),
-		config: config.molasses,
+		config: config.slow,
 	}));
 
 	const dragBind = useDrag(
 		({ movement: [mx, my], tap, last }) => {
-			if (tap) return;
-			dragApi.start({
+			if (tap) {
+				centreApi.stop();
+				calculateCentre(top.goal, left.goal);
+				return;
+			} else if (last) {
+				centreApi.stop();
+				handleDragEnd(top.goal, left.goal);
+				return;
+			}
+			centreApi.start({
 				top: my,
 				left: mx,
 			});
-			if (last) {
-				calculateCentre(top.goal, left.goal);
-			}
+			centreApi.set({
+				centre: [
+					Math.floor((-left.goal - paddingSize + windowWidth / 2) / cellSize) - 10,
+					-Math.floor((-top.goal - paddingSize + windowHeight / 2) / cellSize) + 10,
+				],
+				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
+			});
 		},
 		{ initial: () => [left.get(), top.get()] }
 	);
 
+	// Player Movements
 	const calculateCentre = (top, left) => {
-		const padding = 0.75 * paddingSize;
-		const centre = [
-			Math.floor((-left - paddingSize - cellSize + windowWidth / 2) / cellSize) - 9,
-			-Math.floor((-top - paddingSize - cellSize + windowHeight / 2) / cellSize) + 9,
+		return [
+			Math.floor((-left - paddingSize + windowWidth / 2) / cellSize) - 10,
+			-Math.floor((-top - paddingSize + windowHeight / 2) / cellSize) + 10,
 		];
-		if (
-			-top < padding ||
-			-left < padding ||
-			-top > gridSize - padding - windowHeight ||
-			-left > gridSize - padding - windowWidth
-		) {
-			setCentreSpring.set({ backgroundColor: "red", centreSpring: centre });
-		} else setCentreSpring.set({ centreSpring: centre, backgroundColor: "white" });
+	};
+	const isOutOfBounds = (top, left) => {
+		const padding = 0.75 * paddingSize;
+		if (-top < padding || -top > gridSize - padding - windowHeight) return true;
+		if (-left < padding || -left > gridSize - padding - windowWidth) return true;
+		return false;
+	};
+	const handleDragEnd = (top, left) => {
+		// const centre = calculateCentre(top, left);
+		if (isOutOfBounds(top, left)) {
+			const displacement = [
+				(top - centredGridOffset[0]) % cellSize,
+				-((left - centredGridOffset[1]) % cellSize),
+			];
+			const newOffsets = [
+				centredGridOffset[0] + displacement[0],
+				centredGridOffset[1] - displacement[1],
+			];
+			centreApi.set({
+				top: newOffsets[0],
+				left: newOffsets[1],
+				centre: calculateCentre(...newOffsets),
+				backgroundColor: "white",
+			});
+		} else {
+			centreApi.set({
+				centre: calculateCentre(top, left),
+			});
+		}
 	};
 
+	// Event Handlers
 	const handleClick = () => {
-		if (top.idle && left.idle) alert("Hello");
+		// if (top.idle && left.idle) alert("Hello");
 	};
 
 	return (
@@ -90,7 +123,7 @@ function App() {
 											) : (
 												<img draggable="false" src="./assets/img/cloud.png" alt="" />
 											)}
-											{/* <h1>{cell.toString()}</h1> */}
+											<h1>{cell.toString()}</h1>
 										</div>
 									);
 								})}
@@ -100,9 +133,9 @@ function App() {
 				</animated.div>
 			</animated.div>
 			<animated.span id="centre" style={{ backgroundColor }}>
-				{/* {[Math.floor(top.get()), Math.floor(top.get())].toString()} */}
-				{centreSpring}
+				{centre}
 			</animated.span>
+			{/* Menus */}
 		</div>
 	);
 }

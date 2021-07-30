@@ -5,7 +5,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background: rgb(241, 218, 207);
-	// background-image: url("../assets/img/cloud.png");
 }
 #centre {
 	width: 2.5vw;
@@ -31,7 +30,6 @@ body {
 		display: grid;
 		grid-template-rows: repeat(31, 1fr);
 		flex-direction: column;
-		// transform: skewY(20deg);
 
 		touch-action: none;
 		-webkit-user-select: none;
@@ -42,13 +40,13 @@ body {
 		:nth-child(odd) {
 			.cell:nth-child(even) {
 				opacity: 0.7;
-				// background: rgb(245, 193, 134);
+				background: rgb(245, 193, 134);
 			}
 		}
 		:nth-child(even) {
 			.cell:nth-child(odd) {
 				opacity: 0.7;
-				// background: rgb(233, 180, 121);
+				background: rgb(233, 180, 121);
 			}
 		}
 		.row {
