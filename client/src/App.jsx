@@ -99,20 +99,19 @@ const App = () => {
 
 	// Player Movements
 	const handleDragEnd = (newTop, newLeft) => {
-		let newCentreDelta = calculateCentre(newTop, newLeft);
-
 		if (isOutOfBounds(newTop, newLeft)) {
 			(async function () {
+				const newCentreDelta = calculateCentre(newTop, newLeft);
 				// Displacement of current centred block from the window centre
 				const displacement = [
 					(newTop - centredGridOffsets[0]) % cellSize,
 					-((newLeft - centredGridOffsets[1]) % cellSize),
 				];
-
 				const newOffsets = [
 					centredGridOffsets[0] + displacement[0],
 					centredGridOffsets[1] - displacement[1],
 				];
+				const reducedNewCentreDelta = calculateCentre(...newOffsets);
 
 				// Stall the dragging
 				while (true) {
@@ -131,20 +130,30 @@ const App = () => {
 				centreApi.set({
 					top: newOffsets[0],
 					left: newOffsets[1],
+					centreDelta: reducedNewCentreDelta,
 				});
-				newCentreDelta = calculateCentre(...newOffsets);
 				setLoading(false);
+
+				centreApi.start({
+					backgroundColor: "white",
+				});
+
+				localStorage.setItem("top", newTop);
+				localStorage.setItem("left", newLeft);
+				localStorage.setItem("centreDelta", reducedNewCentreDelta);
 			})();
+		} else {
+			const newCentreDelta = calculateCentre(newTop, newLeft);
+			// Set Window Centre relative to grid
+			centreApi.set({
+				centreDelta: newCentreDelta,
+				backgroundColor: "white",
+			});
+			localStorage.setItem("top", newTop);
+			localStorage.setItem("left", newLeft);
+			localStorage.setItem("centreDelta", newCentreDelta);
 		}
 		// Set Window Centre relative to grid
-		centreApi.set({
-			centreDelta: newCentreDelta,
-			backgroundColor: "white",
-		});
-
-		localStorage.setItem("top", newTop);
-		localStorage.setItem("left", newLeft);
-		localStorage.setItem("centreDelta", newCentreDelta);
 	};
 
 	// Event Handlers
