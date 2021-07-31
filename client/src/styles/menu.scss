@@ -177,6 +177,7 @@
 						}
 						td {
 							height: 3rem;
+							vertical-align: middle;
 							button {
 								cursor: pointer;
 								background: none;
@@ -187,11 +188,14 @@
 							.sell-btn {
 								background-image: url(../assets/img/forSell.png);
 								background-repeat: no-repeat;
+								background-position-y: 0.25rem;
 								background-size: contain;
+								color: white;
 							}
 							.bid-btn {
 								background-image: url(../assets/img/forBid.png);
 								background-repeat: no-repeat;
+								background-position-y: 0.4rem;
 								background-size: contain;
 							}
 						}
@@ -204,9 +208,10 @@
 						align-items: center;
 						height: 8rem;
 						button {
-							align-items: center;
+							text-align: center;
 							background: url(../assets/img/forBuy.png);
 							background-repeat: no-repeat;
+							background-position-y: 0.45rem;
 							background-size: contain;
 							border: none;
 							cursor: pointer;

@@ -5,18 +5,18 @@ const Profile = () => {
 	return (
 		<div className="profile">
 			<div className="picture">
-				<img src="./assets/profile.png" alt="" /> <p>0xBf61E1a7F698b2E68cBc6BE51E9784Ce7ccc0B1F</p>
+				<img src="./assets/profile.png" alt="" />
 			</div>
 			<div className="data">
 				<h1>
-					<span>Name </span> Elon Musk
+					<span>Wallet Address </span> 0xBf61E1a7F698b2E68cB
+					<br />
+					c6BE51E9784Ce7ccc0B1F
 				</h1>
 				<h1>
-					<span>Username </span>NotAlien
+					<span>Wallet Provider</span>Portis
 				</h1>
-				<h1>
-					<span>Date Joined </span>31 July, 2021
-				</h1>
+				<button>Change Address</button>
 			</div>
 		</div>
 	);
