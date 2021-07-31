@@ -66,6 +66,7 @@ const App = () => {
 	useEffect(() => {
 		localStorage.setItem("chunkCentre", chunkCentre);
 		setRows(calculateGrid(hk, chunkCentre));
+		setLoading(false);
 	}, [chunkCentre]);
 
 	// Springy
@@ -108,24 +109,23 @@ const App = () => {
 	const handleDragEnd = (draggedTop, draggedLeft) => {
 		if (isOutOfBounds(draggedTop, draggedLeft)) {
 			(async function () {
-				const newCentreDelta = calculateCentre(draggedTop, draggedLeft);
-				// Displacement of current centred block from the window centre
-				const displacement = [
-					(draggedTop - centredGridOffsets[0]) % cellSize,
-					(draggedLeft - centredGridOffsets[1]) % cellSize,
-				];
-				const newOffsets = [
-					centredGridOffsets[0] - displacement[0],
-					centredGridOffsets[1] - displacement[1],
-				];
-				const reducedNewCentreDelta = calculateCentre(...newOffsets);
-				console.log(displacement, newOffsets, reducedNewCentreDelta);
 				// Stall the dragging
+				setLoading(true);
 				while (true) {
-					setLoading(true);
 					if (!top.idle || !left.idle) await sleep(500);
 					else break;
 				}
+
+				const newCentreDelta = calculateCentre(draggedTop, draggedLeft);
+				// Displacement of current centred block from the window centre
+				const displacement = [
+					draggedTop - (windowHeight / 2 + (newCentreDelta[1] - 15.5) * cellSize),
+					draggedLeft - (windowWidth / 2 - (newCentreDelta[0] + 15.5) * cellSize),
+				];
+				const newOffsets = [
+					centredGridOffsets[0] + displacement[0],
+					centredGridOffsets[1] + displacement[1],
+				];
 
 				// Set the chunk centre to the block at the centre of the screen
 				setChunkCentre((curChunkCentre) => {
@@ -137,20 +137,16 @@ const App = () => {
 					centreApi.set({
 						top: newOffsets[0],
 						left: newOffsets[1],
-						centreDelta: reducedNewCentreDelta,
-						xy: newChunkCentre,
 					});
 					return newChunkCentre;
 				});
-
-				setLoading(false);
-
-				centreApi.start({
+				centreApi.set({
+					centreDelta: [0, 0],
 					backgroundColor: "white",
 				});
 				localStorage.setItem("top", newOffsets[0]);
 				localStorage.setItem("left", newOffsets[1]);
-				localStorage.setItem("centreDelta", reducedNewCentreDelta);
+				localStorage.setItem("localCentreDelta", [0, 0]);
 			})();
 		} else {
 			const newCentreDelta = calculateCentre(draggedTop, draggedLeft);
@@ -199,8 +195,14 @@ const Grid = ({ dragBind, rows, handleClick, cellSize, top, left }) => {
 									<div
 										key={index}
 										onClick={() => handleClick(index)}
-										className={`cell ${cell.length !== 1 ? "plot" : "cloud"} ${
-											Math.round(Math.random()) ? "bright" : null
+										className={`cell ${
+											cell.length !== 1
+												? (cell[0] + cell[1]) % 2
+													? "plot"
+													: "plot bright"
+												: Math.round(Math.random())
+												? "bright cloud"
+												: "cloud"
 										}`}
 										style={{ width: cellSize, height: cellSize }}>
 										{cell.length !== 1 ? (
@@ -227,7 +229,7 @@ const Grid = ({ dragBind, rows, handleClick, cellSize, top, left }) => {
 const CentreCounter = ({ backgroundColor, centreDelta }) => {
 	return (
 		<animated.span id="centre" style={{ backgroundColor }}>
-			<animated.span>{centreDelta}</animated.span>.
+			<animated.span>{centreDelta}</animated.span>
 		</animated.span>
 	);
 };
