@@ -40,7 +40,7 @@ const Factory = () => {
 							<td>(0, 1)</td>
 							<td>1.0 MLO</td>
 							<td>
-								<button>Sell</button>
+								<button className="sell-btn">Sell</button>
 							</td>
 						</tr>
 						<tr>
@@ -50,7 +50,7 @@ const Factory = () => {
 							<td>(0, -1)</td>
 							<td>0.8 MLO</td>
 							<td>
-								<button>Sell</button>
+								<button className="sell-btn">Sell</button>
 							</td>
 						</tr>
 						<tr>
@@ -60,7 +60,7 @@ const Factory = () => {
 							<td>(0, 9)</td>
 							<td>2.0 MLO</td>
 							<td>
-								<button>Sell</button>
+								<button className="sell-btn">Sell</button>
 							</td>
 						</tr>
 						<tr>
@@ -70,7 +70,7 @@ const Factory = () => {
 							<td>(0, 5)</td>
 							<td>1.2 MLO</td>
 							<td>
-								<button>Sell</button>
+								<button className="sell-btn">Sell</button>
 							</td>
 						</tr>
 						<tr>
@@ -80,7 +80,7 @@ const Factory = () => {
 							<td>(0, -4)</td>
 							<td>0.08 MLO</td>
 							<td>
-								<button>Sell</button>
+								<button className="sell-btn">Sell</button>
 							</td>
 						</tr>
 					</table>
@@ -88,7 +88,7 @@ const Factory = () => {
 			) : (
 				<div className="content market">
 					<div className="ingame">
-						<button>Buy a New Factory</button>
+						<button className="buy-btn">Buy a New Factory</button>
 					</div>
 					<div className="auction">
 						<table>
@@ -107,7 +107,7 @@ const Factory = () => {
 								<td>(0, 1)</td>
 								<td>1.0 MLO</td>
 								<td>
-									<button>Bid</button>
+									<button className="bid-btn">Bid</button>
 								</td>
 							</tr>
 							<tr>
@@ -117,7 +117,7 @@ const Factory = () => {
 								<td>(0, -1)</td>
 								<td>0.8 MLO</td>
 								<td>
-									<button>Bid</button>
+									<button className="bid-btn">Bid</button>
 								</td>
 							</tr>
 							<tr>
@@ -127,7 +127,7 @@ const Factory = () => {
 								<td>(0, 9)</td>
 								<td>2.0 MLO</td>
 								<td>
-									<button>Bid</button>
+									<button className="bid-btn">Bid</button>
 								</td>
 							</tr>
 							<tr>
@@ -137,7 +137,7 @@ const Factory = () => {
 								<td>(0, 5)</td>
 								<td>1.2 MLO</td>
 								<td>
-									<button>Bid</button>
+									<button className="bid-btn">Bid</button>
 								</td>
 							</tr>
 							<tr>
@@ -147,7 +147,7 @@ const Factory = () => {
 								<td>(0, -4)</td>
 								<td>0.08 MLO</td>
 								<td>
-									<button>Bid</button>
+									<button className="bid-btn">Bid</button>
 								</td>
 							</tr>
 						</table>
