@@ -10,6 +10,12 @@ body {
 		image-rendering: pixelated;
 	}
 	image-rendering: pixelated;
+
+	touch-action: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 #centre {
 	width: 2.5vw;
@@ -35,12 +41,6 @@ body {
 		display: grid;
 		grid-template-rows: repeat(31, 1fr);
 		flex-direction: column;
-
-		touch-action: none;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
 
 		:nth-child(odd) {
 			.cell:nth-child(even) {
