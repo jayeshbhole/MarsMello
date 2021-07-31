@@ -36,12 +36,12 @@ const App = () => {
 		?.split(",")
 		.map((v, _) => parseInt(v)) || [0, 0];
 
-	// Centre of the chunk loaded
+	// Centre of the loaded chunk
 	const [chunkCentre, setChunkCentre] = useState(
 		localStorage
 			.getItem("chunkCentre")
 			?.split(",")
-			.map((v, i) => parseInt(v)) || [0, 0]
+			.map((v) => parseInt(v)) || [0, 0]
 	);
 	const [rows, setRows] = useState(calculateGrid(hk, chunkCentre));
 	const [loading, setLoading] = useState(false);
@@ -54,22 +54,26 @@ const App = () => {
 		];
 	};
 	const isOutOfBounds = (top, left) => {
-		const padding = 0.6 * paddingSize;
+		const padding = 0.7 * paddingSize;
 		if (-top < padding || -top > gridSize - padding - windowHeight) return true;
 		if (-left < padding || -left > gridSize - padding - windowWidth) return true;
 		return false;
 	};
 
 	useEffect(() => {
+		console.log({ windowHeight, windowWidth, gridSize, centredGridOffsets });
+	}, []);
+	useEffect(() => {
 		localStorage.setItem("chunkCentre", chunkCentre);
 		setRows(calculateGrid(hk, chunkCentre));
 	}, [chunkCentre]);
 
 	// Springy
-	const [{ top, left, centreDelta, backgroundColor }, centreApi] = useSpring(() => ({
+	const [{ top, left, centreDelta, backgroundColor, xy }, centreApi] = useSpring(() => ({
 		top: localTop,
 		left: localLeft,
 		centreDelta: localCentreDelta,
+		xy: [chunkCentre[0] + localCentreDelta[1], chunkCentre[1] + localCentreDelta[1]],
 		backgroundColor: "white",
 		config: config.slow,
 	}));
@@ -85,12 +89,15 @@ const App = () => {
 				handleDragEnd(top.goal, left.goal);
 				return;
 			}
+
 			centreApi.start({
 				top: my,
 				left: mx,
 			});
+			const newCentreDelta = calculateCentre(top.goal, left.goal);
 			centreApi.set({
-				centreDelta: calculateCentre(top.goal, left.goal),
+				centreDelta: newCentreDelta,
+				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
 				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
 			});
 		},
@@ -98,21 +105,21 @@ const App = () => {
 	);
 
 	// Player Movements
-	const handleDragEnd = (newTop, newLeft) => {
-		if (isOutOfBounds(newTop, newLeft)) {
+	const handleDragEnd = (draggedTop, draggedLeft) => {
+		if (isOutOfBounds(draggedTop, draggedLeft)) {
 			(async function () {
-				const newCentreDelta = calculateCentre(newTop, newLeft);
+				const newCentreDelta = calculateCentre(draggedTop, draggedLeft);
 				// Displacement of current centred block from the window centre
 				const displacement = [
-					(newTop - centredGridOffsets[0]) % cellSize,
-					-((newLeft - centredGridOffsets[1]) % cellSize),
+					(draggedTop - centredGridOffsets[0]) % cellSize,
+					(draggedLeft - centredGridOffsets[1]) % cellSize,
 				];
 				const newOffsets = [
-					centredGridOffsets[0] + displacement[0],
+					centredGridOffsets[0] - displacement[0],
 					centredGridOffsets[1] - displacement[1],
 				];
 				const reducedNewCentreDelta = calculateCentre(...newOffsets);
-
+				console.log(displacement, newOffsets, reducedNewCentreDelta);
 				// Stall the dragging
 				while (true) {
 					setLoading(true);
@@ -121,39 +128,42 @@ const App = () => {
 				}
 
 				// Set the chunk centre to the block at the centre of the screen
-				setChunkCentre((curChunkCentre) => [
-					newCentreDelta[0] + curChunkCentre[0],
-					newCentreDelta[1] + curChunkCentre[1],
-				]);
-
-				// Reset Top, Left to adjust to grid centre
-				centreApi.set({
-					top: newOffsets[0],
-					left: newOffsets[1],
-					centreDelta: reducedNewCentreDelta,
+				setChunkCentre((curChunkCentre) => {
+					const newChunkCentre = [
+						newCentreDelta[0] + curChunkCentre[0],
+						newCentreDelta[1] + curChunkCentre[1],
+					];
+					// Reset Top, Left to adjust to grid centre
+					centreApi.set({
+						top: newOffsets[0],
+						left: newOffsets[1],
+						centreDelta: reducedNewCentreDelta,
+						xy: newChunkCentre,
+					});
+					return newChunkCentre;
 				});
+
 				setLoading(false);
 
 				centreApi.start({
 					backgroundColor: "white",
 				});
-
-				localStorage.setItem("top", newTop);
-				localStorage.setItem("left", newLeft);
+				localStorage.setItem("top", newOffsets[0]);
+				localStorage.setItem("left", newOffsets[1]);
 				localStorage.setItem("centreDelta", reducedNewCentreDelta);
 			})();
 		} else {
-			const newCentreDelta = calculateCentre(newTop, newLeft);
+			const newCentreDelta = calculateCentre(draggedTop, draggedLeft);
 			// Set Window Centre relative to grid
 			centreApi.set({
 				centreDelta: newCentreDelta,
 				backgroundColor: "white",
+				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
 			});
-			localStorage.setItem("top", newTop);
-			localStorage.setItem("left", newLeft);
+			localStorage.setItem("top", draggedTop);
+			localStorage.setItem("left", draggedLeft);
 			localStorage.setItem("centreDelta", newCentreDelta);
 		}
-		// Set Window Centre relative to grid
 	};
 
 	// Event Handlers
@@ -171,13 +181,8 @@ const App = () => {
 				top={top}
 				left={left}
 			/>
-			<CentreCounter
-				backgroundColor={backgroundColor}
-				centreDelta={centreDelta}
-				chunkCentre={chunkCentre}
-			/>
-			{/* Menus */}
-			<Menu />
+			{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
+			<Menu xy={xy} />
 		</div>
 	);
 };
@@ -219,10 +224,10 @@ const Grid = ({ dragBind, rows, handleClick, cellSize, top, left }) => {
 	);
 };
 // Grid Centre Indicator
-const CentreCounter = ({ backgroundColor, centreDelta, chunkCentre }) => {
+const CentreCounter = ({ backgroundColor, centreDelta }) => {
 	return (
 		<animated.span id="centre" style={{ backgroundColor }}>
-			{centreDelta}
+			<animated.span>{centreDelta}</animated.span>.
 		</animated.span>
 	);
 };

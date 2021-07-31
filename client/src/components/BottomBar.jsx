@@ -1,13 +1,11 @@
+import { animated } from "@react-spring/web";
 import React from "react";
 
-const BottomBar = ({ x, y }) => {
+const BottomBar = ({ xy }) => {
 	return (
 		<div className="bottombar bar">
 			<div className="x-cord cords">
-				X: <span>{x}</span>
-			</div>
-			<div className="y-cord cords">
-				Y: <span>{y}</span>
+				X, Y: (<animated.span>{xy}</animated.span>)
 			</div>
 		</div>
 	);
