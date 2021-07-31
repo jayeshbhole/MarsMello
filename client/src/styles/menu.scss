@@ -113,11 +113,13 @@
 					display: flex;
 					justify-content: flex-start;
 					align-items: center;
+					margin-bottom: 2rem;
 					img {
 						width: 8rem;
 						height: 8rem;
 					}
 					p {
+						cursor: pointer;
 						margin-left: 2rem;
 						font-size: 1.2rem;
 					}
@@ -126,12 +128,25 @@
 					margin-top: 3rem;
 					h1 {
 						font-size: 2.5rem;
+						word-wrap: break-word;
 						span {
 							font-size: 1.5rem;
 							display: block;
 							color: rgba(0, 0, 0, 0.6);
 						}
 					}
+				}
+				button {
+					cursor: pointer;
+					margin-top: 2rem;
+					background: url(../assets/img/forSell.png);
+					border: none;
+					background-repeat: no-repeat;
+					background-size: cover;
+					color: white;
+					font-family: inherit;
+					height: 4rem;
+					width: 10rem;
 				}
 			}
 			.factory,
