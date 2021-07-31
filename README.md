@@ -1,5 +1,8 @@
 # MarsMello
-
+<div styles="display:flex; justify-content:centre;">
+  <img src="./client/public/marsmello.png" width=500/>
+</div>
+  
 # The Future Awaits
 
 Ethereum 2.0 is on the horizon. Majority of the scaling problems will be addressed and worked upon.
