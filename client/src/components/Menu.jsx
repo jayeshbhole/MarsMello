@@ -18,10 +18,6 @@ const Menu = ({ xy }) => {
 		setModal(e.target.id);
 	};
 
-	const handleClose = () => {
-		setIsOpen(false);
-	};
-
 	return (
 		<animated.div className="menu">
 			<TopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
@@ -30,14 +26,7 @@ const Menu = ({ xy }) => {
 
 			{/* Modals */}
 			{isOpen && (
-				<Modal onClick={handleClose}>
-					<button
-						onClick={() => {
-							setIsOpen(false);
-						}}
-						className="close">
-						[X]
-					</button>
+				<Modal setIsOpen={setIsOpen}>
 					<div className="content">
 						{modal === "profile" && <Profile />}
 						{modal === "factory" && <Factory />}
