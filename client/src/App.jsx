@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
+import { Plot, Cloud, CentreCounter } from "./components/GameComponents";
 import Menu from "./components/Menu";
 // import web3 from "./context/web3Context";
 
@@ -60,9 +61,9 @@ const App = () => {
 		return false;
 	};
 
-	useEffect(() => {
-		console.log({ windowHeight, windowWidth, gridSize, centredGridOffsets });
-	}, []);
+	// useEffect(() => {
+	// 	console.log({ windowHeight, windowWidth, gridSize, centredGridOffsets });
+	// }, []);
 	useEffect(() => {
 		localStorage.setItem("chunkCentre", chunkCentre);
 		setRows(calculateGrid(hk, chunkCentre));
@@ -146,7 +147,7 @@ const App = () => {
 				});
 				localStorage.setItem("top", newOffsets[0]);
 				localStorage.setItem("left", newOffsets[1]);
-				localStorage.setItem("localCentreDelta", [0, 0]);
+				localStorage.setItem("centreDelta", [0, 0]);
 			})();
 		} else {
 			const newCentreDelta = calculateCentre(draggedTop, draggedLeft);
@@ -162,6 +163,23 @@ const App = () => {
 		}
 	};
 
+	// Misc Functions
+	const teleport = (x, y) => {
+		setLoading(false);
+		setChunkCentre(() => {
+			centreApi.set({
+				top: centredGridOffsets[0],
+				left: centredGridOffsets[1],
+				centreDelta: [0, 0],
+				backgroundColor: "white",
+			});
+			localStorage.setItem("top", centredGridOffsets[0]);
+			localStorage.setItem("left", centredGridOffsets[1]);
+			localStorage.setItem("centreDelta", [0, 0]);
+			return [Math.floor(x), Math.floor(y)];
+		});
+	};
+
 	// Event Handlers
 	const handleClick = () => {
 		if (top.idle && left.idle) alert("Hello");
@@ -169,6 +187,12 @@ const App = () => {
 
 	return (
 		<div className="App">
+			<style>
+				{`.cell{
+					height:${cellSize}px;
+					width:${cellSize}px;
+				}`}
+			</style>
 			<Grid
 				dragBind={dragBind}
 				rows={rows}
@@ -178,7 +202,7 @@ const App = () => {
 				left={left}
 			/>
 			{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
-			<Menu xy={xy} />
+			<Menu xy={xy} teleport={teleport} />
 		</div>
 	);
 };
@@ -190,32 +214,11 @@ const Grid = ({ dragBind, rows, handleClick, cellSize, top, left }) => {
 				{rows.map((row, row_ind) => {
 					return (
 						<div className="row" key={row_ind}>
-							{row.map((cell, index) => {
-								return (
-									<div
-										key={index}
-										onClick={() => handleClick(index)}
-										className={`cell ${
-											cell.length !== 1
-												? (cell[0] + cell[1]) % 2
-													? "plot"
-													: "plot bright"
-												: Math.round(Math.random())
-												? "bright cloud"
-												: "cloud"
-										}`}
-										style={{ width: cellSize, height: cellSize }}>
-										{cell.length !== 1 ? (
-											!(cell[0] || cell[1]) ? (
-												<img draggable="false" src="./spawn.png" alt="spawn.png" />
-											) : (
-												<img draggable="false" src="./assets/img/locked.png" alt="plot.png" />
-											)
-										) : (
-											<img draggable="false" src="./assets/img/cloud.png" alt="" />
-										)}
-										<h1>{cell.toString()}</h1>
-									</div>
+							{row.map((cell, ind) => {
+								return cell.length !== 1 ? (
+									<Plot handleClick={handleClick} cell={cell} key={ind} />
+								) : (
+									<Cloud key={ind} />
 								);
 							})}
 						</div>
@@ -223,14 +226,6 @@ const Grid = ({ dragBind, rows, handleClick, cellSize, top, left }) => {
 				})}
 			</animated.div>
 		</animated.div>
-	);
-};
-// Grid Centre Indicator
-const CentreCounter = ({ backgroundColor, centreDelta }) => {
-	return (
-		<animated.span id="centre" style={{ backgroundColor }}>
-			<animated.span>{centreDelta}</animated.span>
-		</animated.span>
 	);
 };
 
