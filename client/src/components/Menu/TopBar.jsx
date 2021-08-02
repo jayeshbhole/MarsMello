@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Web3Context } from "../../context/Web3Context";
 
 const TopBar = ({ iron, gold, titanium, copper, aluminium }) => {
+	const { account, logOut } = useContext(Web3Context);
+
 	return (
 		<div className="topbar bar">
 			<div className="item Fe">
@@ -43,7 +46,9 @@ const TopBar = ({ iron, gold, titanium, copper, aluminium }) => {
 					<h3>Al</h3>
 				</div>
 			</div>
-			<div className="wallet-button not-connected">Connected ...093s</div>
+			<div className={`wallet-button ${!account[0] ? "not-" : ""}connected`} onClick={logOut}>
+				{account ? `Connected ...${account[0].slice(-6, -1)}` : "Not Connected"}
+			</div>
 		</div>
 	);
 };

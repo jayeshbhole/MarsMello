@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
 import { MemoPlot, MemoCloud, CentreCounter } from "./components/GameComponents";
-import Menu from "./components/Menu/index";
+import Menu from "./components/Menu/";
 import MiniMenu from "./components/MiniMenu";
 // import web3 from "./context/web3Context";
-import MiniModal from "./components/MiniModals/index";
+import MiniModal from "./components/MiniModals";
+import { Web3Context, Web3ContextProvider } from "./context/Web3Context";
 
 function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -232,35 +233,37 @@ const App = () => {
 	};
 
 	return (
-		<div className="App">
-			<style>
-				{`.cell{
+		<Web3ContextProvider>
+			<div className="App">
+				<style>
+					{`.cell{
 					height:${cellSize}px;
 					width:${cellSize}px;
 				}`}
-			</style>
-			<Grid
-				dragBind={dragBind}
-				rows={rows}
-				handlePlotClick={handlePlotClick}
-				cellSize={cellSize}
-				top={top}
-				left={left}
-			/>
-			{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
-			<MiniMenu
-				styles={miniMenuStyles}
-				selectedBlock={selectedBlock}
-				miniMenuApi={miniMenuApi}
-				openMini={handleMiniClick}
-			/>
-			{isMiniOpen && (
-				<MiniModal setIsMiniOpen={setIsMiniOpen}>
-					<h1>{miniModal}</h1>
-				</MiniModal>
-			)}
-			<Menu xy={xy} teleport={teleport} />
-		</div>
+				</style>
+				<Grid
+					dragBind={dragBind}
+					rows={rows}
+					handlePlotClick={handlePlotClick}
+					cellSize={cellSize}
+					top={top}
+					left={left}
+				/>
+				{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
+				<MiniMenu
+					styles={miniMenuStyles}
+					selectedBlock={selectedBlock}
+					miniMenuApi={miniMenuApi}
+					openMini={handleMiniClick}
+				/>
+				{isMiniOpen && (
+					<MiniModal setIsMiniOpen={setIsMiniOpen}>
+						<h1>{miniModal}</h1>
+					</MiniModal>
+				)}
+				<Menu xy={xy} teleport={teleport} />
+			</div>
+		</Web3ContextProvider>
 	);
 };
 // Game Grid Component
