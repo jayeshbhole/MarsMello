@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from "react";
-import "../styles/minimodal.scss";
+import "../../styles/modal.scss";
 
-const MiniModal = ({ children, setIsMiniOpen }) => {
+const Modal = ({ children, setIsOpen }) => {
 	const checkIfClickedOutside = (e) => {
 		// If the menu is open and the clicked target is not within the menu,
 		// then close the menu
 		console.log("Helo", modalRef.current.contains(e.target));
 		if (!modalRef.current.contains(e.target)) {
-			setIsMiniOpen(false);
+			setIsOpen(false);
 		}
 	};
 	useEffect(() => {
@@ -20,8 +20,8 @@ const MiniModal = ({ children, setIsMiniOpen }) => {
 	const modalRef = useRef();
 	return (
 		<div className="modal-bg">
-			<div className="mini-modal" ref={modalRef}>
-				<button onClick={() => setIsMiniOpen(false)} className="close">
+			<div className="modal" ref={modalRef}>
+				<button onClick={() => setIsOpen(false)} className="close">
 					[X]
 				</button>
 				{children}
@@ -29,5 +29,4 @@ const MiniModal = ({ children, setIsMiniOpen }) => {
 		</div>
 	);
 };
-
-export default MiniModal;
+export default Modal;

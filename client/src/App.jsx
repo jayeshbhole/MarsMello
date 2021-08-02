@@ -3,10 +3,10 @@ import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
 import { MemoPlot, MemoCloud, CentreCounter } from "./components/GameComponents";
-import Menu from "./components/Menu";
+import Menu from "./components/Menu/index";
 import MiniMenu from "./components/MiniMenu";
 // import web3 from "./context/web3Context";
-import MiniModal from "./components/MiniModal";
+import MiniModal from "./components/MiniModals/index";
 
 function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));

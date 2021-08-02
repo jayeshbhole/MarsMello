@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import TopBar from "./Menu/TopBar";
-import SideBar from "./Menu/SideBar";
-import BottomBar from "./Menu/BottomBar";
-import "../styles/menu.scss";
+import TopBar from "./TopBar";
+import SideBar from "./SideBar";
+import BottomBar from "./BottomBar";
+import "../../styles/menu.scss";
 import { animated } from "@react-spring/web";
-import Modal from "./Modal";
-import Profile from "./Modals/Profile";
-import Plots from "./Modals/Plots";
-import Factory from "./Modals/Factory";
+import Modal from "../Modals/index";
+import Profile from "../Modals/Profile";
+import Plots from "../Modals/Plots";
+import Factory from "../Modals/Factory";
 
 const Menu = ({ xy }) => {
 	const [isOpen, setIsOpen] = useState(false);
