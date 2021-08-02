@@ -122,19 +122,21 @@ body {
 			width: 65px;
 			height: 65px;
 		}
-		.buy {
+		#buy,
+		#sell {
 			top: -15%;
 			left: -7%;
 		}
-		.info {
+		#info {
 			top: -15%;
 			right: -7%;
 		}
-		.exit {
+		#exit {
 			bottom: 17%;
 			right: -20%;
 		}
-		.add {
+		#add,
+		#rmv {
 			bottom: 17%;
 			left: -20%;
 		}

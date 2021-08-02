@@ -1,0 +1,24 @@
+.mini-modal {
+	position: fixed;
+	background: #191925;
+	border-radius: 10px;
+	border: 5px ridge #38384b;
+	height: 50%;
+	width: 40%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+	color: rgba(255, 255, 255, 0.85);
+	button {
+		cursor: pointer;
+		position: absolute;
+		background: none;
+		border: none;
+		color: rgb(255, 139, 139);
+		font-family: inherit;
+		font-size: 1.2rem;
+		right: 4%;
+		top: 3%;
+	}
+}

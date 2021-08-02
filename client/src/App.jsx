@@ -6,6 +6,7 @@ import { MemoPlot, MemoCloud, CentreCounter } from "./components/GameComponents"
 import Menu from "./components/Menu";
 import MiniMenu from "./components/MiniMenu";
 // import web3 from "./context/web3Context";
+import MiniModal from "./components/MiniModal";
 
 function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -22,6 +23,10 @@ const calculateGrid = (hk, chunkCentre) => {
 };
 
 const App = () => {
+	// Mini modal States
+	const [isMiniOpen, setIsMiniOpen] = useState(false);
+	const [miniModal, setMiniModal] = useState("");
+
 	const hk = [15, 15];
 	const windowHeight = window.innerHeight;
 	const windowWidth = window.innerWidth;
@@ -218,6 +223,12 @@ const App = () => {
 		}
 	};
 
+	// handle mini menu click
+	const handleMiniClick = (e) => {
+		setMiniModal(e.target.id);
+		setIsMiniOpen(true);
+	};
+
 	return (
 		<div className="App">
 			<style>
@@ -235,7 +246,12 @@ const App = () => {
 				left={left}
 			/>
 			{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
-			<MiniMenu styles={miniMenuStyles} selectedBlock={selectedBlock} />
+			<MiniMenu styles={miniMenuStyles} selectedBlock={selectedBlock} OpenMini={handleMiniClick} />
+			{isMiniOpen && (
+				<MiniModal setIsMiniOpen={setIsMiniOpen}>
+					<h1>{miniModal}</h1>
+				</MiniModal>
+			)}
 			<Menu xy={xy} teleport={teleport} />
 		</div>
 	);
