@@ -1,0 +1,26 @@
+{
+  "name": "marsmello",
+  "version": "1.0.0",
+  "description": "<div styles=\"display:flex; justify-content:centre;\">\r   <img src=\"./client/public/marsmello.png\" width=500/>\r </div>",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayeshbhole/MarsMello.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayeshbhole/MarsMello/issues"
+  },
+  "homepage": "https://github.com/jayeshbhole/MarsMello#readme"
+}
