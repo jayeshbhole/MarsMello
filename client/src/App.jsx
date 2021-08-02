@@ -4,6 +4,7 @@ import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
 import { Plot, Cloud, CentreCounter } from "./components/GameComponents";
 import Menu from "./components/Menu";
+import MiniMenu from "./components/MiniMenu";
 // import web3 from "./context/web3Context";
 
 function sleep(ms) {
@@ -54,6 +55,11 @@ const App = () => {
 			-Math.floor((-top - paddingSize + windowHeight / 2) / cellSize) + 10,
 		];
 	};
+	const calculateCoOrdinates = (x, y) => {
+		[x, y] = [x - chunkCentre[0], y - chunkCentre[1]];
+		console.log(x, y);
+		return [windowWidth / 2 - (x + 15.5) * cellSize, windowHeight / 2 + (y - 15.5) * cellSize];
+	};
 	const isOutOfBounds = (top, left) => {
 		const padding = 0.7 * paddingSize;
 		if (-top < padding || -top > gridSize - padding - windowHeight) return true;
@@ -79,6 +85,13 @@ const App = () => {
 		backgroundColor: "white",
 		config: config.slow,
 	}));
+	const [miniMenuStyles, miniMenuApi] = useSpring(() => ({
+		width: cellSize,
+		height: cellSize,
+		top: centredGridOffsets[1],
+		left: centredGridOffsets[0],
+		display: "none",
+	}));
 	const dragBind = useDrag(
 		({ movement: [mx, my], tap, last }) => {
 			if (loading) return;
@@ -91,7 +104,11 @@ const App = () => {
 				handleDragEnd(top.goal, left.goal);
 				return;
 			}
-
+			miniMenuApi.set({
+				display: "none",
+				top: 0,
+				left: 0,
+			});
 			centreApi.start({
 				top: my,
 				left: mx,
@@ -181,8 +198,17 @@ const App = () => {
 	};
 
 	// Event Handlers
-	const handleClick = () => {
-		if (top.idle && left.idle) alert("Hello");
+	const handlePlotClick = (block, id) => {
+		if (top.idle && left.idle) {
+			// Centre Menu at these Co-ordinates
+			const menuCentre = calculateCoOrdinates(block[0], block[1]);
+			console.log(menuCentre, id);
+			miniMenuApi.set({
+				display: "block",
+				top: top.get() - menuCentre[1] + windowHeight / 2,
+				left: left.get() - menuCentre[0] + windowWidth / 2,
+			});
+		}
 	};
 
 	return (
@@ -196,18 +222,19 @@ const App = () => {
 			<Grid
 				dragBind={dragBind}
 				rows={rows}
-				handleClick={handleClick}
+				handlePlotClick={handlePlotClick}
 				cellSize={cellSize}
 				top={top}
 				left={left}
 			/>
 			{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
+			<MiniMenu style={miniMenuStyles} />
 			<Menu xy={xy} teleport={teleport} />
 		</div>
 	);
 };
 // Game Grid Component
-const Grid = ({ dragBind, rows, handleClick, cellSize, top, left }) => {
+const Grid = ({ dragBind, rows, handlePlotClick, cellSize, top, left }) => {
 	return (
 		<animated.div className="grid-container" {...dragBind()}>
 			<animated.div className="grid" style={{ top, left }}>
@@ -216,7 +243,7 @@ const Grid = ({ dragBind, rows, handleClick, cellSize, top, left }) => {
 						<div className="row" key={row_ind}>
 							{row.map((cell, ind) => {
 								return cell.length !== 1 ? (
-									<Plot handleClick={handleClick} cell={cell} key={ind} />
+									<Plot handlePlotClick={handlePlotClick} cell={cell} key={ind} />
 								) : (
 									<Cloud key={ind} />
 								);

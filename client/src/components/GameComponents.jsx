@@ -1,17 +1,17 @@
 import { animated } from "@react-spring/web";
 
 // Cell
-const Plot = ({ handleClick, cell }) => {
+const Plot = ({ handlePlotClick, cell }) => {
 	return (
 		<div
-			onClick={() => handleClick(cell?.id)}
+			onClick={() => handlePlotClick(cell, cell?.id)}
 			className={`cell plot ${(cell[0] + cell[1]) % 2 ? "" : "bright"}`}>
 			{!(cell[0] || cell[1]) ? (
 				<img draggable="false" src="./assets/img/spawn.png" alt="spawn.png" />
 			) : (
 				<img draggable="false" src="./assets/img/locked.png" alt="locked.png" />
 			)}
-			{/* <h1>{cell.toString()}</h1> */}
+			<h1>{cell.toString()}</h1>
 		</div>
 	);
 };
