@@ -104,12 +104,43 @@ body {
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
-	img {
+	.ring {
 		width: 125%;
 		height: 125%;
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+	}
+	.btns {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		.btn {
+			cursor: pointer;
+			position: absolute;
+			width: 65px;
+			height: 65px;
+		}
+		.buy {
+			top: -15%;
+			left: -7%;
+		}
+		.info {
+			top: -15%;
+			right: -7%;
+		}
+		.exit {
+			bottom: 17%;
+			right: -20%;
+		}
+		.add {
+			bottom: 17%;
+			left: -20%;
+		}
+		.meta {
+			bottom: -24%;
+			left: 32%;
+		}
 	}
 }
