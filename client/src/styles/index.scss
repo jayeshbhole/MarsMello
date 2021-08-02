@@ -1,5 +1,6 @@
 // @import url("https://db.onlinewebfonts.com/c/53652da17589a6e21c5657d8a29f06b4?family=JoystixW00-Monospace");
-@import url("https://fonts.cdnfonts.com/css/joystix");
+@import "var";
+
 * {
 	margin: 0;
 	padding: 0;
@@ -119,8 +120,8 @@ body {
 		.btn {
 			cursor: pointer;
 			position: absolute;
-			width: 65px;
-			height: 65px;
+			width: 35%;
+			height: 35%;
 		}
 		#buy,
 		#sell {

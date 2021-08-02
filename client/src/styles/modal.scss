@@ -1,7 +1,9 @@
+@import "var";
+
 .modal {
-	background: #ffd489;
-	border-radius: 5px;
-	box-shadow: 6px 6px 0px 3px #5e3b00, inset 6px 6px 0px 3px #ffeed0;
+	background: $color-modal-bg;
+	border-radius: 10px;
+	border: 7px ridge $color-modal-border;
 	position: fixed;
 	height: 80%;
 	width: 80%;
