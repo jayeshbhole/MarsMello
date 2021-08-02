@@ -43,6 +43,7 @@ const TopBar = ({ iron, gold, titanium, copper, aluminium }) => {
 					<h3>Al</h3>
 				</div>
 			</div>
+			<div className="wallet-button not-connected">Connected ...093s</div>
 		</div>
 	);
 };

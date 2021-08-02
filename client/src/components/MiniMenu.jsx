@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const MiniMenu = ({ styles, selectedBlock }) => {
 	return (
-		<animated.div class="mini" style={styles}>
+		<animated.div className="mini" style={styles}>
 			<img className="ring" draggable="false" src="./assets/img/circle.png" alt="circle" />
 			<span id="label">{selectedBlock.toString()}</span>
 			<div className="btns">
