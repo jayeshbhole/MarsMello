@@ -1,4 +1,5 @@
 import { animated } from "@react-spring/web";
+import { memo } from "react";
 
 // Cell
 const Plot = ({ handlePlotClick, cell }) => {
@@ -33,5 +34,7 @@ const CentreCounter = ({ backgroundColor, centreDelta }) => {
 		</animated.span>
 	);
 };
+const MemoPlot = memo(Plot);
+const MemoCloud = memo(Cloud);
 
-export { Plot, Cloud, CentreCounter };
+export { MemoPlot, MemoCloud, CentreCounter };

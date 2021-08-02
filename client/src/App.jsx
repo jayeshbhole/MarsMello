@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./styles/index.scss";
 import { useDrag } from "react-use-gesture";
 import { useSpring, animated, config } from "@react-spring/web";
-import { Plot, Cloud, CentreCounter } from "./components/GameComponents";
+import { MemoPlot, MemoCloud, CentreCounter } from "./components/GameComponents";
 import Menu from "./components/Menu";
 import MiniMenu from "./components/MiniMenu";
 // import web3 from "./context/web3Context";
@@ -63,7 +63,6 @@ const App = () => {
 	};
 	const calculateCoOrdinates = (x, y) => {
 		[x, y] = [x - chunkCentre[0], y - chunkCentre[1]];
-		console.log(x, y);
 		return [windowWidth / 2 - (x + 15.5) * cellSize, windowHeight / 2 + (y - 15.5) * cellSize];
 	};
 	const isOutOfBounds = (top, left) => {
@@ -251,9 +250,9 @@ const Grid = ({ dragBind, rows, handlePlotClick, cellSize, top, left }) => {
 						<div className="row" key={row_ind}>
 							{row.map((cell, ind) => {
 								return cell.length !== 1 ? (
-									<Plot handlePlotClick={handlePlotClick} cell={cell} key={ind} />
+									<MemoPlot handlePlotClick={handlePlotClick} cell={cell} key={ind} />
 								) : (
-									<Cloud key={ind} />
+									<MemoCloud key={ind} />
 								);
 							})}
 						</div>
