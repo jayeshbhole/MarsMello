@@ -7,7 +7,7 @@ const SideBar = ({ handleClick }) => {
 				id="profile"
 				onClick={(e) => handleClick(e)}
 				draggable="false"
-				src="./assets/profile.png"
+				src="./assets/img/profile.png"
 				alt="Profile Button"
 			/>
 
@@ -15,7 +15,7 @@ const SideBar = ({ handleClick }) => {
 				id="factory"
 				onClick={(e) => handleClick(e)}
 				draggable="false"
-				src="./assets/factory.png"
+				src="./assets/img/factory.png"
 				alt="Factory Button"
 			/>
 
@@ -23,7 +23,7 @@ const SideBar = ({ handleClick }) => {
 				id="miner"
 				onClick={(e) => handleClick(e)}
 				draggable="false"
-				src="./assets/miner.png"
+				src="./assets/img/miner.png"
 				alt="Miner Button"
 			/>
 
@@ -31,7 +31,7 @@ const SideBar = ({ handleClick }) => {
 				id="plots"
 				onClick={(e) => handleClick(e)}
 				draggable="false"
-				src="./assets/plots.png"
+				src="./assets/img/plots.png"
 				alt="Plots Button"
 			/>
 		</div>

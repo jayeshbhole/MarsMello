@@ -5,7 +5,7 @@ const Profile = () => {
 	return (
 		<div className="profile">
 			<div className="picture">
-				<img src="./assets/profile.png" alt="" />
+				<img src="./assets/img/profile.png" alt="" />
 				<p>Change avatar</p>
 			</div>
 			<div className="data">
