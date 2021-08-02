@@ -11,7 +11,7 @@ const Plot = ({ handlePlotClick, cell }) => {
 			) : (
 				<img draggable="false" src="./assets/img/locked.png" alt="locked.png" />
 			)}
-			<h1>{cell.toString()}</h1>
+			{/* <h1>{cell.toString()}</h1> */}
 		</div>
 	);
 };

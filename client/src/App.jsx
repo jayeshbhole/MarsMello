@@ -47,6 +47,12 @@ const App = () => {
 	);
 	const [rows, setRows] = useState(calculateGrid(hk, chunkCentre));
 	const [loading, setLoading] = useState(false);
+	const [selectedBlock, setSelectedBlock] = useState(
+		localStorage
+			.getItem("chunkCentre")
+			?.split(",")
+			.map((v) => parseInt(v)) || [0, 0]
+	);
 
 	// Utility Functions
 	const calculateCentre = (top, left) => {
@@ -83,11 +89,12 @@ const App = () => {
 		centreDelta: localCentreDelta,
 		xy: [chunkCentre[0] + localCentreDelta[1], chunkCentre[1] + localCentreDelta[1]],
 		backgroundColor: "white",
-		config: config.slow,
+		config: { restVelocity: 1, ...config.slow },
 	}));
 	const [miniMenuStyles, miniMenuApi] = useSpring(() => ({
 		width: cellSize,
 		height: cellSize,
+		block: [0, 0],
 		top: centredGridOffsets[1],
 		left: centredGridOffsets[0],
 		display: "none",
@@ -202,9 +209,10 @@ const App = () => {
 		if (top.idle && left.idle) {
 			// Centre Menu at these Co-ordinates
 			const menuCentre = calculateCoOrdinates(block[0], block[1]);
-			console.log(menuCentre, id);
+			setSelectedBlock(block);
 			miniMenuApi.set({
 				display: "block",
+				block: block,
 				top: top.get() - menuCentre[1] + windowHeight / 2,
 				left: left.get() - menuCentre[0] + windowWidth / 2,
 			});
@@ -228,7 +236,7 @@ const App = () => {
 				left={left}
 			/>
 			{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
-			<MiniMenu style={miniMenuStyles} />
+			<MiniMenu styles={miniMenuStyles} selectedBlock={selectedBlock} />
 			<Menu xy={xy} teleport={teleport} />
 		</div>
 	);
