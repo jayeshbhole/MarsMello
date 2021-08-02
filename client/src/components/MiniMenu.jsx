@@ -1,7 +1,12 @@
 import { animated } from "@react-spring/web";
 import React, { useState } from "react";
 
-const MiniMenu = ({ styles, selectedBlock, OpenMini }) => {
+const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
+	const closeMiniMenu = () => {
+		miniMenuApi.set({
+			display: "none",
+		});
+	};
 	return (
 		<animated.div className="mini" style={styles}>
 			<img className="ring" draggable="false" src="./assets/img/circle.png" alt="circle" />
@@ -13,7 +18,7 @@ const MiniMenu = ({ styles, selectedBlock, OpenMini }) => {
 					draggable="false"
 					src="./assets/img/plot-buy-v3.png"
 					alt="buy-land-button"
-					onClick={OpenMini}
+					onClick={openMini}
 				/>
 				{/* <img
 					id="sell"
@@ -21,11 +26,12 @@ const MiniMenu = ({ styles, selectedBlock, OpenMini }) => {
 					draggable="false"
 					src="./assets/img/plot-sell-v3.png"
 					alt="buy-land-button"
-					onClick={OpenMini}
+					onClick={openMini}
 				/> */}
 				<img
+					onClick={closeMiniMenu}
 					id="exit"
-					className="btn"
+					className="exit btn"
 					draggable="false"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="remove-factory-button"
@@ -37,7 +43,7 @@ const MiniMenu = ({ styles, selectedBlock, OpenMini }) => {
 					draggable="false"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="sell-land-button"
-					onClick={OpenMini}
+					onClick={openMini}
 				/> */}
 				<img
 					id="info"
@@ -45,7 +51,7 @@ const MiniMenu = ({ styles, selectedBlock, OpenMini }) => {
 					draggable="false"
 					src="./assets/img/plot-info-v3.png"
 					alt="info-land-button"
-					onClick={OpenMini}
+					onClick={openMini}
 				/>
 				<div className="meta btn" />
 				<img
@@ -54,7 +60,7 @@ const MiniMenu = ({ styles, selectedBlock, OpenMini }) => {
 					draggable="false"
 					src="./assets/img/fact-add.png"
 					alt="info-land-button"
-					onClick={OpenMini}
+					onClick={openMini}
 				/>
 			</div>
 		</animated.div>

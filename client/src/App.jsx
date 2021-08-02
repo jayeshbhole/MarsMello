@@ -50,6 +50,7 @@ const App = () => {
 			?.split(",")
 			.map((v) => parseInt(v)) || [0, 0]
 	);
+	// Grid
 	const [rows, setRows] = useState(calculateGrid(hk, chunkCentre));
 	const [loading, setLoading] = useState(false);
 	const [selectedBlock, setSelectedBlock] = useState(
@@ -77,6 +78,7 @@ const App = () => {
 		return false;
 	};
 
+	// HOOKS
 	// useEffect(() => {
 	// 	console.log({ windowHeight, windowWidth, gridSize, centredGridOffsets });
 	// }, []);
@@ -246,7 +248,12 @@ const App = () => {
 				left={left}
 			/>
 			{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
-			<MiniMenu styles={miniMenuStyles} selectedBlock={selectedBlock} OpenMini={handleMiniClick} />
+			<MiniMenu
+				styles={miniMenuStyles}
+				selectedBlock={selectedBlock}
+				miniMenuApi={miniMenuApi}
+				openMini={handleMiniClick}
+			/>
 			{isMiniOpen && (
 				<MiniModal setIsMiniOpen={setIsMiniOpen}>
 					<h1>{miniModal}</h1>
