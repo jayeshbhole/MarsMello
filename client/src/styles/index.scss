@@ -13,14 +13,16 @@ body {
 	font-family: "Joystix", monospace;
 	img {
 		image-rendering: pixelated;
+		image-rendering: crisp-edges;
 	}
 	image-rendering: pixelated;
-
+	image-rendering: crisp-edges;
 	touch-action: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	-webkit-user-drag: none;
 }
 #centre {
 	width: 2.5vw;
