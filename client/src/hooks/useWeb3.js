@@ -15,11 +15,8 @@ const useWeb3 = () => {
 		},
 	};
 	const web3Modal = new Web3Modal({
-		// network: "maticMumbai",
-		network: {
-			nodeUrl: "127.0.0.1:9545",
-			// chainId:
-		},
+		// network: "mainnet",
+		network: { chainId: 8001, nodeUrl: "https://matic-mumbai.chainstacklabs.com" },
 		cacheProvider: false,
 		providerOptions,
 		theme: "dark",
@@ -48,9 +45,7 @@ const useWeb3 = () => {
 
 	// Account Changed Hook
 	useEffect(() => {
-		(async () => {
-			console.log("Account Changed Hook", account);
-		})();
+		console.log("Account Changed Hook", account);
 	}, [account]);
 
 	useEffect(() => {
@@ -60,11 +55,7 @@ const useWeb3 = () => {
 			// Subscribe to accounts change
 			provider.on("accountsChanged", async (accounts) => {
 				console.log("Provider Listener: Account Change", accounts);
-				setAccount(async () => {
-					const accounts = await web3.current.eth.getAccounts();
-					console.log(accounts);
-					return accounts[0];
-				});
+				setAccount(accounts[0]);
 			});
 
 			// Subscribe to chainId change
