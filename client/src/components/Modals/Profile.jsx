@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 // profile context
+import { Web3Context } from "../../context/Web3Context";
 
 const Profile = () => {
+	const { account, toggleWallet } = useContext(Web3Context);
+
 	return (
 		<div className="profile">
 			<div className="picture">
@@ -10,7 +13,7 @@ const Profile = () => {
 			</div>
 			<div className="data">
 				<h1>
-					<span>Wallet Address </span> 0xBf61E1a7F698b2E68cBc6BE51E9784Ce7ccc0B1F
+					<span>Wallet Address </span> {account}
 				</h1>
 				<h1>
 					<span>Wallet Provider</span>Portis
