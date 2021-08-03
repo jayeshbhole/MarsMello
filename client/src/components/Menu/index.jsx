@@ -23,12 +23,6 @@ const Menu = ({ xy }) => {
 			<TopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
 			<BottomBar xy={xy} />
 			<SideBar handleClick={handleClick} />
-			<div className="holdings">
-				<h1 className="amount">
-					100 <span>MLO</span>
-				</h1>
-				<h3>Your Holdings</h3>
-			</div>
 
 			{/* Modals */}
 			{isOpen && (

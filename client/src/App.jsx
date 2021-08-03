@@ -9,18 +9,6 @@ import MiniMenu from "./components/MiniMenu";
 import MiniModal from "./components/MiniModals";
 import { Web3Context, Web3ContextProvider } from "./context/Web3Context";
 
-const manageNumbers = (n) => {
-	if (Math.floor(n / 1000000000) > 0) {
-		return `${Math.floor(n / 1000000000)}B`;
-	} else if (Math.floor(n / 1000000) > 0) {
-		return `${Math.floor(n / 1000000)}M`;
-	} else if (Math.floor(n / 1000) > 0) {
-		return `${Math.floor(n / 1000)}K`;
-	} else {
-		return `${n}`;
-	}
-};
-
 function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }

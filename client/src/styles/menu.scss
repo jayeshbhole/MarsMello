@@ -2,42 +2,7 @@
 
 .menu {
 	position: relative;
-	.holdings {
-		padding: 1.2rem;
-		padding-left: 2rem;
-		color: white;
-		position: fixed;
-		z-index: 100;
-		bottom: 2%;
-		right: 0;
-		background-image: url(../assets/img/holding.png);
-		background-repeat: no-repeat;
-		background-size: cover;
-		.amount {
-			font-size: 1.5rem;
-			span {
-				color: orange;
-			}
-		}
-		h3 {
-			color: rgba(white, 0.6);
-			font-size: 0.8rem;
-		}
-	}
-	@media screen and (max-width: 1100px) {
-		.holdings {
-			padding: 0.75rem;
-			.amount {
-				font-size: 1rem;
-				span {
-					display: block;
-				}
-			}
-			h3 {
-				display: none;
-			}
-		}
-	}
+
 	.bar {
 		position: fixed;
 		z-index: 9;
@@ -110,25 +75,44 @@
 			color: lightgray;
 		}
 
-		.wallet-button {
+		.holding {
+			padding: 0.75rem 0;
 			align-self: flex-end;
-			width: 50%;
-			margin-top: 1rem;
+			width: 45%;
+			margin-top: 1.2rem;
 			padding: 0.5rem 0;
-			background: url("../assets/img/forBuy.png") no-repeat;
+			background: url("../assets/img/TopBar.png") no-repeat;
 			background-position: 50% 100%;
 			background-size: 100% 140%;
 			background-repeat: no-repeat;
-			opacity: 0.7;
-			filter: brightness(0.9);
-			&:hover {
-				filter: brightness(1);
-				cursor: pointer;
-				opacity: 1;
+			&.connected {
+				filter: drop-shadow(0px 4px 0px rgb(0, 206, 0));
+				border-top: 4px solid rgb(0, 206, 0);
 			}
 			&.not-connected {
-				opacity: 1;
-				filter: hue-rotate(245deg);
+				cursor: pointer;
+				filter: drop-shadow(0px 4px 0px rgb(255, 26, 26));
+				border-top: 4px solid rgb(255, 26, 26);
+			}
+			.cta {
+				font-size: 1.2rem;
+			}
+			section {
+				display: flex;
+				justify-content: space-evenly;
+				align-items: center;
+				.main {
+					font-size: 1.5rem;
+					span {
+						margin-left: 5px;
+						color: rgb(255, 194, 80);
+						font-size: 1rem;
+					}
+				}
+				.bal {
+					font-size: 0.75rem;
+					color: rgba(white, 0.6);
+				}
 			}
 		}
 	}
