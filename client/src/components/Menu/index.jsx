@@ -11,6 +11,7 @@ import Factory from "../Modals/Factory";
 
 const Menu = ({ xy }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [avatar, setAvatar] = useState(0);
 	const [modal, setModal] = useState("");
 
 	const handleClick = (e) => {
@@ -22,13 +23,13 @@ const Menu = ({ xy }) => {
 		<animated.div className="menu">
 			<TopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
 			<BottomBar xy={xy} />
-			<SideBar handleClick={handleClick} />
+			<SideBar handleClick={handleClick} avatar={avatar} />
 
 			{/* Modals */}
 			{isOpen && (
 				<Modal setIsOpen={setIsOpen}>
 					<div className="content">
-						{modal === "profile" && <Profile />}
+						{modal === "profile" && <Profile avatar={avatar} setAvatar={setAvatar} />}
 						{modal === "factory" && <Factory />}
 						{modal === "miner" && <h1 className="miner">TBD</h1>}
 						{modal === "plots" && <Plots />}

@@ -174,6 +174,10 @@
 						cursor: pointer;
 						margin-left: 2rem;
 						font-size: 1.2rem;
+						&:hover {
+							color: orange;
+							text-decoration: underline;
+						}
 					}
 				}
 				.data {
@@ -200,6 +204,29 @@
 					font-family: inherit;
 					height: 4rem;
 					width: 10rem;
+				}
+				.mini-modal {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					.close {
+						background: none;
+						top: -2.5rem;
+						right: -1rem;
+						color: rgb(255, 139, 139);
+					}
+					.options {
+						margin-top: 3rem;
+						width: 90%;
+						height: 70%;
+						display: grid;
+						grid-template-columns: repeat(3, 1fr);
+						img {
+							cursor: pointer;
+							width: 8rem;
+							height: 8rem;
+						}
+					}
 				}
 			}
 			.factory,

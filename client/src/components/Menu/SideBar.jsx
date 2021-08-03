@@ -1,13 +1,13 @@
 import React from "react";
 
-const SideBar = ({ handleClick }) => {
+const SideBar = ({ handleClick, avatar }) => {
 	return (
 		<div className="sidebar bar">
 			<img
 				id="profile"
 				onClick={(e) => handleClick(e)}
 				draggable="false"
-				src="./assets/img/profile.png"
+				src={`./assets/avatars/avatars${avatar}.png`}
 				alt="Profile Button"
 			/>
 
