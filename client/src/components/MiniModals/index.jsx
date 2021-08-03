@@ -5,7 +5,6 @@ const MiniModal = ({ children, setIsMiniOpen }) => {
 	const checkIfClickedOutside = (e) => {
 		// If the menu is open and the clicked target is not within the menu,
 		// then close the menu
-		console.log("Helo", modalRef.current.contains(e.target));
 		if (!modalRef.current.contains(e.target)) {
 			setIsMiniOpen(false);
 		}

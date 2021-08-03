@@ -5,7 +5,6 @@ import MarsMelloContract from "../contracts/MarsMello.json";
 const Web3Context = createContext({
 	web3: undefined,
 	account: undefined,
-	toggleLogIn: () => {},
 	toggleWallet: () => {},
 });
 
