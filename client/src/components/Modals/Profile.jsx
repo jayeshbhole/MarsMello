@@ -4,7 +4,7 @@ import { Web3Context } from "../../context/Web3Context";
 import MiniModal from "../MiniModals/index";
 
 const Profile = ({ avatar, setAvatar }) => {
-	const { account, toggleWallet } = useContext(Web3Context);
+	const { account, providerName } = useContext(Web3Context);
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 
 	return (
@@ -20,10 +20,12 @@ const Profile = ({ avatar, setAvatar }) => {
 			</div>
 			<div className="data">
 				<h1>
-					<span>Wallet Address </span> {account}
+					<span>Wallet Address </span>
+					{`${account ? account?.slice(0, 6) : "0x0000"}...`}
 				</h1>
 				<h1>
-					<span>Wallet Provider</span>Portis
+					<span>Wallet Provider</span>
+					{providerName}
 				</h1>
 			</div>
 			<button>Change Address</button>

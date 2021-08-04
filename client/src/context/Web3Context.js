@@ -1,6 +1,5 @@
-import { createContext, useEffect, useState, useRef } from "react";
+import { createContext } from "react";
 import useWeb3 from "../hooks/useWeb3";
-import MarsMelloContract from "../contracts/MarsMello.json";
 
 const Web3Context = createContext({
 	web3: undefined,
@@ -9,10 +8,11 @@ const Web3Context = createContext({
 });
 
 const Web3ContextProvider = (props) => {
-	const { account, provider, web3, toggleWallet } = useWeb3();
+	const { account, provider, providerName, web3, balances, getWeb3ModalProvider } = useWeb3();
 
 	return (
-		<Web3Context.Provider value={{ account, provider, web3, toggleWallet }}>
+		<Web3Context.Provider
+			value={{ account, provider, providerName, balances, web3, getWeb3ModalProvider }}>
 			{props.children}
 		</Web3Context.Provider>
 	);
