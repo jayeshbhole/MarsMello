@@ -7,11 +7,18 @@
     "test": "test"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.2.0"
+    "@openzeppelin/contracts": "^4.2.0",
+    "@graphprotocol/graph-cli": "0.21.1",
+    "@graphprotocol/graph-ts": "0.20.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ mm",
+    "create-local": "graph create --node http://localhost:8020/ mm",
+    "remove-local": "graph remove --node http://localhost:8020/ mm",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 mm"
   },
   "repository": {
     "type": "git",
