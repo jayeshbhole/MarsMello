@@ -6,7 +6,7 @@ dataSources:
       name: MarsMellow
       network: mumbai
       source:
-          address: "0xbab8a9e55a75dee279492b339a3e0fca0c18e30e"
+          address: "0xc44Aa24eA4e0064c21594408352aA73CBaFb96A3"
           abi: Marsmellow
           startBlock: 16592914
       mapping:
@@ -24,12 +24,11 @@ dataSources:
               - event: Transfer(indexed address,indexed address,uint256)
                 handler: handleTransfer
           file: ./src/mapping.ts
-dataSources:
     - kind: ethereum/contract
       name: Iron
       network: mumbai
       source:
-          address: "0xbab8a9e55a75dee279492b339a3e0fca0c18e30e"
+          address: "0x578153Ff94CB6bcb57e818D77556798f203316f8"
           abi: Iron
           startBlock: 16592914
       mapping:
