@@ -29,6 +29,7 @@ const Profile = ({ avatar, setAvatar }) => {
 			<button>Change Address</button>
 			{isSelectOpen && (
 				<MiniModal setIsMiniOpen={setIsSelectOpen}>
+					<span>Choose a avatar</span>
 					<div className="options">
 						<img
 							onClick={() => {

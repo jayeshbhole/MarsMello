@@ -205,26 +205,39 @@
 					height: 4rem;
 					width: 10rem;
 				}
-				.mini-modal {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					.close {
-						background: none;
-						top: -2.5rem;
-						right: -1rem;
-						color: rgb(255, 139, 139);
-					}
-					.options {
-						margin-top: 3rem;
-						width: 90%;
-						height: 70%;
-						display: grid;
-						grid-template-columns: repeat(3, 1fr);
-						img {
-							cursor: pointer;
-							width: 8rem;
-							height: 8rem;
+				.modal-bg {
+					background: rgba(black, 0.6);
+					width: 100%;
+					height: 100%;
+					.mini-modal {
+						width: 50%;
+						height: fit-content;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.close {
+							background: none;
+							top: -2.5rem;
+							right: -1rem;
+							color: rgb(255, 139, 139);
+						}
+						span {
+							width: 60%;
+							position: absolute;
+							top: 15%;
+							left: 7%;
+						}
+						.options {
+							margin-top: 5rem;
+							margin-bottom: 2rem;
+							width: 90%;
+							height: 70%;
+							display: flex;
+							img {
+								align-self: center;
+								cursor: pointer;
+								width: 20%;
+							}
 						}
 					}
 				}
