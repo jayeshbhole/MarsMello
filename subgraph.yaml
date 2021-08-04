@@ -1,0 +1,47 @@
+specVersion: 0.0.2
+schema:
+    file: ./schema.graphql
+dataSources:
+    - kind: ethereum/contract
+      name: MarsMellow
+      network: mumbai
+      source:
+          address: "0xbab8a9e55a75dee279492b339a3e0fca0c18e30e"
+          abi: Marsmellow
+          startBlock: 16592914
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - User
+              - Land
+              - Factory
+          abis:
+              - name: MarsMellow
+                file: ./build/contracts/Marsmellow.json
+          eventHandlers:
+              - event: Transfer(indexed address,indexed address,uint256)
+                handler: handleTransfer
+          file: ./src/mapping.ts
+dataSources:
+    - kind: ethereum/contract
+      name: Iron
+      network: mumbai
+      source:
+          address: "0xbab8a9e55a75dee279492b339a3e0fca0c18e30e"
+          abi: Iron
+          startBlock: 16592914
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - User
+          abis:
+              - name: Iron
+                file: ./build/contracts/Iron.json
+          eventHandlers:
+              - event: Transfer(indexed address,indexed address,uint256)
+                handler: handleTransfer
+          file: ./src/iron.ts

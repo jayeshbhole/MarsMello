@@ -1,0 +1,61 @@
+type User @entity {
+    " Equals to: <accountAddress>"
+    id: ID!
+
+    " Token balances that this account holds "
+    mlo: BigInt!
+    fe: BigInt!
+    al: BigInt!
+    cu: BigInt!
+    au: BigInt!
+    ti: BigInt!
+
+    " Lands "
+    lands: [Land!] @derivedFrom(field: "owner")
+
+    " Factories "
+    factories: [Factory!] @derivedFrom(field: "owner")
+}
+
+type Land @entity {
+    " Equals to: <x>-<y> "
+    id: ID!
+
+    " X Co-Ordinate "
+    x: Int!
+
+    " Y Co-Ordinate "
+    y: Int!
+
+    " Owner of Land "
+    owner: User!
+
+    " Factory on top "
+    factory: Factory
+
+    " Seed "
+    seed: BigInt!
+}
+
+type Factory @entity {
+    " Equals to factory_id "
+    id: ID!
+
+    " Owner of Factory "
+    owner: User!
+
+    " Factory Type "
+    type: Int!
+
+    " Efficiency "
+    efficiency: Int!
+
+    " X Co-Ordinate "
+    x: Int
+
+    " Y Co-Ordinate "
+    y: Int
+
+    " Name of Factory "
+    name: String!
+}
