@@ -3,7 +3,7 @@ schema:
     file: ./schema.graphql
 dataSources:
     - kind: ethereum/contract
-      name: MarsMello
+      name: Marsmello
       network: mumbai
       source:
           address: "0xc44Aa24eA4e0064c21594408352aA73CBaFb96A3"
@@ -18,7 +18,7 @@ dataSources:
               - Land
               - Factory
           abis:
-              - name: MarsMello
+              - name: Marsmello
                 file: ./build/contracts/Marsmello.json
           eventHandlers:
               - event: Transfer(indexed address,indexed address,uint256)

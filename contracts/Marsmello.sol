@@ -339,18 +339,7 @@ contract Marsmello is ERC20, Ownable {
         users[msg.sender].lastclaimed = uint64(block.timestamp);
     }
 
-    function getArea(int32 x, int32 y)
-        public
-        view
-        returns (Relay[41][41] memory)
-    {
-        Relay[41][41] memory r;
-        for (uint32 i = 0; i < 41; i++) {
-            for (uint32 j = 0; j < 41; j++) {
-                Land memory l = lands[x - 20 + int32(i)][y - 20 + int32(j)];
-                r[i][j] = Relay(l.owner, l.seed, factories[l.factory]);
-            }
-        }
-        return r;
+    function getLand(int32 x, int32 y) public view returns (Land memory) {
+        return lands[x][y];
     }
 }
