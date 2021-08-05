@@ -9,7 +9,7 @@ import Profile from "../Modals/Profile";
 import Plots from "../Modals/Plots";
 import Factory from "../Modals/Factory";
 
-const Menu = ({ xy }) => {
+const Menu = ({ xy, teleport }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [avatar, setAvatar] = useState(0);
 	const [modal, setModal] = useState("");
@@ -22,7 +22,7 @@ const Menu = ({ xy }) => {
 	return (
 		<animated.div className="menu">
 			<TopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
-			<BottomBar xy={xy} />
+			<BottomBar xy={xy} teleport={teleport} />
 			<SideBar handleClick={handleClick} avatar={avatar} />
 
 			{/* Modals */}

@@ -115,7 +115,7 @@
 	}
 	.bottombar {
 		display: flex;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
 		bottom: 0;
 		margin-bottom: -0.25rem;
@@ -129,6 +129,12 @@
 		.cords {
 			font-size: 1.5rem;
 			margin-top: 0.5rem;
+		}
+		#teleport {
+			height: 2.5rem;
+			margin-top: 0.25rem;
+			margin-left: 1rem;
+			cursor: pointer;
 		}
 	}
 
