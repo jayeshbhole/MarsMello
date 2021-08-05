@@ -4,7 +4,7 @@ import { Web3Context } from "../../context/Web3Context";
 import MiniModal from "../MiniModals/index";
 
 const Profile = ({ avatar, setAvatar }) => {
-	const { account, providerName } = useContext(Web3Context);
+	const { account, providerName, disconnectProvider } = useContext(Web3Context);
 	const [isSelectOpen, setIsSelectOpen] = useState(false);
 
 	return (
@@ -28,7 +28,7 @@ const Profile = ({ avatar, setAvatar }) => {
 					{providerName}
 				</h1>
 			</div>
-			<button>Change Address</button>
+			<button onClick={() => disconnectProvider()}>Disconnect Wallet</button>
 			{isSelectOpen && (
 				<MiniModal setIsMiniOpen={setIsSelectOpen}>
 					<span>Choose a avatar</span>

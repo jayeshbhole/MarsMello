@@ -12,10 +12,10 @@ import aluminiumInterface from "../contracts/Aluminium.json";
 const contractAddresses = {
 	MLO: "0xD031d08B536FdB33004227b645b0FCda2c37A825",
 	FE: "0x18e6675C49fc3ceF6c6eFE54C5C91021dE1F1485",
-	AU: "0xC98984bdcb6feC081e0b0aba7104e7817Ead40A9",
-	TI: "0x9a21Fc5BA9D3BC66d761E8240aAA9cfcc4d5841F",
-	CU: "0x0b07167AC158A83DABD05AF3b3942B87679AACD1",
-	AL: "0x58Fb06Fdf8c97bD7937005493b97c3d14A5dc639",
+	AU: "0x0b07167AC158A83DABD05AF3b3942B87679AACD1",
+	TI: "0x58Fb06Fdf8c97bD7937005493b97c3d14A5dc639",
+	CU: "0x9a21Fc5BA9D3BC66d761E8240aAA9cfcc4d5841F",
+	AL: "0xC98984bdcb6feC081e0b0aba7104e7817Ead40A9",
 };
 
 const useWeb3 = () => {
@@ -31,6 +31,7 @@ const useWeb3 = () => {
 	const web3Modal = new Web3Modal({
 		// network: "mainnet",
 		network: { chainId: 8001, nodeUrl: "https://matic-mumbai.chainstacklabs.com" },
+		// network: { chainId: 1377, nodeUrl: "http://127.0.0.1:9545" },
 		cacheProvider: true,
 		providerOptions,
 		theme: "dark",
@@ -54,7 +55,7 @@ const useWeb3 = () => {
 
 	// Toggle Modal And Ask for Connection
 	const getWeb3ModalProvider = async () => {
-		if (account) {
+		if (provider) {
 			if (provider?._portis) provider._portis.showPortis();
 		} else {
 			const _provider = await web3Modal.connect();
@@ -62,8 +63,17 @@ const useWeb3 = () => {
 			setProvider(_provider);
 		}
 	};
+	const disconnectProvider = () => {
+		console.log("Disconnect");
+		setAccount(undefined);
+		setProvider(undefined);
+		setProviderName("None");
+		setWeb3(new Web3());
+		web3Modal.clearCachedProvider();
+	};
 
 	const getBalances = async () => {
+		console.log("Getting Balances, account", account);
 		if (account) {
 			const newBal = {};
 			await contracts.marsMelloContract.methods
@@ -93,15 +103,24 @@ const useWeb3 = () => {
 
 			return newBal;
 		}
+		return { MLO: 0, FE: 0, AU: 0, TI: 0, CU: 0, AL: 0 };
 	};
 
 	useEffect(() => {
-		if (provider?._portis) {
-			setProviderName("portis");
-			provider._portis.showPortis();
-		} else setProviderName("metamask");
+		if (web3.currentProvider)
+			(async () => {
+				const accounts = await web3.eth.getAccounts();
+				setAccount(accounts[0]);
+			})();
+	}, [provider, web3]);
 
+	useEffect(() => {
 		if (!!provider) {
+			if (provider?._portis) {
+				setProviderName("portis");
+				provider._portis.showPortis();
+			} else setProviderName("metamask");
+
 			setContracts({
 				marsMelloContract: new web3.eth.Contract(mloInterface.abi, contractAddresses.MLO),
 				ironContract: new web3.eth.Contract(ironInterface.abi, contractAddresses.FE),
@@ -110,10 +129,6 @@ const useWeb3 = () => {
 				copperContract: new web3.eth.Contract(copperInterface.abi, contractAddresses.CU),
 				aluminiumContract: new web3.eth.Contract(aluminiumInterface.abi, contractAddresses.AL),
 			});
-			(async () => {
-				const accounts = await web3.eth.getAccounts();
-				setAccount(accounts[0]);
-			})();
 
 			console.log("provider", provider);
 
@@ -139,23 +154,31 @@ const useWeb3 = () => {
 				setAccount([]);
 			});
 		}
-	}, [provider, web3.eth]);
+	}, [provider]);
 
 	// Account Changed Hook
 	useEffect(() => {
-		if (account)
-			(async () => {
-				setBalances(await getBalances());
-			})();
+		console.log("account", account);
+		(async () => {
+			setBalances(await getBalances());
+		})();
 	}, [account]);
 
 	// Changed Balances
 	useEffect(() => {
-		console.log("account", account);
 		console.log("Balances", balances);
 	}, [balances]);
 
-	return { web3, provider, account, balances, providerName, contracts, getWeb3ModalProvider };
+	return {
+		web3,
+		provider,
+		account,
+		balances,
+		providerName,
+		contracts,
+		getWeb3ModalProvider,
+		disconnectProvider,
+	};
 };
 
 export default useWeb3;

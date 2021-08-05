@@ -187,20 +187,20 @@ const useGame = () => {
 	};
 
 	// Misc Functions
-	const teleport = (x, y) => {
-		setLoading(false);
-		setChunkCentre(() => {
-			centreApi.set({
-				top: centredGridOffsets[0],
-				left: centredGridOffsets[1],
-				centreDelta: [0, 0],
-				backgroundColor: "white",
-			});
-			localStorage.setItem("top", centredGridOffsets[0]);
-			localStorage.setItem("left", centredGridOffsets[1]);
-			localStorage.setItem("centreDelta", [0, 0]);
-			return [Math.floor(x), Math.floor(y)];
+	const teleport = (x = 0, y = 0) => {
+		setLoading(true);
+		setChunkCentre([x, y]);
+		centreApi.set({
+			top: centredGridOffsets[0],
+			left: centredGridOffsets[1],
+			centreDelta: [0, 0],
+			xy: [x, y],
+			backgroundColor: "white",
 		});
+		miniMenuApi.set({ display: "none" });
+		localStorage.setItem("top", centredGridOffsets[0]);
+		localStorage.setItem("left", centredGridOffsets[1]);
+		localStorage.setItem("centreDelta", [0, 0]);
 	};
 
 	// Event Handlers
