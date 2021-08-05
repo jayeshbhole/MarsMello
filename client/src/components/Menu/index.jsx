@@ -13,8 +13,8 @@ import MiniModal from "../MiniModals";
 const Menu = ({ xy, teleport }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [avatar, setAvatar] = useState(0);
-	const [x, setX] = useState(0);
-	const [y, setY] = useState(0);
+	const [x, setX] = useState();
+	const [y, setY] = useState();
 	const [isTeleModal, setIsTeleModal] = useState(false);
 	const [modal, setModal] = useState("");
 
@@ -27,9 +27,9 @@ const Menu = ({ xy, teleport }) => {
 		e.preventDefault();
 		teleport(x, y);
 		setIsTeleModal(false);
-		setX(0);
-		setY(0);
-		// console.log(x, y);
+		setX();
+		setY();
+		console.log(x, y, typeof x, typeof y);
 	};
 
 	return (
@@ -61,7 +61,8 @@ const Menu = ({ xy, teleport }) => {
 								id="x"
 								name="x"
 								value={x}
-								onChange={(e) => setX(e.target.value)}
+								onChange={(e) => setX(Number(e.target.value))}
+								placeholder="0"
 							/>
 						</div>
 						<div className="y input">
@@ -71,10 +72,15 @@ const Menu = ({ xy, teleport }) => {
 								id="y"
 								name="y"
 								value={y}
-								onChange={(e) => setY(e.target.value)}
+								onChange={(e) => setY(Number(e.target.value))}
+								placeholder="0"
 							/>
 						</div>
-						<button className="tele-btn" type="submit" onClick={handleSubmit}>
+						<button
+							className="tele-btn"
+							type="submit"
+							onClick={handleSubmit}
+							disabled={x === undefined || y === undefined}>
 							Teleport
 						</button>
 					</form>
