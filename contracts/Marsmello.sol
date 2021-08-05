@@ -235,27 +235,34 @@ contract Marsmello is ERC20, Ownable {
     }
 
     function _clearLand(int32 x, int32 y) private {
-        if (x != 0 || y != 0) lands[x][y].factory = 0;
+        Land storage l = lands[x][y];
+        if ((x != 0 || y != 0) && l.factory != 0) {
+            l.factory = 0;
+            emit LandE(x, y, msg.sender, 0, lands[x][y].seed);
+        }
     }
 
-    function _clearFactory(uint256 id) private {
-        if (id != 0 && (factories[id].x != 0 || factories[id].y != 0)) {
-            factories[id].x = 0;
-            factories[id].y = 0;
+    function _clearFactory(uint64 id) private {
+        Factory storage f = factories[id];
+        if (id != 0 && (f.x != 0 || f.y != 0)) {
+            f.x = 0;
+            f.y = 0;
+            emit FactoryE(id, f.owner, f.ftype, f.efficiency, 0, 0, f.name);
         }
     }
 
     function placeFactory(
-        uint64 factory_id,
+        uint64 fid,
         int32 x,
         int32 y
-    ) public landOwner(x, y) factoryOwner(factory_id) {
+    ) public landOwner(x, y) factoryOwner(fid) {
         claimAll();
-        _clearFactory(lands[x][y].factory);
-        _clearLand(factories[factory_id].x, factories[factory_id].y);
+        Land storage l = lands[x][y];
+        Factory storage f = factories[fid];
+        _clearFactory(l.factory);
+        _clearLand(f.x, f.y);
 
-        lands[x][y].factory = factory_id;
-        Factory storage f = factories[factory_id];
+        l.factory = fid;
         f.x = x;
         f.y = y;
         for (uint256 i = 0; i < factory_types[f.ftype].resources.length; i++) {
@@ -277,6 +284,8 @@ contract Marsmello is ERC20, Ownable {
                     100;
             }
         }
+        emit LandE(x, y, l.owner, l.factory, l.seed);
+        emit FactoryE(fid, f.owner, f.ftype, f.efficiency, f.x, f.y, f.name);
     }
 
     function transferLand(
@@ -284,9 +293,10 @@ contract Marsmello is ERC20, Ownable {
         int32 x,
         int32 y
     ) public landOwner(x, y) {
-        _clearFactory(lands[x][y].factory);
-        _clearLand(x, y);
-        lands[x][y].owner = to;
+        Land storage l = lands[x][y];
+        _clearFactory(l.factory);
+        if (l.factory != 0) l.factory = 0;
+        l.owner = to;
         for (uint256 i = 0; i < users[msg.sender].lands.length; i++) {
             if (
                 users[msg.sender].lands[i].x == x &&
@@ -297,6 +307,7 @@ contract Marsmello is ERC20, Ownable {
             }
         }
         users[to].lands.push(CoOrdinates(x, y));
+        emit LandE(x, y, l.owner, l.factory, l.seed);
     }
 
     function transferFactory(address to, uint64 factory_id)
@@ -305,7 +316,10 @@ contract Marsmello is ERC20, Ownable {
     {
         Factory storage f = factories[factory_id];
         _clearLand(f.x, f.y);
-        _clearFactory(factory_id);
+        if (f.x != 0 || f.y != 0) {
+            f.x = 0;
+            f.y = 0;
+        }
         f.owner = to;
         for (uint256 i = 0; i < users[msg.sender].factories.length; i++) {
             if (users[msg.sender].factories[i] == factory_id) {
@@ -314,6 +328,7 @@ contract Marsmello is ERC20, Ownable {
             }
         }
         users[to].factories.push(factory_id);
+        emit FactoryE(factory_id, f.owner, f.ftype, f.efficiency, 0, 0, f.name);
     }
 
     function claimAll() public {

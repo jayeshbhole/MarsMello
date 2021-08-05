@@ -3,12 +3,12 @@ schema:
     file: ./schema.graphql
 dataSources:
     - kind: ethereum/contract
-      name: MarsMellow
+      name: MarsMello
       network: mumbai
       source:
           address: "0xc44Aa24eA4e0064c21594408352aA73CBaFb96A3"
-          abi: Marsmellow
-          startBlock: 16592914
+          abi: Marsmello
+        #   startBlock: 0
       mapping:
           kind: ethereum/events
           apiVersion: 0.0.4
@@ -18,11 +18,15 @@ dataSources:
               - Land
               - Factory
           abis:
-              - name: MarsMellow
-                file: ./build/contracts/Marsmellow.json
+              - name: MarsMello
+                file: ./build/contracts/Marsmello.json
           eventHandlers:
               - event: Transfer(indexed address,indexed address,uint256)
                 handler: handleTransfer
+              - event: LandE(indexed int32,indexed int32,indexed address,uint64,uint128)
+                handler: handleLand
+              - event: FactoryE(indexed uint64,address,uint16,uint16,indexed int32,indexed int32,string)
+                handler: handleFactory
           file: ./src/mapping.ts
     - kind: ethereum/contract
       name: Iron
@@ -30,7 +34,7 @@ dataSources:
       source:
           address: "0x578153Ff94CB6bcb57e818D77556798f203316f8"
           abi: Iron
-          startBlock: 16592914
+        #   startBlock: 0
       mapping:
           kind: ethereum/events
           apiVersion: 0.0.4
@@ -44,3 +48,83 @@ dataSources:
               - event: Transfer(indexed address,indexed address,uint256)
                 handler: handleTransfer
           file: ./src/iron.ts
+    - kind: ethereum/contract
+      name: Aluminium
+      network: mumbai
+      source:
+          address: "0xF685c8BB6546D97EF005556f26e2d0B9c38A8552"
+          abi: Aluminium
+        #   startBlock: 0
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - User
+          abis:
+              - name: Aluminium
+                file: ./build/contracts/Aluminium.json
+          eventHandlers:
+              - event: Transfer(indexed address,indexed address,uint256)
+                handler: handleTransfer
+          file: ./src/aluminium.ts
+    - kind: ethereum/contract
+      name: Copper
+      network: mumbai
+      source:
+          address: "0x1a89e482e4DEd08b76fA8dA129C4403F54F32772"
+          abi: Copper
+        #   startBlock: 0
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - User
+          abis:
+              - name: Copper
+                file: ./build/contracts/Copper.json
+          eventHandlers:
+              - event: Transfer(indexed address,indexed address,uint256)
+                handler: handleTransfer
+          file: ./src/copper.ts
+    - kind: ethereum/contract
+      name: Gold
+      network: mumbai
+      source:
+          address: "0x05D2Fcc8A5d6b8934CB6B18Bf07EccDE6F63FC29"
+          abi: Gold
+        #   startBlock: 0
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - User
+          abis:
+              - name: Gold
+                file: ./build/contracts/Gold.json
+          eventHandlers:
+              - event: Transfer(indexed address,indexed address,uint256)
+                handler: handleTransfer
+          file: ./src/gold.ts
+    - kind: ethereum/contract
+      name: Titanium
+      network: mumbai
+      source:
+          address: "0x1dC583282Ec83F2322f05dc68E7b0D1fCfc1776F"
+          abi: Titanium
+        #   startBlock: 0
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - User
+          abis:
+              - name: Titanium
+                file: ./build/contracts/Titanium.json
+          eventHandlers:
+              - event: Transfer(indexed address,indexed address,uint256)
+                handler: handleTransfer
+          file: ./src/titanium.ts
