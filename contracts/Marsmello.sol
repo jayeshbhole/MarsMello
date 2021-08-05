@@ -9,20 +9,14 @@ interface ERC20I {
 }
 
 contract Marsmello is ERC20, Ownable {
-    constructor() ERC20(m_name, m_symbol) {
-        _mint(msg.sender, m_supply * 10**decimals());
+    constructor() ERC20("MarsMello", "MLO") {
+        _mint(msg.sender, 5 * (10**9) * (10**decimals()));
         deploy_time = block.timestamp;
         factories.push(Factory(address(0), 0, 0, 0, 0, "Void"));
     }
 
-    string m_name = "MarsMello";
-    string m_symbol = "MLO";
-    uint256 m_supply = 10**9;
     uint256 deploy_time;
-    uint256 randomness = 12345678901234567890;
     uint256 land_price = 1000 * 10**decimals();
-    uint256 resources_count = 5;
-    uint256 factory_count = 0;
 
     struct Land {
         address owner;
@@ -102,7 +96,7 @@ contract Marsmello is ERC20, Ownable {
     );
 
     function chechUser(address a) public {
-        while (users[a].flows.length < resources_count) {
+        while (users[a].flows.length < tokens.length) {
             users[a].flows.push(0);
         }
     }
