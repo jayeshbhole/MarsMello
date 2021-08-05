@@ -3,12 +3,14 @@ type User @entity {
     id: ID!
 
     " Token balances that this account holds "
-    mlo: BigInt!
-    fe: BigInt!
-    al: BigInt!
-    cu: BigInt!
-    au: BigInt!
-    ti: BigInt!
+    mlo: BigInt
+    fe: BigInt
+    al: BigInt
+    cu: BigInt
+    au: BigInt
+    ti: BigInt
+    lastclaimed: Int
+    flows: [BigInt!]
 
     " Lands "
     lands: [Land!] @derivedFrom(field: "owner")

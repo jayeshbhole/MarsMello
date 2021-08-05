@@ -46,6 +46,13 @@ module.exports = {
         //  port: 8545,            // Standard Ethereum port (default: none)
         //  network_id: "*",       // Any network (default: none)
         // },
+        ganachecli: {
+            port: 8545, // Custom port
+            network_id: "*", // Custom network
+            gas: 6721975, // Gas sent with each transaction (default: ~6700000)
+            gasPrice: 20000000000, // 20 gwei (in wei) (default: 100 gwei) // Enable EventEmitter interface for web3 (default: false)
+        },
+
         // Another network with more advanced options...
         // advanced: {
         // port: 8777,             // Custom port

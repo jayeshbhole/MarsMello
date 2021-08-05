@@ -36,82 +36,6 @@ export class Approval__Params {
   }
 }
 
-export class FactoryE extends ethereum.Event {
-  get params(): FactoryE__Params {
-    return new FactoryE__Params(this);
-  }
-}
-
-export class FactoryE__Params {
-  _event: FactoryE;
-
-  constructor(event: FactoryE) {
-    this._event = event;
-  }
-
-  get id(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get owner(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get ftype(): i32 {
-    return this._event.parameters[2].value.toI32();
-  }
-
-  get efficiency(): i32 {
-    return this._event.parameters[3].value.toI32();
-  }
-
-  get x(): i32 {
-    return this._event.parameters[4].value.toI32();
-  }
-
-  get y(): i32 {
-    return this._event.parameters[5].value.toI32();
-  }
-
-  get name(): string {
-    return this._event.parameters[6].value.toString();
-  }
-}
-
-export class LandE extends ethereum.Event {
-  get params(): LandE__Params {
-    return new LandE__Params(this);
-  }
-}
-
-export class LandE__Params {
-  _event: LandE;
-
-  constructor(event: LandE) {
-    this._event = event;
-  }
-
-  get x(): i32 {
-    return this._event.parameters[0].value.toI32();
-  }
-
-  get y(): i32 {
-    return this._event.parameters[1].value.toI32();
-  }
-
-  get owner(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get factory(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-
-  get seed(): BigInt {
-    return this._event.parameters[4].value.toBigInt();
-  }
-}
-
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -157,84 +81,6 @@ export class Transfer__Params {
 
   get value(): BigInt {
     return this._event.parameters[2].value.toBigInt();
-  }
-}
-
-export class Marsmello__getUserDataResultValue1Struct extends ethereum.Tuple {
-  get x(): i32 {
-    return this[0].toI32();
-  }
-
-  get y(): i32 {
-    return this[1].toI32();
-  }
-}
-
-export class Marsmello__getUserDataResult {
-  value0: Array<BigInt>;
-  value1: Array<Marsmello__getUserDataResultValue1Struct>;
-  value2: Array<BigInt>;
-  value3: BigInt;
-
-  constructor(
-    value0: Array<BigInt>,
-    value1: Array<Marsmello__getUserDataResultValue1Struct>,
-    value2: Array<BigInt>,
-    value3: BigInt
-  ) {
-    this.value0 = value0;
-    this.value1 = value1;
-    this.value2 = value2;
-    this.value3 = value3;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromUnsignedBigIntArray(this.value0));
-    map.set("value1", ethereum.Value.fromTupleArray(this.value1));
-    map.set("value2", ethereum.Value.fromUnsignedBigIntArray(this.value2));
-    map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
-    return map;
-  }
-}
-
-export class Marsmello__getFactoryTypeResultValue0Struct extends ethereum.Tuple {
-  get price(): BigInt {
-    return this[0].toBigInt();
-  }
-
-  get resources(): Array<Marsmello__getFactoryTypeResultValue0ResourcesStruct> {
-    return this[1].toTupleArray<
-      Marsmello__getFactoryTypeResultValue0ResourcesStruct
-    >();
-  }
-
-  get land_dependent(): boolean {
-    return this[2].toBoolean();
-  }
-}
-
-export class Marsmello__getFactoryTypeResultValue0ResourcesStruct extends ethereum.Tuple {
-  get id(): BigInt {
-    return this[0].toBigInt();
-  }
-
-  get rate(): BigInt {
-    return this[1].toBigInt();
-  }
-}
-
-export class Marsmello__getLandResultValue0Struct extends ethereum.Tuple {
-  get owner(): Address {
-    return this[0].toAddress();
-  }
-
-  get factory(): BigInt {
-    return this[1].toBigInt();
-  }
-
-  get seed(): BigInt {
-    return this[2].toBigInt();
   }
 }
 
@@ -504,244 +350,111 @@ export class Marsmello extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  getUserData(user: Address): Marsmello__getUserDataResult {
-    let result = super.call(
-      "getUserData",
-      "getUserData(address):(uint64[],(int32,int32)[],uint128[],uint64)",
-      [ethereum.Value.fromAddress(user)]
-    );
-
-    return new Marsmello__getUserDataResult(
-      result[0].toBigIntArray(),
-      result[1].toTupleArray<Marsmello__getUserDataResultValue1Struct>(),
-      result[2].toBigIntArray(),
-      result[3].toBigInt()
-    );
-  }
-
-  try_getUserData(
-    user: Address
-  ): ethereum.CallResult<Marsmello__getUserDataResult> {
-    let result = super.tryCall(
-      "getUserData",
-      "getUserData(address):(uint64[],(int32,int32)[],uint128[],uint64)",
-      [ethereum.Value.fromAddress(user)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new Marsmello__getUserDataResult(
-        value[0].toBigIntArray(),
-        value[1].toTupleArray<Marsmello__getUserDataResultValue1Struct>(),
-        value[2].toBigIntArray(),
-        value[3].toBigInt()
-      )
-    );
-  }
-
-  getLandPrice(): BigInt {
-    let result = super.call("getLandPrice", "getLandPrice():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_getLandPrice(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("getLandPrice", "getLandPrice():(uint256)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getRandomNumber(rand: BigInt): BigInt {
-    let result = super.call(
-      "getRandomNumber",
-      "getRandomNumber(uint256):(uint128)",
-      [ethereum.Value.fromUnsignedBigInt(rand)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getRandomNumber(rand: BigInt): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getRandomNumber",
-      "getRandomNumber(uint256):(uint128)",
-      [ethereum.Value.fromUnsignedBigInt(rand)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  addFactoryType(
-    price: BigInt,
-    land_dependent: boolean,
-    r1: Array<BigInt>,
-    r2: Array<BigInt>
-  ): BigInt {
-    let result = super.call(
-      "addFactoryType",
-      "addFactoryType(uint128,bool,uint128[],int128[]):(uint256)",
-      [
-        ethereum.Value.fromUnsignedBigInt(price),
-        ethereum.Value.fromBoolean(land_dependent),
-        ethereum.Value.fromUnsignedBigIntArray(r1),
-        ethereum.Value.fromSignedBigIntArray(r2)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_addFactoryType(
-    price: BigInt,
-    land_dependent: boolean,
-    r1: Array<BigInt>,
-    r2: Array<BigInt>
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "addFactoryType",
-      "addFactoryType(uint128,bool,uint128[],int128[]):(uint256)",
-      [
-        ethereum.Value.fromUnsignedBigInt(price),
-        ethereum.Value.fromBoolean(land_dependent),
-        ethereum.Value.fromUnsignedBigIntArray(r1),
-        ethereum.Value.fromSignedBigIntArray(r2)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getFactoryType(): Array<Marsmello__getFactoryTypeResultValue0Struct> {
-    let result = super.call(
-      "getFactoryType",
-      "getFactoryType():((uint128,(uint128,int128)[],bool)[])",
-      []
-    );
-
-    return result[0].toTupleArray<
-      Marsmello__getFactoryTypeResultValue0Struct
-    >();
-  }
-
-  try_getFactoryType(): ethereum.CallResult<
-    Array<Marsmello__getFactoryTypeResultValue0Struct>
-  > {
-    let result = super.tryCall(
-      "getFactoryType",
-      "getFactoryType():((uint128,(uint128,int128)[],bool)[])",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      value[0].toTupleArray<Marsmello__getFactoryTypeResultValue0Struct>()
-    );
-  }
-
-  addResource(token_address: Address): BigInt {
-    let result = super.call("addResource", "addResource(address):(uint256)", [
-      ethereum.Value.fromAddress(token_address)
+  mint(amount: BigInt): boolean {
+    let result = super.call("mint", "mint(uint256):(bool)", [
+      ethereum.Value.fromUnsignedBigInt(amount)
     ]);
 
-    return result[0].toBigInt();
+    return result[0].toBoolean();
   }
 
-  try_addResource(token_address: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "addResource",
-      "addResource(address):(uint256)",
-      [ethereum.Value.fromAddress(token_address)]
-    );
+  try_mint(amount: BigInt): ethereum.CallResult<boolean> {
+    let result = super.tryCall("mint", "mint(uint256):(bool)", [
+      ethereum.Value.fromUnsignedBigInt(amount)
+    ]);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  getResource(): Array<Address> {
-    let result = super.call("getResource", "getResource():(address[])", []);
+  mintTo(to: Address, amount: BigInt): boolean {
+    let result = super.call("mintTo", "mintTo(address,uint256):(bool)", [
+      ethereum.Value.fromAddress(to),
+      ethereum.Value.fromUnsignedBigInt(amount)
+    ]);
 
-    return result[0].toAddressArray();
+    return result[0].toBoolean();
   }
 
-  try_getResource(): ethereum.CallResult<Array<Address>> {
-    let result = super.tryCall("getResource", "getResource():(address[])", []);
+  try_mintTo(to: Address, amount: BigInt): ethereum.CallResult<boolean> {
+    let result = super.tryCall("mintTo", "mintTo(address,uint256):(bool)", [
+      ethereum.Value.fromAddress(to),
+      ethereum.Value.fromUnsignedBigInt(amount)
+    ]);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddressArray());
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  getLandRate(seed: BigInt, ftype: BigInt): BigInt {
+  burnFromAcc(from: Address, amount: BigInt): boolean {
     let result = super.call(
-      "getLandRate",
-      "getLandRate(uint128,uint64):(uint128)",
+      "burnFromAcc",
+      "burnFromAcc(address,uint256):(bool)",
       [
-        ethereum.Value.fromUnsignedBigInt(seed),
-        ethereum.Value.fromUnsignedBigInt(ftype)
+        ethereum.Value.fromAddress(from),
+        ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
 
-    return result[0].toBigInt();
+    return result[0].toBoolean();
   }
 
-  try_getLandRate(seed: BigInt, ftype: BigInt): ethereum.CallResult<BigInt> {
+  try_burnFromAcc(from: Address, amount: BigInt): ethereum.CallResult<boolean> {
     let result = super.tryCall(
-      "getLandRate",
-      "getLandRate(uint128,uint64):(uint128)",
+      "burnFromAcc",
+      "burnFromAcc(address,uint256):(bool)",
       [
-        ethereum.Value.fromUnsignedBigInt(seed),
-        ethereum.Value.fromUnsignedBigInt(ftype)
+        ethereum.Value.fromAddress(from),
+        ethereum.Value.fromUnsignedBigInt(amount)
       ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  getLand(x: i32, y: i32): Marsmello__getLandResultValue0Struct {
+  master(): Address {
+    let result = super.call("master", "master():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_master(): ethereum.CallResult<Address> {
+    let result = super.tryCall("master", "master():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  setMasterContract(_newmaster: Address): boolean {
     let result = super.call(
-      "getLand",
-      "getLand(int32,int32):((address,uint64,uint128))",
-      [ethereum.Value.fromI32(x), ethereum.Value.fromI32(y)]
+      "setMasterContract",
+      "setMasterContract(address):(bool)",
+      [ethereum.Value.fromAddress(_newmaster)]
     );
 
-    return result[0].toTuple() as Marsmello__getLandResultValue0Struct;
+    return result[0].toBoolean();
   }
 
-  try_getLand(
-    x: i32,
-    y: i32
-  ): ethereum.CallResult<Marsmello__getLandResultValue0Struct> {
+  try_setMasterContract(_newmaster: Address): ethereum.CallResult<boolean> {
     let result = super.tryCall(
-      "getLand",
-      "getLand(int32,int32):((address,uint64,uint128))",
-      [ethereum.Value.fromI32(x), ethereum.Value.fromI32(y)]
+      "setMasterContract",
+      "setMasterContract(address):(bool)",
+      [ethereum.Value.fromAddress(_newmaster)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(
-      value[0].toTuple() as Marsmello__getLandResultValue0Struct
-    );
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 }
 
@@ -806,6 +519,70 @@ export class ApproveCall__Outputs {
 
   get value0(): boolean {
     return this._call.outputValues[0].value.toBoolean();
+  }
+}
+
+export class BurnCall extends ethereum.Call {
+  get inputs(): BurnCall__Inputs {
+    return new BurnCall__Inputs(this);
+  }
+
+  get outputs(): BurnCall__Outputs {
+    return new BurnCall__Outputs(this);
+  }
+}
+
+export class BurnCall__Inputs {
+  _call: BurnCall;
+
+  constructor(call: BurnCall) {
+    this._call = call;
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class BurnCall__Outputs {
+  _call: BurnCall;
+
+  constructor(call: BurnCall) {
+    this._call = call;
+  }
+}
+
+export class BurnFromCall extends ethereum.Call {
+  get inputs(): BurnFromCall__Inputs {
+    return new BurnFromCall__Inputs(this);
+  }
+
+  get outputs(): BurnFromCall__Outputs {
+    return new BurnFromCall__Outputs(this);
+  }
+}
+
+export class BurnFromCall__Inputs {
+  _call: BurnFromCall;
+
+  constructor(call: BurnFromCall) {
+    this._call = call;
+  }
+
+  get account(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class BurnFromCall__Outputs {
+  _call: BurnFromCall;
+
+  constructor(call: BurnFromCall) {
+    this._call = call;
   }
 }
 
@@ -1021,322 +798,54 @@ export class TransferOwnershipCall__Outputs {
   }
 }
 
-export class ChechUserCall extends ethereum.Call {
-  get inputs(): ChechUserCall__Inputs {
-    return new ChechUserCall__Inputs(this);
+export class MintCall extends ethereum.Call {
+  get inputs(): MintCall__Inputs {
+    return new MintCall__Inputs(this);
   }
 
-  get outputs(): ChechUserCall__Outputs {
-    return new ChechUserCall__Outputs(this);
+  get outputs(): MintCall__Outputs {
+    return new MintCall__Outputs(this);
   }
 }
 
-export class ChechUserCall__Inputs {
-  _call: ChechUserCall;
+export class MintCall__Inputs {
+  _call: MintCall;
 
-  constructor(call: ChechUserCall) {
+  constructor(call: MintCall) {
     this._call = call;
   }
 
-  get a(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class ChechUserCall__Outputs {
-  _call: ChechUserCall;
-
-  constructor(call: ChechUserCall) {
-    this._call = call;
-  }
-}
-
-export class AddFactoryTypeCall extends ethereum.Call {
-  get inputs(): AddFactoryTypeCall__Inputs {
-    return new AddFactoryTypeCall__Inputs(this);
-  }
-
-  get outputs(): AddFactoryTypeCall__Outputs {
-    return new AddFactoryTypeCall__Outputs(this);
-  }
-}
-
-export class AddFactoryTypeCall__Inputs {
-  _call: AddFactoryTypeCall;
-
-  constructor(call: AddFactoryTypeCall) {
-    this._call = call;
-  }
-
-  get price(): BigInt {
+  get amount(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
-
-  get land_dependent(): boolean {
-    return this._call.inputValues[1].value.toBoolean();
-  }
-
-  get r1(): Array<BigInt> {
-    return this._call.inputValues[2].value.toBigIntArray();
-  }
-
-  get r2(): Array<BigInt> {
-    return this._call.inputValues[3].value.toBigIntArray();
-  }
 }
 
-export class AddFactoryTypeCall__Outputs {
-  _call: AddFactoryTypeCall;
+export class MintCall__Outputs {
+  _call: MintCall;
 
-  constructor(call: AddFactoryTypeCall) {
+  constructor(call: MintCall) {
     this._call = call;
   }
 
-  get value0(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
+  get value0(): boolean {
+    return this._call.outputValues[0].value.toBoolean();
   }
 }
 
-export class DeletefactoryTypeCall extends ethereum.Call {
-  get inputs(): DeletefactoryTypeCall__Inputs {
-    return new DeletefactoryTypeCall__Inputs(this);
+export class MintToCall extends ethereum.Call {
+  get inputs(): MintToCall__Inputs {
+    return new MintToCall__Inputs(this);
   }
 
-  get outputs(): DeletefactoryTypeCall__Outputs {
-    return new DeletefactoryTypeCall__Outputs(this);
-  }
-}
-
-export class DeletefactoryTypeCall__Inputs {
-  _call: DeletefactoryTypeCall;
-
-  constructor(call: DeletefactoryTypeCall) {
-    this._call = call;
+  get outputs(): MintToCall__Outputs {
+    return new MintToCall__Outputs(this);
   }
 }
 
-export class DeletefactoryTypeCall__Outputs {
-  _call: DeletefactoryTypeCall;
+export class MintToCall__Inputs {
+  _call: MintToCall;
 
-  constructor(call: DeletefactoryTypeCall) {
-    this._call = call;
-  }
-}
-
-export class AddResourceCall extends ethereum.Call {
-  get inputs(): AddResourceCall__Inputs {
-    return new AddResourceCall__Inputs(this);
-  }
-
-  get outputs(): AddResourceCall__Outputs {
-    return new AddResourceCall__Outputs(this);
-  }
-}
-
-export class AddResourceCall__Inputs {
-  _call: AddResourceCall;
-
-  constructor(call: AddResourceCall) {
-    this._call = call;
-  }
-
-  get token_address(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class AddResourceCall__Outputs {
-  _call: AddResourceCall;
-
-  constructor(call: AddResourceCall) {
-    this._call = call;
-  }
-
-  get value0(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
-}
-
-export class EditResourceCall extends ethereum.Call {
-  get inputs(): EditResourceCall__Inputs {
-    return new EditResourceCall__Inputs(this);
-  }
-
-  get outputs(): EditResourceCall__Outputs {
-    return new EditResourceCall__Outputs(this);
-  }
-}
-
-export class EditResourceCall__Inputs {
-  _call: EditResourceCall;
-
-  constructor(call: EditResourceCall) {
-    this._call = call;
-  }
-
-  get id(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get token_address(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class EditResourceCall__Outputs {
-  _call: EditResourceCall;
-
-  constructor(call: EditResourceCall) {
-    this._call = call;
-  }
-}
-
-export class DeleteResourceCall extends ethereum.Call {
-  get inputs(): DeleteResourceCall__Inputs {
-    return new DeleteResourceCall__Inputs(this);
-  }
-
-  get outputs(): DeleteResourceCall__Outputs {
-    return new DeleteResourceCall__Outputs(this);
-  }
-}
-
-export class DeleteResourceCall__Inputs {
-  _call: DeleteResourceCall;
-
-  constructor(call: DeleteResourceCall) {
-    this._call = call;
-  }
-}
-
-export class DeleteResourceCall__Outputs {
-  _call: DeleteResourceCall;
-
-  constructor(call: DeleteResourceCall) {
-    this._call = call;
-  }
-}
-
-export class MintFactoryCall extends ethereum.Call {
-  get inputs(): MintFactoryCall__Inputs {
-    return new MintFactoryCall__Inputs(this);
-  }
-
-  get outputs(): MintFactoryCall__Outputs {
-    return new MintFactoryCall__Outputs(this);
-  }
-}
-
-export class MintFactoryCall__Inputs {
-  _call: MintFactoryCall;
-
-  constructor(call: MintFactoryCall) {
-    this._call = call;
-  }
-
-  get name(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-
-  get ftype(): i32 {
-    return this._call.inputValues[1].value.toI32();
-  }
-}
-
-export class MintFactoryCall__Outputs {
-  _call: MintFactoryCall;
-
-  constructor(call: MintFactoryCall) {
-    this._call = call;
-  }
-}
-
-export class MintLandCall extends ethereum.Call {
-  get inputs(): MintLandCall__Inputs {
-    return new MintLandCall__Inputs(this);
-  }
-
-  get outputs(): MintLandCall__Outputs {
-    return new MintLandCall__Outputs(this);
-  }
-}
-
-export class MintLandCall__Inputs {
-  _call: MintLandCall;
-
-  constructor(call: MintLandCall) {
-    this._call = call;
-  }
-
-  get x(): i32 {
-    return this._call.inputValues[0].value.toI32();
-  }
-
-  get y(): i32 {
-    return this._call.inputValues[1].value.toI32();
-  }
-}
-
-export class MintLandCall__Outputs {
-  _call: MintLandCall;
-
-  constructor(call: MintLandCall) {
-    this._call = call;
-  }
-}
-
-export class PlaceFactoryCall extends ethereum.Call {
-  get inputs(): PlaceFactoryCall__Inputs {
-    return new PlaceFactoryCall__Inputs(this);
-  }
-
-  get outputs(): PlaceFactoryCall__Outputs {
-    return new PlaceFactoryCall__Outputs(this);
-  }
-}
-
-export class PlaceFactoryCall__Inputs {
-  _call: PlaceFactoryCall;
-
-  constructor(call: PlaceFactoryCall) {
-    this._call = call;
-  }
-
-  get fid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get x(): i32 {
-    return this._call.inputValues[1].value.toI32();
-  }
-
-  get y(): i32 {
-    return this._call.inputValues[2].value.toI32();
-  }
-}
-
-export class PlaceFactoryCall__Outputs {
-  _call: PlaceFactoryCall;
-
-  constructor(call: PlaceFactoryCall) {
-    this._call = call;
-  }
-}
-
-export class TransferLandCall extends ethereum.Call {
-  get inputs(): TransferLandCall__Inputs {
-    return new TransferLandCall__Inputs(this);
-  }
-
-  get outputs(): TransferLandCall__Outputs {
-    return new TransferLandCall__Outputs(this);
-  }
-}
-
-export class TransferLandCall__Inputs {
-  _call: TransferLandCall;
-
-  constructor(call: TransferLandCall) {
+  constructor(call: MintToCall) {
     this._call = call;
   }
 
@@ -1344,79 +853,91 @@ export class TransferLandCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get x(): i32 {
-    return this._call.inputValues[1].value.toI32();
-  }
-
-  get y(): i32 {
-    return this._call.inputValues[2].value.toI32();
-  }
-}
-
-export class TransferLandCall__Outputs {
-  _call: TransferLandCall;
-
-  constructor(call: TransferLandCall) {
-    this._call = call;
-  }
-}
-
-export class TransferFactoryCall extends ethereum.Call {
-  get inputs(): TransferFactoryCall__Inputs {
-    return new TransferFactoryCall__Inputs(this);
-  }
-
-  get outputs(): TransferFactoryCall__Outputs {
-    return new TransferFactoryCall__Outputs(this);
-  }
-}
-
-export class TransferFactoryCall__Inputs {
-  _call: TransferFactoryCall;
-
-  constructor(call: TransferFactoryCall) {
-    this._call = call;
-  }
-
-  get to(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get factory_id(): BigInt {
+  get amount(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
 }
 
-export class TransferFactoryCall__Outputs {
-  _call: TransferFactoryCall;
+export class MintToCall__Outputs {
+  _call: MintToCall;
 
-  constructor(call: TransferFactoryCall) {
+  constructor(call: MintToCall) {
     this._call = call;
+  }
+
+  get value0(): boolean {
+    return this._call.outputValues[0].value.toBoolean();
   }
 }
 
-export class ClaimAllCall extends ethereum.Call {
-  get inputs(): ClaimAllCall__Inputs {
-    return new ClaimAllCall__Inputs(this);
+export class BurnFromAccCall extends ethereum.Call {
+  get inputs(): BurnFromAccCall__Inputs {
+    return new BurnFromAccCall__Inputs(this);
   }
 
-  get outputs(): ClaimAllCall__Outputs {
-    return new ClaimAllCall__Outputs(this);
-  }
-}
-
-export class ClaimAllCall__Inputs {
-  _call: ClaimAllCall;
-
-  constructor(call: ClaimAllCall) {
-    this._call = call;
+  get outputs(): BurnFromAccCall__Outputs {
+    return new BurnFromAccCall__Outputs(this);
   }
 }
 
-export class ClaimAllCall__Outputs {
-  _call: ClaimAllCall;
+export class BurnFromAccCall__Inputs {
+  _call: BurnFromAccCall;
 
-  constructor(call: ClaimAllCall) {
+  constructor(call: BurnFromAccCall) {
     this._call = call;
+  }
+
+  get from(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class BurnFromAccCall__Outputs {
+  _call: BurnFromAccCall;
+
+  constructor(call: BurnFromAccCall) {
+    this._call = call;
+  }
+
+  get value0(): boolean {
+    return this._call.outputValues[0].value.toBoolean();
+  }
+}
+
+export class SetMasterContractCall extends ethereum.Call {
+  get inputs(): SetMasterContractCall__Inputs {
+    return new SetMasterContractCall__Inputs(this);
+  }
+
+  get outputs(): SetMasterContractCall__Outputs {
+    return new SetMasterContractCall__Outputs(this);
+  }
+}
+
+export class SetMasterContractCall__Inputs {
+  _call: SetMasterContractCall;
+
+  constructor(call: SetMasterContractCall) {
+    this._call = call;
+  }
+
+  get _newmaster(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetMasterContractCall__Outputs {
+  _call: SetMasterContractCall;
+
+  constructor(call: SetMasterContractCall) {
+    this._call = call;
+  }
+
+  get value0(): boolean {
+    return this._call.outputValues[0].value.toBoolean();
   }
 }

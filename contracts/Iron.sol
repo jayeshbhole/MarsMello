@@ -9,7 +9,7 @@ contract Iron is ERC20, Ownable, ERC20Burnable {
     address private _mastercontract;
 
     constructor() ERC20("Iron", "Fe") {
-        _mint(msg.sender, 1000000000 * 10**decimals());
+        _mint(msg.sender, (10**9) * 10**decimals());
     }
 
     modifier onlyMaster() {

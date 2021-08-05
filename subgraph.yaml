@@ -3,11 +3,11 @@ schema:
     file: ./schema.graphql
 dataSources:
     - kind: ethereum/contract
-      name: Marsmello
+      name: MarsmelloGame
       network: mumbai
       source:
           address: "0xc44Aa24eA4e0064c21594408352aA73CBaFb96A3"
-          abi: Marsmello
+          abi: MarsmelloGame
         #   startBlock: 0
       mapping:
           kind: ethereum/events
@@ -18,16 +18,40 @@ dataSources:
               - Land
               - Factory
           abis:
+              - name: MarsmelloGame
+                file: ./build/contracts/MarsmelloGame.json
+          eventHandlers:
+              - event: LandE(indexed int32,indexed int32,indexed address,uint64,uint128)
+                handler: handleLand
+              - event: FactoryE(indexed uint64,address,uint16,uint16,indexed int32,indexed int32,string)
+                handler: handleFactory
+              - event: FactoryNameChange(indexed uint64,string)
+                handler: handleFactoryNameChange
+              - event: Claim(indexed address,uint256)
+                handler: handleClaim
+              - event: FlowChange(indexed address,uint128[])
+                handler: handleFlowChange
+          file: ./src/marsmellogame.ts
+    - kind: ethereum/contract
+      name: Marsmello
+      network: mumbai
+      source:
+          address: "0x578153Ff94CB6bcb57e818D77556798f203316f8"
+          abi: Marsmello
+        #   startBlock: 0
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - User
+          abis:
               - name: Marsmello
                 file: ./build/contracts/Marsmello.json
           eventHandlers:
               - event: Transfer(indexed address,indexed address,uint256)
                 handler: handleTransfer
-              - event: LandE(indexed int32,indexed int32,indexed address,uint64,uint128)
-                handler: handleLand
-              - event: FactoryE(indexed uint64,address,uint16,uint16,indexed int32,indexed int32,string)
-                handler: handleFactory
-          file: ./src/mapping.ts
+          file: ./src/marsmello.ts
     - kind: ethereum/contract
       name: Iron
       network: mumbai

@@ -9,7 +9,7 @@ contract Gold is ERC20, Ownable, ERC20Burnable {
     address private _mastercontract;
 
     constructor() ERC20("Gold", "Au") {
-        _mint(msg.sender, 1000000000 * 10**decimals());
+        _mint(msg.sender, (10**9) * 10**decimals());
     }
 
     modifier onlyMaster() {

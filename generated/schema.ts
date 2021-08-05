@@ -42,58 +42,132 @@ export class User extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get mlo(): BigInt {
+  get mlo(): BigInt | null {
     let value = this.get("mlo");
-    return value.toBigInt();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set mlo(value: BigInt) {
-    this.set("mlo", Value.fromBigInt(value));
+  set mlo(value: BigInt | null) {
+    if (value === null) {
+      this.unset("mlo");
+    } else {
+      this.set("mlo", Value.fromBigInt(value as BigInt));
+    }
   }
 
-  get fe(): BigInt {
+  get fe(): BigInt | null {
     let value = this.get("fe");
-    return value.toBigInt();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set fe(value: BigInt) {
-    this.set("fe", Value.fromBigInt(value));
+  set fe(value: BigInt | null) {
+    if (value === null) {
+      this.unset("fe");
+    } else {
+      this.set("fe", Value.fromBigInt(value as BigInt));
+    }
   }
 
-  get al(): BigInt {
+  get al(): BigInt | null {
     let value = this.get("al");
-    return value.toBigInt();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set al(value: BigInt) {
-    this.set("al", Value.fromBigInt(value));
+  set al(value: BigInt | null) {
+    if (value === null) {
+      this.unset("al");
+    } else {
+      this.set("al", Value.fromBigInt(value as BigInt));
+    }
   }
 
-  get cu(): BigInt {
+  get cu(): BigInt | null {
     let value = this.get("cu");
-    return value.toBigInt();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set cu(value: BigInt) {
-    this.set("cu", Value.fromBigInt(value));
+  set cu(value: BigInt | null) {
+    if (value === null) {
+      this.unset("cu");
+    } else {
+      this.set("cu", Value.fromBigInt(value as BigInt));
+    }
   }
 
-  get au(): BigInt {
+  get au(): BigInt | null {
     let value = this.get("au");
-    return value.toBigInt();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set au(value: BigInt) {
-    this.set("au", Value.fromBigInt(value));
+  set au(value: BigInt | null) {
+    if (value === null) {
+      this.unset("au");
+    } else {
+      this.set("au", Value.fromBigInt(value as BigInt));
+    }
   }
 
-  get ti(): BigInt {
+  get ti(): BigInt | null {
     let value = this.get("ti");
-    return value.toBigInt();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set ti(value: BigInt) {
-    this.set("ti", Value.fromBigInt(value));
+  set ti(value: BigInt | null) {
+    if (value === null) {
+      this.unset("ti");
+    } else {
+      this.set("ti", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get lastclaimed(): i32 {
+    let value = this.get("lastclaimed");
+    return value.toI32();
+  }
+
+  set lastclaimed(value: i32) {
+    this.set("lastclaimed", Value.fromI32(value));
+  }
+
+  get flows(): Array<BigInt> | null {
+    let value = this.get("flows");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set flows(value: Array<BigInt> | null) {
+    if (value === null) {
+      this.unset("flows");
+    } else {
+      this.set("flows", Value.fromBigIntArray(value as Array<BigInt>));
+    }
   }
 
   get lands(): Array<string> | null {
