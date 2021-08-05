@@ -23,10 +23,6 @@ const Menu = ({ xy, teleport }) => {
 		setModal(e.target.id);
 	};
 
-	const handleTele = () => {
-		setIsTeleModal(true);
-	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		teleport(x, y);
@@ -39,7 +35,7 @@ const Menu = ({ xy, teleport }) => {
 	return (
 		<animated.div className="menu">
 			<TopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
-			<BottomBar xy={xy} handleTele={handleTele} />
+			<BottomBar xy={xy} setModal={setIsTeleModal} />
 			<SideBar handleClick={handleClick} avatar={avatar} />
 
 			{/* Modals */}

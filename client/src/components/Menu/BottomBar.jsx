@@ -1,13 +1,18 @@
 import { animated } from "@react-spring/web";
-import React, { useState } from "react";
+import React from "react";
 
-const BottomBar = ({ xy, handleTele }) => {
+const BottomBar = ({ xy, setModal }) => {
 	return (
 		<div className="bottombar bar">
 			<div className="x-cord cords">
 				X, Y: (<animated.span>{xy}</animated.span>)
 			</div>
-			<img id="teleport" src="./assets/img/teleport.png" alt="teleport" onClick={handleTele} />
+			<img
+				id="teleport"
+				src="./assets/img/teleport.png"
+				alt="teleport"
+				onClick={() => setModal(true)}
+			/>
 		</div>
 	);
 };
