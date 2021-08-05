@@ -8,6 +8,7 @@ import Modal from "../Modals/index";
 import Profile from "../Modals/Profile";
 import Plots from "../Modals/Plots";
 import Factory from "../Modals/Factory";
+import Resources from "../Modals/Resources";
 import MiniModal from "../MiniModals";
 
 const Menu = ({ xy, teleport }) => {
@@ -29,7 +30,7 @@ const Menu = ({ xy, teleport }) => {
 		setIsTeleModal(false);
 		setX();
 		setY();
-		console.log(x, y, typeof x, typeof y);
+		// console.log(x, y, typeof x, typeof y);
 	};
 
 	return (
@@ -44,7 +45,7 @@ const Menu = ({ xy, teleport }) => {
 					<div className="content">
 						{modal === "profile" && <Profile avatar={avatar} setAvatar={setAvatar} />}
 						{modal === "factory" && <Factory />}
-						{modal === "miner" && <h1 className="miner">TBD</h1>}
+						{modal === "resos" && <Resources />}
 						{modal === "plots" && <Plots />}
 					</div>
 				</Modal>

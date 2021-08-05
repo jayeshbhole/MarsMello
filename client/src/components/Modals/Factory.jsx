@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Card from "../Auxillary/Card";
 
 const Factory = () => {
 	const [page, setPage] = useState(0);
@@ -24,134 +25,63 @@ const Factory = () => {
 			</div>
 			{page === 0 ? (
 				<div className="content owned">
-					<table>
-						<tr>
-							<th> </th>
-							<th>Name</th>
-							<th>Produce</th>
-							<th>Cords</th>
-							<th>Price</th>
-							<th> </th>
-						</tr>
-						<tr>
-							<td>*</td>
-							<td>FactID</td>
-							<td>Fe</td>
-							<td>(0, 1)</td>
-							<td>1.0 MLO</td>
-							<td>
-								<button className="sell-btn">Sell</button>
-							</td>
-						</tr>
-						<tr>
-							<td>#</td>
-							<td>FactID</td>
-							<td>Au</td>
-							<td>(0, -1)</td>
-							<td>0.8 MLO</td>
-							<td>
-								<button className="sell-btn">Sell</button>
-							</td>
-						</tr>
-						<tr>
-							<td>&</td>
-							<td>FactID</td>
-							<td>Ti</td>
-							<td>(0, 9)</td>
-							<td>2.0 MLO</td>
-							<td>
-								<button className="sell-btn">Sell</button>
-							</td>
-						</tr>
-						<tr>
-							<td>@</td>
-							<td>FactID</td>
-							<td>Cu</td>
-							<td>(0, 5)</td>
-							<td>1.2 MLO</td>
-							<td>
-								<button className="sell-btn">Sell</button>
-							</td>
-						</tr>
-						<tr>
-							<td>$</td>
-							<td>FactID</td>
-							<td>Al</td>
-							<td>(0, -4)</td>
-							<td>0.08 MLO</td>
-							<td>
-								<button className="sell-btn">Sell</button>
-							</td>
-						</tr>
-					</table>
+					<Card className="owned-2">
+						<section className="card-left">
+							<img src="./assets/facticon/facticon2.png" alt="" />
+							<span className="rate">
+								10<span className="unit">/hr</span>
+							</span>
+						</section>
+						<section className="card-right">
+							<div className="name">
+								<span className="label">Name:</span>
+								<span className="value">Factory1</span>
+							</div>
+							<div className="produce">
+								<span className="label">Produce:</span>
+								<span className="value">Fe</span>
+							</div>
+							<div className="cords">
+								<span className="x-label label">X:</span>
+								<span className="x-value value">0</span>
+								<span className="y-label label">Y:</span>
+								<span className="y-value value">5</span>
+							</div>
+							<button className="sell">Sell</button>
+						</section>
+					</Card>
 				</div>
 			) : (
 				<div className="content market">
 					<div className="ingame">
 						<button className="buy-btn">Buy a New Factory</button>
 					</div>
-					<div className="auction">
-						<table>
-							<tr>
-								<th> </th>
-								<th>Name</th>
-								<th>Produce</th>
-								<th>Cords</th>
-								<th>Price</th>
-								<th> </th>
-							</tr>
-							<tr>
-								<td>*</td>
-								<td>FactID</td>
-								<td>Fe</td>
-								<td>(0, 1)</td>
-								<td>1.0 MLO</td>
-								<td>
-									<button className="bid-btn">Bid</button>
-								</td>
-							</tr>
-							<tr>
-								<td>#</td>
-								<td>FactID</td>
-								<td>Au</td>
-								<td>(0, -1)</td>
-								<td>0.8 MLO</td>
-								<td>
-									<button className="bid-btn">Bid</button>
-								</td>
-							</tr>
-							<tr>
-								<td>&</td>
-								<td>FactID</td>
-								<td>Ti</td>
-								<td>(0, 9)</td>
-								<td>2.0 MLO</td>
-								<td>
-									<button className="bid-btn">Bid</button>
-								</td>
-							</tr>
-							<tr>
-								<td>@</td>
-								<td>FactID</td>
-								<td>Cu</td>
-								<td>(0, 5)</td>
-								<td>1.2 MLO</td>
-								<td>
-									<button className="bid-btn">Bid</button>
-								</td>
-							</tr>
-							<tr>
-								<td>$</td>
-								<td>FactID</td>
-								<td>Al</td>
-								<td>(0, -4)</td>
-								<td>0.08 MLO</td>
-								<td>
-									<button className="bid-btn">Bid</button>
-								</td>
-							</tr>
-						</table>
-					</div>
+
+					<Card className="owned-2">
+						<section className="card-left">
+							<img src="./assets/facticon/facticon2.png" alt="" />
+							<span className="rate">
+								10<span className="unit">/hr</span>
+							</span>
+						</section>
+						<section className="card-right">
+							<div className="name">
+								<span className="label">Name:</span>
+								<span className="value">Factory1</span>
+							</div>
+							<div className="produce">
+								<span className="label">Produce:</span>
+								<span className="value">Fe</span>
+							</div>
+							<div className="cords">
+								<span className="x-label label">X:</span>
+								<span className="x-value value">0</span>
+								<span className="y-label label">Y:</span>
+								<span className="y-value value">5</span>
+							</div>
+							<button className="bid">Bid</button>
+						</section>
+					</Card>
 				</div>
 			)}
 		</div>
