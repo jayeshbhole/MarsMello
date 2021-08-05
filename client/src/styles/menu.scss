@@ -96,13 +96,10 @@
 			}
 			.cta {
 				font-size: 1.2rem;
-			}
-			section {
 				display: flex;
 				justify-content: space-evenly;
 				align-items: center;
 				.main {
-					font-size: 1.5rem;
 					span {
 						margin-left: 5px;
 						color: rgb(255, 194, 80);
@@ -118,7 +115,7 @@
 	}
 	.bottombar {
 		display: flex;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
 		bottom: 0;
 		margin-bottom: -0.25rem;
@@ -132,6 +129,12 @@
 		.cords {
 			font-size: 1.5rem;
 			margin-top: 0.5rem;
+		}
+		#teleport {
+			height: 2.5rem;
+			margin-top: 0.25rem;
+			margin-left: 1rem;
+			cursor: pointer;
 		}
 	}
 
@@ -182,12 +185,12 @@
 				}
 				.data {
 					h1 {
-						margin-top: 2.5rem;
-						font-size: 2.5rem;
+						margin-top: 2.25rem;
+						font-size: 2rem;
 						word-wrap: break-word;
 						span {
 							margin-bottom: 0.5rem;
-							font-size: 1.5rem;
+							font-size: 1rem;
 							display: block;
 							color: rgba(255, 255, 255, 0.6);
 						}
@@ -333,6 +336,58 @@
 			}
 			.miner {
 				margin: 10rem;
+			}
+		}
+	}
+	.modal-bg {
+		.mini-modal {
+			overflow-x: hidden;
+			overflow-y: auto;
+			width: 30%;
+			height: 30%;
+			padding: 2rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			form {
+				margin-top: 2rem;
+				width: 80%;
+				height: 15rem;
+				font-family: inherit;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				.input {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					label {
+						font-size: 2rem;
+					}
+					input {
+						width: 100%;
+						padding: 1rem;
+						background: lighten($color-modal-bg, 5%);
+						border: 2px ridge $color-modal-border;
+						font-family: inherit;
+						color: white;
+						font-size: 1.5rem;
+					}
+				}
+				.tele-btn {
+					cursor: pointer;
+					width: fit-content;
+					background: none;
+					background-image: url(../assets/img/forBid.png);
+					background-repeat: no-repeat;
+					background-position-x: 50%;
+					background-size: contain;
+					border: none;
+					padding: 1rem;
+					text-align: center;
+					font-family: inherit;
+					margin: 0 auto;
+				}
 			}
 		}
 	}

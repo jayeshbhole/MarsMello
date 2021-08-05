@@ -1,12 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+// import { useState, useEffect, useContext } from "react";
 import "./styles/index.scss";
 import { animated } from "@react-spring/web";
-import { MemoPlot, MemoCloud, CentreCounter } from "./components/GameComponents";
+import { MemoPlot, MemoCloud } from "./components/GameComponents";
 import Menu from "./components/Menu/";
 import MiniMenu from "./components/MiniMenu";
-// import web3 from "./context/web3Context";
 import MiniModal from "./components/MiniModals";
-import { Web3Context, Web3ContextProvider } from "./context/Web3Context";
+import { Web3ContextProvider } from "./context/Web3Context";
 import useGame from "./hooks/useGame";
 
 const App = () => {
@@ -65,7 +64,7 @@ const App = () => {
 	);
 };
 // Game Grid Component
-const Grid = ({ dragBind, rows, handlePlotClick, cellSize, top, left }) => {
+const Grid = ({ dragBind, rows, handlePlotClick, top, left }) => {
 	return (
 		<animated.div className="grid-container" {...dragBind()}>
 			<animated.div className="grid" style={{ top, left }}>
