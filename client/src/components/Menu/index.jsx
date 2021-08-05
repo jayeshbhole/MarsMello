@@ -31,6 +31,9 @@ const Menu = ({ xy, teleport }) => {
 		e.preventDefault();
 		teleport(x, y);
 		setIsTeleModal(false);
+		setX(0);
+		setY(0);
+		// console.log(x, y);
 	};
 
 	return (
