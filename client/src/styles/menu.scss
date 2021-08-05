@@ -339,4 +339,56 @@
 			}
 		}
 	}
+	.modal-bg {
+		.mini-modal {
+			overflow-x: hidden;
+			overflow-y: auto;
+			width: 30%;
+			height: 30%;
+			padding: 2rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			form {
+				margin-top: 2rem;
+				width: 80%;
+				height: 15rem;
+				font-family: inherit;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				.input {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					label {
+						font-size: 2rem;
+					}
+					input {
+						width: 100%;
+						padding: 1rem;
+						background: lighten($color-modal-bg, 5%);
+						border: 2px ridge $color-modal-border;
+						font-family: inherit;
+						color: white;
+						font-size: 1.5rem;
+					}
+				}
+				.tele-btn {
+					cursor: pointer;
+					width: fit-content;
+					background: none;
+					background-image: url(../assets/img/forBid.png);
+					background-repeat: no-repeat;
+					background-position-x: 50%;
+					background-size: contain;
+					border: none;
+					padding: 1rem;
+					text-align: center;
+					font-family: inherit;
+					margin: 0 auto;
+				}
+			}
+		}
+	}
 }
