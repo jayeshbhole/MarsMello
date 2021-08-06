@@ -7,7 +7,7 @@ function convert(i: i32): string {
 }
 
 export function handleLand(event: LandE): void {
-    let lid = convert(event.params.x) + "-" + convert(event.params.y);
+    let lid = convert(event.params.x) + "," + convert(event.params.y);
     let l = Land.load(lid);
     if (l == null) {
         l = new Land(lid);

@@ -10,7 +10,9 @@ const GET_LANDS_QUERY = gql`
 			id
 			x
 			y
-			owner
+			owner {
+				id
+			}
 			seed
 			factory {
 				id
@@ -51,7 +53,7 @@ const useGame = () => {
 	const calculateCentre = (top, left) => {
 		return [
 			Math.floor((-left - paddingSize + windowWidth / 2) / cellSize) - 10,
-			-Math.floor((-top - paddingSize + windowHeight / 2) / cellSize) + 10,
+			-Math.floor((-top - paddingSize + windowHeight / 2) / cellSize) + 10
 		];
 	};
 	const calculateCoOrdinates = (x, y) => {
@@ -94,7 +96,7 @@ const useGame = () => {
 		centreDelta: localCentreDelta,
 		xy: [chunkCentre[0] + localCentreDelta[1], chunkCentre[1] + localCentreDelta[1]],
 		backgroundColor: "white",
-		config: { restVelocity: 1, ...config.slow },
+		config: { restVelocity: 1, ...config.slow }
 	}));
 	const [miniMenuStyles, miniMenuApi] = useSpring(() => ({
 		width: cellSize,
@@ -102,7 +104,7 @@ const useGame = () => {
 		block: [0, 0],
 		top: centredGridOffsets[1],
 		left: centredGridOffsets[0],
-		display: "none",
+		display: "none"
 	}));
 	const dragBind = useDrag(
 		({ movement: [mx, my], tap, last }) => {
@@ -119,17 +121,17 @@ const useGame = () => {
 			miniMenuApi.set({
 				display: "none",
 				top: 0,
-				left: 0,
+				left: 0
 			});
 			centreApi.start({
 				top: my,
-				left: mx,
+				left: mx
 			});
 			const newCentreDelta = calculateCentre(top.goal, left.goal);
 			centreApi.set({
 				centreDelta: newCentreDelta,
 				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
-				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
+				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white"
 			});
 		},
 		{ initial: () => [left.get(), top.get()] }
@@ -138,7 +140,7 @@ const useGame = () => {
 	// Player Movements
 	const handleDragEnd = (draggedTop, draggedLeft) => {
 		if (isOutOfBounds(draggedTop, draggedLeft)) {
-			(async function () {
+			(async function() {
 				// Stall the dragging
 				setLoading(true);
 				while (true) {
@@ -150,29 +152,29 @@ const useGame = () => {
 				// Displacement of current centred block from the window centre
 				const displacement = [
 					draggedTop - (windowHeight / 2 + (newCentreDelta[1] - 15.5) * cellSize),
-					draggedLeft - (windowWidth / 2 - (newCentreDelta[0] + 15.5) * cellSize),
+					draggedLeft - (windowWidth / 2 - (newCentreDelta[0] + 15.5) * cellSize)
 				];
 				const newOffsets = [
 					centredGridOffsets[0] + displacement[0],
-					centredGridOffsets[1] + displacement[1],
+					centredGridOffsets[1] + displacement[1]
 				];
 
 				// Set the chunk centre to the block at the centre of the screen
 				setChunkCentre((curChunkCentre) => {
 					const newChunkCentre = [
 						newCentreDelta[0] + curChunkCentre[0],
-						newCentreDelta[1] + curChunkCentre[1],
+						newCentreDelta[1] + curChunkCentre[1]
 					];
 					// Reset Top, Left to adjust to grid centre
 					centreApi.set({
 						top: newOffsets[0],
-						left: newOffsets[1],
+						left: newOffsets[1]
 					});
 					return newChunkCentre;
 				});
 				centreApi.set({
 					centreDelta: [0, 0],
-					backgroundColor: "white",
+					backgroundColor: "white"
 				});
 				loadGridFromCentre(...chunkCentre);
 
@@ -186,7 +188,7 @@ const useGame = () => {
 			centreApi.set({
 				centreDelta: newCentreDelta,
 				backgroundColor: "white",
-				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
+				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]]
 			});
 			localStorage.setItem("top", draggedTop);
 			localStorage.setItem("left", draggedLeft);
@@ -198,17 +200,39 @@ const useGame = () => {
 	const [loadGrid, { loading: gridLoading, data: gridData }] = useLazyQuery(GET_LANDS_QUERY);
 
 	const loadGridFromCentre = (x, y) => {
-		loadGrid({ variables: { x1: x - 15, x2: x + 15, y1: y - 15, y2: y + 15 } });
+		loadGrid({ variables: { x1: x - 10, x2: x + 10, y1: y - 10, y2: y + 10 } });
 	};
 
+	const [grid, setGrid] = useState();
+
+	useEffect(() => {
+		if (gridData)
+			setGrid(() => {
+				console.log("new ", chunkCentre);
+
+				const newGrid = {};
+				for (const cell in gridData.lands) {
+					// console.log("cell ", cell);
+					newGrid[cell.id] = cell;
+				}
+				console.log(newGrid);
+				return newGrid;
+			});
+	}, [gridData]);
+
+	useEffect(() => {
+		console.log("Grid Data", gridData?.lands);
+	}, [gridData]);
+
 	const teleport = (x = 0, y = 0) => {
+		console.log("tp: ", chunkCentre);
 		loadGridFromCentre(...chunkCentre);
 		centreApi.set({
 			top: centredGridOffsets[0],
 			left: centredGridOffsets[1],
 			centreDelta: [0, 0],
 			xy: [x, y],
-			backgroundColor: "white",
+			backgroundColor: "white"
 		});
 		setChunkCentre([x, y]);
 		miniMenuApi.set({ display: "none" });
@@ -228,7 +252,7 @@ const useGame = () => {
 				display: "block",
 				block: block,
 				top: top.get() - menuCentre[1] + windowHeight / 2,
-				left: left.get() - menuCentre[0] + windowWidth / 2,
+				left: left.get() - menuCentre[0] + windowWidth / 2
 			});
 		}
 	};
@@ -257,7 +281,7 @@ const useGame = () => {
 		selectedBlock,
 		handlePlotClick,
 		handleMiniClick,
-		dragBind,
+		dragBind
 	};
 };
 
