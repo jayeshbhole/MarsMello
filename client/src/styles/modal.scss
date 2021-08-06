@@ -57,17 +57,29 @@
 					}
 				}
 			}
-			button {
-				cursor: pointer;
-				margin-top: 3rem;
-				background: url(../assets/img/forSell.png);
-				border: none;
-				background-repeat: no-repeat;
-				background-size: cover;
-				color: white;
-				font-family: inherit;
-				height: 4rem;
-				width: 10rem;
+			.btns {
+				button {
+					cursor: pointer;
+					margin-top: 3rem;
+					border: none;
+					color: white;
+					font-family: inherit;
+					height: 4rem;
+					width: 10rem;
+				}
+				.dc {
+					background: url(../assets/img/forSell.png);
+					background-repeat: no-repeat;
+					background-size: cover;
+				}
+				.change {
+					background: url(../assets/img/forBid.png);
+					background-repeat: no-repeat;
+					background-size: cover;
+					filter: hue-rotate(45deg);
+					color: black;
+					margin-left: 2rem;
+				}
 			}
 			.modal-bg {
 				background: rgba(black, 0.6);

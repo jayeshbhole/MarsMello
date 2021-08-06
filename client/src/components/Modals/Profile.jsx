@@ -28,7 +28,15 @@ const Profile = ({ avatar, setAvatar }) => {
 					{providerName}
 				</h1>
 			</div>
-			<button onClick={() => disconnectProvider()}>Disconnect Wallet</button>
+			<div className="btns">
+				<button className="dc" onClick={() => disconnectProvider()}>
+					Disconnect Wallet
+				</button>
+				<button className="change">
+					Change <br />
+					Wallet
+				</button>
+			</div>
 			{isSelectOpen && (
 				<MiniModal setIsMiniOpen={setIsSelectOpen}>
 					<span>Choose a avatar</span>
