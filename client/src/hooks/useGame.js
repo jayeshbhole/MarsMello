@@ -141,7 +141,6 @@ const useGame = () => {
 				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
 				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
 			});
-			loadGridFromCentre(...chunkCentre);
 		},
 		{ initial: () => [left.get(), top.get()] }
 	);
@@ -185,6 +184,8 @@ const useGame = () => {
 					centreDelta: [0, 0],
 					backgroundColor: "white",
 				});
+				loadGridFromCentre(...chunkCentre);
+
 				localStorage.setItem("top", newOffsets[0]);
 				localStorage.setItem("left", newOffsets[1]);
 				localStorage.setItem("centreDelta", [0, 0]);
