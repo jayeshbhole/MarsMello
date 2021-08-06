@@ -18,14 +18,14 @@ const App = () => {
 		xy,
 		chunkCentre,
 		miniMenuApi,
-		rows,
+		gridData,
 		isMiniOpen,
 		setIsMiniOpen,
 		miniModal,
 		selectedBlock,
 		handlePlotClick,
 		handleMiniClick,
-		dragBind,
+		dragBind
 	} = useGame();
 
 	return (
@@ -40,7 +40,7 @@ const App = () => {
 				<Grid
 					chunkCentre={chunkCentre}
 					dragBind={dragBind}
-					rows={rows}
+					gridData={gridData}
 					handlePlotClick={handlePlotClick}
 					cellSize={cellSize}
 					top={top}
@@ -66,6 +66,8 @@ const App = () => {
 
 // Game Grid Component
 const Grid = ({ chunkCentre, dragBind, gridData, handlePlotClick, top, left }) => {
+	// console.log(gridData);
+
 	const templateGridArray = Array.from({ length: 31 }, (_, y) => {
 		if (y < 5 || y >= 26)
 			return Array.from({ length: 31 }, (x) => {
@@ -74,7 +76,7 @@ const Grid = ({ chunkCentre, dragBind, gridData, handlePlotClick, top, left }) =
 		return Array.from({ length: 31 }, (_, x) => {
 			if (x < 5 || x >= 26)
 				return { cloud: true, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
-			return { seed: null, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
+			return { seed: -1, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
 		});
 	});
 

@@ -3,12 +3,14 @@ import { memo } from "react";
 
 const getImage = (cellData) => {
 	//
-	if (cellData.seed == 0) return "locked";
 	if (cellData.x == 0 && cellData.y == 0) return "spawn";
+	if (cellData.seed === -1) return "locked";
+
 	return `pixplot_${cellData.seed % 5}.png`;
 };
 // Cell
 const Plot = ({ handlePlotClick, cellData, block }) => {
+	// console.log(cellData);
 	const image = getImage(cellData);
 	return (
 		<div
