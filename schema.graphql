@@ -9,7 +9,7 @@ type User @entity {
     cu: BigInt
     au: BigInt
     ti: BigInt
-    lastclaimed: Int
+    lastclaimed: BigInt
     flows: [BigInt!]
 
     " Lands "

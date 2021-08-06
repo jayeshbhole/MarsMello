@@ -144,13 +144,21 @@ export class User extends Entity {
     }
   }
 
-  get lastclaimed(): i32 {
+  get lastclaimed(): BigInt | null {
     let value = this.get("lastclaimed");
-    return value.toI32();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  set lastclaimed(value: i32) {
-    this.set("lastclaimed", Value.fromI32(value));
+  set lastclaimed(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastclaimed");
+    } else {
+      this.set("lastclaimed", Value.fromBigInt(value as BigInt));
+    }
   }
 
   get flows(): Array<BigInt> | null {

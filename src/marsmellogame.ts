@@ -2,10 +2,15 @@ import { BigInt } from "@graphprotocol/graph-ts";
 import { MarsmelloGame, LandE, FactoryE, FactoryNameChange, Claim, FlowChange } from "../generated/MarsmelloGame/MarsmelloGame";
 import { User, Land, Factory } from "../generated/schema";
 
+function convert(i: i32): string {
+    return BigInt.fromI32(i).toString();
+}
+
 export function handleLand(event: LandE): void {
-    let l = Land.load(event.params.x.toString() + "-" + event.params.y.toString());
+    let lid = convert(event.params.x) + "-" + convert(event.params.y);
+    let l = Land.load(lid);
     if (l == null) {
-        l = new Land(event.params.x.toString() + "-" + event.params.y.toString());
+        l = new Land(lid);
         l.x = event.params.x;
         l.y = event.params.y;
         l.seed = event.params.seed;

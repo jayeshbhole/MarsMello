@@ -288,7 +288,7 @@ contract MarsmelloGame is Ownable {
         claimAll();
         Land storage l = lands[x][y];
         Factory storage f = factories[fid];
-        removeFactory(l.factory);
+        if (l.factory != 0) removeFactory(l.factory);
         removeFactory(fid);
 
         l.factory = fid;

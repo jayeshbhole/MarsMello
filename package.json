@@ -7,18 +7,19 @@
     "test": "test"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.2.0",
     "@graphprotocol/graph-cli": "0.21.1",
-    "@graphprotocol/graph-ts": "0.20.0"
+    "@graphprotocol/graph-ts": "0.20.0",
+    "@openzeppelin/contracts": "^4.2.0",
+    "@truffle/hdwallet-provider": "^1.4.2"
   },
-  "devDependencies": {},
   "scripts": {
+    "gcli":"ganache-cli -h 0.0.0.0 -s double tuition any buffalo exist orange faint piano carpet noise ill cable",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ mm",
-    "create-local": "graph create --node http://localhost:8020/ mm",
-    "remove-local": "graph remove --node http://localhost:8020/ mm",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 mm"
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ MarsMello",
+    "create-local": "graph create --node http://localhost:8020/ MarsMello",
+    "remove-local": "graph remove --node http://localhost:8020/ MarsMello",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 MarsMello"
   },
   "repository": {
     "type": "git",

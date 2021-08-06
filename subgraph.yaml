@@ -4,9 +4,9 @@ schema:
 dataSources:
     - kind: ethereum/contract
       name: MarsmelloGame
-      network: mumbai
+      network: mainnet
       source:
-          address: "0xc44Aa24eA4e0064c21594408352aA73CBaFb96A3"
+          address: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3"
           abi: MarsmelloGame
         #   startBlock: 0
       mapping:
@@ -34,9 +34,9 @@ dataSources:
           file: ./src/marsmellogame.ts
     - kind: ethereum/contract
       name: Marsmello
-      network: mumbai
+      network: mainnet
       source:
-          address: "0x578153Ff94CB6bcb57e818D77556798f203316f8"
+          address: "0xF60b076Df90D91aC384e717AF2D4B343bf2E24D6"
           abi: Marsmello
         #   startBlock: 0
       mapping:
@@ -54,9 +54,9 @@ dataSources:
           file: ./src/marsmello.ts
     - kind: ethereum/contract
       name: Iron
-      network: mumbai
+      network: mainnet
       source:
-          address: "0x578153Ff94CB6bcb57e818D77556798f203316f8"
+          address: "0x1228428beCE96df3748684af58487c456BB02bcC"
           abi: Iron
         #   startBlock: 0
       mapping:
@@ -74,9 +74,9 @@ dataSources:
           file: ./src/iron.ts
     - kind: ethereum/contract
       name: Aluminium
-      network: mumbai
+      network: mainnet
       source:
-          address: "0xF685c8BB6546D97EF005556f26e2d0B9c38A8552"
+          address: "0x27699e008f1D3F45Ba3feCB0f7BC84A913d84A37"
           abi: Aluminium
         #   startBlock: 0
       mapping:
@@ -94,9 +94,9 @@ dataSources:
           file: ./src/aluminium.ts
     - kind: ethereum/contract
       name: Copper
-      network: mumbai
+      network: mainnet
       source:
-          address: "0x1a89e482e4DEd08b76fA8dA129C4403F54F32772"
+          address: "0xe376e6534cC3175DE7434FbA07A034198e75BF19"
           abi: Copper
         #   startBlock: 0
       mapping:
@@ -114,9 +114,9 @@ dataSources:
           file: ./src/copper.ts
     - kind: ethereum/contract
       name: Gold
-      network: mumbai
+      network: mainnet
       source:
-          address: "0x05D2Fcc8A5d6b8934CB6B18Bf07EccDE6F63FC29"
+          address: "0xDAa51f753cDf95461479B33ba9a1F86C7206f1Bb"
           abi: Gold
         #   startBlock: 0
       mapping:
@@ -134,9 +134,9 @@ dataSources:
           file: ./src/gold.ts
     - kind: ethereum/contract
       name: Titanium
-      network: mumbai
+      network: mainnet
       source:
-          address: "0x1dC583282Ec83F2322f05dc68E7b0D1fCfc1776F"
+          address: "0x04b23c324eA361E96fd0F6173B7c8d8e242cAD71"
           abi: Titanium
         #   startBlock: 0
       mapping:

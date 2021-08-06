@@ -5,7 +5,7 @@ const Copper = artifacts.require("Copper");
 const Gold = artifacts.require("Gold");
 const Titanium = artifacts.require("Titanium");
 const Marsmello = artifacts.require("Marsmello");
-const MarsmelloGAme = artifacts.require("MarsmelloGame");
+const MarsmelloGame = artifacts.require("MarsmelloGame");
 
 module.exports = async function(deployer) {
     await deployer.deploy(Migrations);
@@ -42,4 +42,12 @@ module.exports = async function(deployer) {
     await cu.setMasterContract(mmg.address);
     await au.setMasterContract(mmg.address);
     await ti.setMasterContract(mmg.address);
+    await mm.setMasterContract(mmg.address);
+    console.log("MarsmelloGame:     ", mmg.address);
+    console.log("Marsmello:         ", mm.address);
+    console.log("Iron:              ", fe.address);
+    console.log("Aluminium:         ", al.address);
+    console.log("Copper:            ", cu.address);
+    console.log("Gold:              ", au.address);
+    console.log("Titanium:          ", ti.address);
 };
