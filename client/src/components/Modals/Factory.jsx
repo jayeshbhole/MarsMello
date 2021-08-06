@@ -48,7 +48,9 @@ const Factory = () => {
 								<span className="y-value value">5</span>
 							</div>
 							<div className="btns">
-								<button className="sell">Sell</button>
+								<button className="sell" title="Sell the factory">
+									Sell
+								</button>
 								<button className="place">Place</button>
 							</div>
 						</section>
