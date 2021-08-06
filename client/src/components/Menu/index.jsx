@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
+
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
 import BottomBar from "./BottomBar";
-import "../../styles/menu.scss";
-import { animated } from "@react-spring/web";
 import Modal from "../Modals/index";
 import Profile from "../Modals/Profile";
 import Plots from "../Modals/Plots";
@@ -11,16 +10,21 @@ import Factory from "../Modals/Factory";
 import Resources from "../Modals/Resources";
 import MiniModal from "../MiniModals";
 
+import "../../styles/menu.scss";
+
+const MemoisedBottomBar = memo(BottomBar);
+const MemoisedTopBar = memo(TopBar);
+
 const Menu = ({ xy, teleport }) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [modalVisible, setModalVisible] = useState(false);
 	const [avatar, setAvatar] = useState(0);
-	const [x, setX] = useState();
-	const [y, setY] = useState();
+	const [x, setX] = useState("");
+	const [y, setY] = useState("");
 	const [isTeleModal, setIsTeleModal] = useState(false);
 	const [modal, setModal] = useState("");
 
 	const handleClick = (e) => {
-		setIsOpen(true);
+		setModalVisible(true);
 		setModal(e.target.id);
 	};
 
@@ -28,35 +32,30 @@ const Menu = ({ xy, teleport }) => {
 		e.preventDefault();
 		teleport(x, y);
 		setIsTeleModal(false);
-		setX();
-		setY();
-		// console.log(x, y, typeof x, typeof y);
+		setX("");
+		setY("");
 	};
 
 	return (
-		<animated.div className="menu">
-			<TopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
-			<BottomBar xy={xy} setModal={setIsTeleModal} />
+		<div className="menu">
+			<MemoisedTopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
+			<MemoisedBottomBar xy={xy} setModal={setIsTeleModal} />
 			<SideBar handleClick={handleClick} avatar={avatar} />
-
 			{/* Modals */}
-			{isOpen && (
-				<Modal setIsOpen={setIsOpen}>
-					<div className="content">
-						{modal === "profile" && <Profile avatar={avatar} setAvatar={setAvatar} />}
-						{modal === "factory" && <Factory />}
-						{modal === "resos" && <Resources />}
-						{modal === "plots" && <Plots />}
-					</div>
+			{modalVisible && (
+				<Modal modalVisible={modalVisible} setIsOpen={setModalVisible}>
+					<Profile avatar={avatar} setAvatar={setAvatar} />
+					{modal === "factory" && <Factory />}
+					{modal === "resos" && <Resources />}
+					{modal === "plots" && <Plots />}
 				</Modal>
 			)}
-
-			{/* Teleport Modal */}
+			){/* Teleport Modal */}
 			{isTeleModal && (
 				<MiniModal setIsMiniOpen={setIsTeleModal}>
 					<form>
 						<div className="x input">
-							<label for="x">X: </label>
+							<label>X: </label>
 							<input
 								type="number"
 								id="x"
@@ -67,7 +66,7 @@ const Menu = ({ xy, teleport }) => {
 							/>
 						</div>
 						<div className="y input">
-							<label for="y">Y: </label>
+							<label>Y: </label>
 							<input
 								type="number"
 								id="y"
@@ -87,7 +86,7 @@ const Menu = ({ xy, teleport }) => {
 					</form>
 				</MiniModal>
 			)}
-		</animated.div>
+		</div>
 	);
 };
 
