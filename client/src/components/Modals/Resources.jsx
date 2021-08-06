@@ -6,7 +6,8 @@ const Factory = () => {
 			<h1>Resources</h1>
 			<div className="content">
 				<div className="container">
-					<button>Collect all Resources</button>
+					<button>Claim all Resources</button>
+					<span>last claimed 1hr ago</span>
 				</div>
 				<h3>Your Resources</h3>
 				<main>

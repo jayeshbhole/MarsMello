@@ -47,7 +47,10 @@ const Factory = () => {
 								<span className="y-label label">Y:</span>
 								<span className="y-value value">5</span>
 							</div>
-							<button className="sell">Sell</button>
+							<div className="btns">
+								<button className="sell">Sell</button>
+								<button className="place">Place</button>
+							</div>
 						</section>
 					</Card>
 				</div>

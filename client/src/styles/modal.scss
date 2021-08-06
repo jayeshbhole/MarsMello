@@ -204,11 +204,23 @@
 							background-position-y: 0.65rem;
 							background-size: contain;
 						}
-						.sell {
-							background: url(../assets/img/forSell.png);
-							background-repeat: no-repeat;
-							background-position-y: 0.5rem;
-							background-size: contain;
+						.btns {
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+							.sell {
+								background: url(../assets/img/forSell.png);
+								background-repeat: no-repeat;
+								background-position-y: 0.5rem;
+								background-size: contain;
+							}
+							.place {
+								background: url(../assets/img/forBid.png);
+								background-repeat: no-repeat;
+								background-position-y: 0.4rem;
+								background-size: contain;
+								margin-left: 1rem;
+							}
 						}
 						.ore {
 							overflow-y: hidden;
@@ -280,7 +292,7 @@
 						align-items: center;
 						font-size: 2rem;
 						.item {
-							margin-top: 2rem;
+							margin-top: 1.75rem;
 						}
 					}
 					.others {
@@ -323,10 +335,11 @@
 				}
 				.container {
 					display: flex;
-					justify-content: center;
+					flex-direction: column;
+					justify-content: space-around;
 					align-items: center;
-					margin-bottom: 3rem;
-
+					padding-bottom: 3rem;
+					border-bottom: 1px solid rgba(white, 0.3);
 					button {
 						text-align: center;
 						background: url(../assets/img/forBuy.png);
@@ -338,6 +351,10 @@
 						padding: 1rem;
 						font-size: 1.5rem;
 						font-family: inherit;
+					}
+					span {
+						font-size: 0.8rem;
+						color: rgba(white, 0.4);
 					}
 				}
 			}
