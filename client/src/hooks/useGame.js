@@ -231,6 +231,7 @@ const useGame = () => {
 	// Event Handlers
 	const handlePlotClick = (block, id) => {
 		if (top.idle && left.idle) {
+			console.log(block);
 			// Centre Menu at these Co-ordinates
 			const menuCentre = calculateCoOrdinates(block[0], block[1]);
 			setSelectedBlock(block);

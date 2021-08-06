@@ -68,12 +68,12 @@ const App = () => {
 const Grid = ({ chunkCentre, dragBind, gridData, handlePlotClick, top, left }) => {
 	const templateGridArray = Array.from({ length: 31 }, (_, y) => {
 		if (y < 5 || y >= 26)
-			return Array.from({ length: 31 }, () => {
-				return { seed: -1 };
+			return Array.from({ length: 31 }, (x) => {
+				return { seed: -1, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
 			});
 		return Array.from({ length: 31 }, (_, x) => {
 			if (x < 5 || x >= 26) return { seed: -1 };
-			return { seed: 0 };
+			return { seed: 0, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
 		});
 	});
 
@@ -92,7 +92,7 @@ const Grid = ({ chunkCentre, dragBind, gridData, handlePlotClick, top, left }) =
 												`${-row_ind + 15 + chunkCentre[1]}`
 											] || cell
 										}
-										block={[col_ind, row_ind]}
+										block={[col_ind - 15 + chunkCentre[0], -row_ind + 15 + chunkCentre[1]]}
 										key={[col_ind, row_ind]}
 									/>
 								) : (

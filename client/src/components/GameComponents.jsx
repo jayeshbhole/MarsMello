@@ -22,7 +22,7 @@ const Plot = ({ handlePlotClick, cellData, block }) => {
 					alt="spawn.png"
 				/>
 			)}
-			{/* <h1>{cell.toString()}</h1> */}
+			<h1>{[cellData.x, cellData.y].toString()}</h1>
 		</div>
 	);
 };
