@@ -44,7 +44,7 @@ const Menu = ({ xy, teleport }) => {
 			{/* Modals */}
 			{modalVisible && (
 				<Modal modalVisible={modalVisible} setIsOpen={setModalVisible}>
-					<Profile avatar={avatar} setAvatar={setAvatar} />
+					{modal === "profile" && <Profile avatar={avatar} setAvatar={setAvatar} />}
 					{modal === "factory" && <Factory />}
 					{modal === "resos" && <Resources />}
 					{modal === "plots" && <Plots />}
