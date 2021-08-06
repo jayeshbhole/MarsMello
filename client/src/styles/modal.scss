@@ -17,8 +17,6 @@
 			background: none;
 			border: none;
 			position: absolute;
-			right: 5vw;
-			top: 4vh;
 			right: 5%;
 			top: 5%;
 			font-family: inherit;
@@ -97,8 +95,6 @@
 					align-items: center;
 					.close {
 						background: none;
-						top: -2.5rem;
-						right: -1rem;
 						top: 10%;
 						right: 10%;
 						font-size: 1.2rem;
@@ -116,7 +112,7 @@
 						width: 90%;
 						height: 70%;
 						display: flex;
-						img {
+						.img-btn {
 							align-self: center;
 							cursor: pointer;
 							width: 20%;

@@ -25,11 +25,11 @@
 		bottom: 50%;
 		right: 0;
 		background-position: 100%;
-		img {
+		.img-btn {
 			margin-left: -1rem;
-			cursor: pointer;
-			width: 5rem;
-			height: 5rem;
+		}
+		.hover-info::before {
+			right: 2rem !important;
 		}
 	}
 	.topbar {
@@ -131,11 +131,18 @@
 			font-size: 1.5rem;
 			margin-top: 0.5rem;
 		}
-		#teleport {
-			height: 2.5rem;
+		.img-btn {
 			margin-top: 0.25rem;
 			margin-left: 1rem;
-			cursor: pointer;
+			img {
+				height: 2.5rem;
+				width: 2.5rem;
+
+				cursor: pointer;
+			}
+		}
+		.hover-info::before {
+			top: 2rem;
 		}
 	}
 }

@@ -116,36 +116,68 @@ body {
 		transform: translate(-50%, -50%);
 	}
 	.btns {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		.btn {
+		img {
 			cursor: pointer;
 			position: absolute;
-			width: 35%;
-			height: 35%;
+			width: 4rem;
+			height: 4rem;
 		}
 		#buy,
 		#sell {
-			top: -15%;
+			top: -6%;
 			left: -7%;
 		}
 		#info {
-			top: -15%;
+			top: -6%;
 			right: -7%;
 		}
 		#exit {
-			bottom: 17%;
-			right: -20%;
+			bottom: -6%;
+			right: -7%;
 		}
 		#add,
 		#rmv {
-			bottom: 17%;
-			left: -20%;
+			bottom: -6%;
+			left: -7%;
 		}
-		.meta {
-			bottom: -24%;
-			left: 32%;
-		}
+	}
+}
+.hover-info {
+	&::before {
+		content: attr(data-tooltip);
+		position: absolute;
+		bottom: 1rem;
+		background: $color-modal-bg;
+		border: 1px ridge $color-modal-border;
+		color: white;
+		padding: 0.8rem;
+		border-radius: 0.25rem;
+		transition: all 200ms ease-in;
+		opacity: 0;
+		pointer-events: none;
+	}
+	&:hover::before {
+		opacity: 1;
+		right: 3.5rem;
+	}
+}
+.hover-info {
+	&::before {
+		content: "data-name";
+		position: absolute;
+		width: fit-content;
+		bottom: 1rem;
+		background: darkblue; //$color-modal-bg
+		border: 1px ridge $color-modal-border;
+		color: white;
+		padding: 0.5rem;
+		border-radius: 0.25rem;
+		transition: all 200ms ease-in;
+		opacity: 0;
+		pointer-events: none;
+		font-size: 0.8rem;
+	}
+	&:hover::before {
+		opacity: 1;
 	}
 }

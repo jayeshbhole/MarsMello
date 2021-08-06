@@ -1,0 +1,12 @@
+.img-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	height: fit-content;
+	img {
+		cursor: pointer;
+		width: 5rem;
+		height: 5rem;
+	}
+}

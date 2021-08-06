@@ -1,36 +1,37 @@
 import React from "react";
+import ImgButton from "../Auxillary/ImgButton";
 
 const SideBar = ({ handleClick, avatar }) => {
 	return (
 		<div className="sidebar bar">
-			<img
+			<ImgButton
 				id="profile"
+				className="profile"
 				onClick={(e) => handleClick(e)}
-				draggable="false"
 				src={`./assets/avatars/avatars${avatar}.png`}
 				alt="Profile Button"
 			/>
 
-			<img
+			<ImgButton
 				id="factory"
+				className="hover-info"
 				onClick={(e) => handleClick(e)}
-				draggable="false"
 				src="./assets/img/factory.png"
 				alt="Factory Button"
 			/>
 
-			<img
+			<ImgButton
 				id="resos"
+				className="hover-info"
 				onClick={(e) => handleClick(e)}
-				draggable="false"
 				src="./assets/img/miner.png"
 				alt="Miner Button"
 			/>
 
-			<img
+			<ImgButton
 				id="plots"
+				className="hover-info"
 				onClick={(e) => handleClick(e)}
-				draggable="false"
 				src="./assets/img/plots.png"
 				alt="Plots Button"
 			/>

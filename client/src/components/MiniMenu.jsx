@@ -1,5 +1,6 @@
 import { animated } from "@react-spring/web";
 import React, { useState } from "react";
+import ImgButton from "./Auxillary/ImgButton";
 
 const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 	const closeMiniMenu = () => {
@@ -12,52 +13,45 @@ const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 			<img className="ring" draggable="false" src="./assets/img/circle.png" alt="circle" />
 			<span id="label">{selectedBlock.toString()}</span>
 			<div className="btns">
-				<img
+				<ImgButton
 					id="buy"
-					className="btn"
-					draggable="false"
+					className="buy"
 					src="./assets/img/plot-buy-v3.png"
 					alt="buy-land-button"
 					onClick={openMini}
 				/>
-				{/* <img
+				{/* <ImgButton
 					id="sell"
-					className="btn"
-					draggable="false"
+					className="sell"
 					src="./assets/img/plot-sell-v3.png"
 					alt="buy-land-button"
 					onClick={openMini}
 				/> */}
-				<img
+				<ImgButton
 					onClick={closeMiniMenu}
 					id="exit"
-					className="exit btn"
-					draggable="false"
+					className="exit"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="remove-factory-button"
 					// onClick={}
 				/>
-				{/* <img
+				{/* <ImgButton
 					id="rmv"
-					className="btn"
-					draggable="false"
+					className="rmv"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="sell-land-button"
 					onClick={openMini}
 				/> */}
-				<img
+				<ImgButton
 					id="info"
-					className="btn"
-					draggable="false"
+					className="info"
 					src="./assets/img/plot-info-v3.png"
 					alt="info-land-button"
 					onClick={openMini}
 				/>
-				<div className="meta btn" />
-				<img
+				<ImgButton
 					id="add"
-					className="btn"
-					draggable="false"
+					className="add"
 					src="./assets/img/fact-add.png"
 					alt="info-land-button"
 					onClick={openMini}

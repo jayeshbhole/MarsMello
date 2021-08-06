@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 // profile context
 import { Web3Context } from "../../context/Web3Context";
 import MiniModal from "../MiniModals/index";
+import ImgButton from "../Auxillary/ImgButton";
 
 const Profile = ({ avatar, setAvatar }) => {
 	const { account, providerName, disconnectProvider } = useContext(Web3Context);
@@ -41,7 +42,9 @@ const Profile = ({ avatar, setAvatar }) => {
 				<MiniModal setIsMiniOpen={setIsSelectOpen}>
 					<span>Choose a avatar</span>
 					<div className="options">
-						<img
+						<ImgButton
+							data-name="Satoshi"
+							className="hover-info"
 							onClick={() => {
 								setAvatar(0);
 								setIsSelectOpen(false);
@@ -49,7 +52,9 @@ const Profile = ({ avatar, setAvatar }) => {
 							src="./assets/avatars/avatars0.png"
 							alt="avatarOne"
 						/>
-						<img
+						<ImgButton
+							data-name="Jeff"
+							className="hover-info"
 							onClick={() => {
 								setAvatar(1);
 								setIsSelectOpen(false);
@@ -57,7 +62,9 @@ const Profile = ({ avatar, setAvatar }) => {
 							src="./assets/avatars/avatars1.png"
 							alt="avatarTwo"
 						/>
-						<img
+						<ImgButton
+							data-name="Biju"
+							className="hover-info"
 							onClick={() => {
 								setAvatar(2);
 								setIsSelectOpen(false);
@@ -65,7 +72,9 @@ const Profile = ({ avatar, setAvatar }) => {
 							src="./assets/avatars/avatars2.png"
 							alt="avatarThree"
 						/>
-						<img
+						<ImgButton
+							data-name="Vitalik"
+							className="hover-info"
 							onClick={() => {
 								setAvatar(3);
 								setIsSelectOpen(false);
@@ -73,7 +82,9 @@ const Profile = ({ avatar, setAvatar }) => {
 							src="./assets/avatars/avatars3.png"
 							alt="avatarFour"
 						/>
-						<img
+						<ImgButton
+							data-name="Elon"
+							className="hover-info"
 							onClick={() => {
 								setAvatar(4);
 								setIsSelectOpen(false);
