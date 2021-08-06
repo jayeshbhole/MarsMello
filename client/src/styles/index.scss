@@ -144,30 +144,11 @@ body {
 }
 .hover-info {
 	&::before {
-		content: attr(data-tooltip);
-		position: absolute;
-		bottom: 1rem;
-		background: $color-modal-bg;
-		border: 1px ridge $color-modal-border;
-		color: white;
-		padding: 0.8rem;
-		border-radius: 0.25rem;
-		transition: all 200ms ease-in;
-		opacity: 0;
-		pointer-events: none;
-	}
-	&:hover::before {
-		opacity: 1;
-		right: 3.5rem;
-	}
-}
-.hover-info {
-	&::before {
 		content: attr(data-name);
 		position: absolute;
 		width: fit-content;
 		bottom: 1rem;
-		background: darkblue; //$color-modal-bg
+		background: $color-modal-bg;
 		border: 1px ridge $color-modal-border;
 		color: white;
 		padding: 0.5rem;

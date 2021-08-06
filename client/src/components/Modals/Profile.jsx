@@ -43,7 +43,7 @@ const Profile = ({ avatar, setAvatar }) => {
 					<span>Choose a avatar</span>
 					<div className="options">
 						<ImgButton
-							data-name="Satoshi"
+							dataname="Satoshi"
 							onClick={() => {
 								setAvatar(0);
 								setIsSelectOpen(false);
@@ -52,7 +52,7 @@ const Profile = ({ avatar, setAvatar }) => {
 							alt="avatar Satoshi"
 						/>
 						<ImgButton
-							data-name="Jeff"
+							dataname="Jeff"
 							onClick={() => {
 								setAvatar(1);
 								setIsSelectOpen(false);
@@ -61,7 +61,7 @@ const Profile = ({ avatar, setAvatar }) => {
 							alt="avatar Jeff"
 						/>
 						<ImgButton
-							data-name="Biju"
+							dataname="Biju"
 							onClick={() => {
 								setAvatar(2);
 								setIsSelectOpen(false);
@@ -70,7 +70,7 @@ const Profile = ({ avatar, setAvatar }) => {
 							alt="avatar Biju"
 						/>
 						<ImgButton
-							data-name="Vitalik"
+							dataname="Vitalik"
 							onClick={() => {
 								setAvatar(3);
 								setIsSelectOpen(false);
@@ -79,7 +79,7 @@ const Profile = ({ avatar, setAvatar }) => {
 							alt="avatar Vitalik"
 						/>
 						<ImgButton
-							data-name="Elon"
+							dataname="Elon"
 							onClick={() => {
 								setAvatar(4);
 								setIsSelectOpen(false);

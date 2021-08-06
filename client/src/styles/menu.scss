@@ -29,7 +29,9 @@
 			margin-left: -1rem;
 		}
 		.hover-info::before {
-			right: 2rem !important;
+			right: calc(5.5rem + 5%);
+			top: 30%;
+			bottom: auto !important;
 		}
 	}
 	.topbar {
@@ -137,12 +139,11 @@
 			img {
 				height: 2.5rem;
 				width: 2.5rem;
-
 				cursor: pointer;
 			}
 		}
 		.hover-info::before {
-			top: 2rem;
+			bottom: calc(3.5rem + 10%) !important;
 		}
 	}
 }

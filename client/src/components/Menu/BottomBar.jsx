@@ -10,7 +10,7 @@ const BottomBar = ({ xy, setModal }) => {
 			</div>
 			<ImgButton
 				id="teleport"
-				data-name="Teleport"
+				dataname="Teleport"
 				className="teleport"
 				src="./assets/img/teleport.png"
 				alt="teleport"
