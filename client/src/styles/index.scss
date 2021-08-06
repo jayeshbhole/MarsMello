@@ -163,7 +163,7 @@ body {
 }
 .hover-info {
 	&::before {
-		content: "data-name";
+		content: attr(data-name);
 		position: absolute;
 		width: fit-content;
 		bottom: 1rem;

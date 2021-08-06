@@ -15,6 +15,7 @@ const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 			<div className="btns">
 				<ImgButton
 					id="buy"
+					data-name="But Land"
 					className="buy"
 					src="./assets/img/plot-buy-v3.png"
 					alt="buy-land-button"
@@ -22,6 +23,7 @@ const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 				/>
 				{/* <ImgButton
 					id="sell"
+					data-name="Sell Land"
 					className="sell"
 					src="./assets/img/plot-sell-v3.png"
 					alt="buy-land-button"
@@ -30,6 +32,7 @@ const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 				<ImgButton
 					onClick={closeMiniMenu}
 					id="exit"
+					data-name="Exit Menu"
 					className="exit"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="remove-factory-button"
@@ -37,6 +40,7 @@ const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 				/>
 				{/* <ImgButton
 					id="rmv"
+					data-name="Remove Factory"
 					className="rmv"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="sell-land-button"
@@ -44,6 +48,7 @@ const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 				/> */}
 				<ImgButton
 					id="info"
+					data-name="Info"
 					className="info"
 					src="./assets/img/plot-info-v3.png"
 					alt="info-land-button"
@@ -51,6 +56,7 @@ const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
 				/>
 				<ImgButton
 					id="add"
+					data-name="Place Factory"
 					className="add"
 					src="./assets/img/fact-add.png"
 					alt="info-land-button"

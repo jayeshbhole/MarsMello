@@ -6,6 +6,7 @@ const SideBar = ({ handleClick, avatar }) => {
 		<div className="sidebar bar">
 			<ImgButton
 				id="profile"
+				data-name="Profile"
 				className="profile"
 				onClick={(e) => handleClick(e)}
 				src={`./assets/avatars/avatars${avatar}.png`}
@@ -14,7 +15,8 @@ const SideBar = ({ handleClick, avatar }) => {
 
 			<ImgButton
 				id="factory"
-				className="hover-info"
+				data-name="Factory"
+				className="factory"
 				onClick={(e) => handleClick(e)}
 				src="./assets/img/factory.png"
 				alt="Factory Button"
@@ -22,7 +24,8 @@ const SideBar = ({ handleClick, avatar }) => {
 
 			<ImgButton
 				id="resos"
-				className="hover-info"
+				data-name="Resources"
+				className="resos"
 				onClick={(e) => handleClick(e)}
 				src="./assets/img/miner.png"
 				alt="Miner Button"
@@ -30,7 +33,8 @@ const SideBar = ({ handleClick, avatar }) => {
 
 			<ImgButton
 				id="plots"
-				className="hover-info"
+				data-name="Plots"
+				className="plots"
 				onClick={(e) => handleClick(e)}
 				src="./assets/img/plots.png"
 				alt="Plots Button"

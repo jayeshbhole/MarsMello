@@ -44,53 +44,48 @@ const Profile = ({ avatar, setAvatar }) => {
 					<div className="options">
 						<ImgButton
 							data-name="Satoshi"
-							className="hover-info"
 							onClick={() => {
 								setAvatar(0);
 								setIsSelectOpen(false);
 							}}
 							src="./assets/avatars/avatars0.png"
-							alt="avatarOne"
+							alt="avatar Satoshi"
 						/>
 						<ImgButton
 							data-name="Jeff"
-							className="hover-info"
 							onClick={() => {
 								setAvatar(1);
 								setIsSelectOpen(false);
 							}}
 							src="./assets/avatars/avatars1.png"
-							alt="avatarTwo"
+							alt="avatar Jeff"
 						/>
 						<ImgButton
 							data-name="Biju"
-							className="hover-info"
 							onClick={() => {
 								setAvatar(2);
 								setIsSelectOpen(false);
 							}}
 							src="./assets/avatars/avatars2.png"
-							alt="avatarThree"
+							alt="avatar Biju"
 						/>
 						<ImgButton
 							data-name="Vitalik"
-							className="hover-info"
 							onClick={() => {
 								setAvatar(3);
 								setIsSelectOpen(false);
 							}}
 							src="./assets/avatars/avatars3.png"
-							alt="avatarFour"
+							alt="avatar Vitalik"
 						/>
 						<ImgButton
 							data-name="Elon"
-							className="hover-info"
 							onClick={() => {
 								setAvatar(4);
 								setIsSelectOpen(false);
 							}}
 							src="./assets/avatars/avatars4.png"
-							alt="avatarFive"
+							alt="avatar Elon"
 						/>
 					</div>
 				</MiniModal>

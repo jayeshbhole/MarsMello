@@ -10,7 +10,8 @@ const BottomBar = ({ xy, setModal }) => {
 			</div>
 			<ImgButton
 				id="teleport"
-				className="hover-info"
+				data-name="Teleport"
+				className="teleport"
 				src="./assets/img/teleport.png"
 				alt="teleport"
 				onClick={() => setModal(true)}
