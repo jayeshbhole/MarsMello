@@ -20,7 +20,7 @@ const SideBar = ({ handleClick, avatar }) => {
 			/>
 
 			<img
-				id="miner"
+				id="resos"
 				onClick={(e) => handleClick(e)}
 				draggable="false"
 				src="./assets/img/miner.png"

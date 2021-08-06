@@ -188,8 +188,6 @@ const useGame = () => {
 
 	// Misc Functions
 	const teleport = (x = 0, y = 0) => {
-		setLoading(true);
-		setChunkCentre([x, y]);
 		centreApi.set({
 			top: centredGridOffsets[0],
 			left: centredGridOffsets[1],
@@ -197,7 +195,9 @@ const useGame = () => {
 			xy: [x, y],
 			backgroundColor: "white",
 		});
+		setChunkCentre([x, y]);
 		miniMenuApi.set({ display: "none" });
+
 		localStorage.setItem("top", centredGridOffsets[0]);
 		localStorage.setItem("left", centredGridOffsets[1]);
 		localStorage.setItem("centreDelta", [0, 0]);
