@@ -1,19 +1,38 @@
 import { useState, useEffect } from "react";
 import { useDrag } from "react-use-gesture";
 import { useSpring, config } from "@react-spring/web";
+import { useQuery, useLazyQuery, gql } from "@apollo/client";
 
+// Queries
+const GET_LANDS_QUERY = gql`
+	query GetLands($x1: Int!, $x2: Int!, $y1: Int!, $y2: Int!) {
+		lands(where: { x_gte: $x1, x_lte: $x2, y_gte: $y1, y_lte: $y2 }) {
+			id
+			x
+			y
+			owner
+			seed
+			factory {
+				id
+				type
+			}
+		}
+	}
+`;
+
+// Utils
 function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const calculateGrid = (hk, chunkCentre) => {
-	return Array.from({ length: 31 }, (_, y) => {
-		if (y < 5 || y >= 26) return Array.from({ length: 31 }, () => [1]);
-		return Array.from({ length: 31 }, (_, x) => {
-			if (x < 5 || x >= 26) return [1];
-			return [x - hk[0] + chunkCentre[0], -y + hk[1] + chunkCentre[1]];
-		});
-	});
+// Placeholders
+const placeHolderLandData = {
+	id: null,
+	x: 0,
+	y: 0,
+	owner: null,
+	factory: null,
+	seed: null,
 };
 
 const useGame = () => {
@@ -27,7 +46,6 @@ const useGame = () => {
 	const [isMiniOpen, setIsMiniOpen] = useState(false);
 	const [miniModal, setMiniModal] = useState("");
 
-	const hk = [15, 15];
 	const centredGridOffsets = [-((gridSize - windowHeight) / 2), -((gridSize - windowWidth) / 2)];
 
 	const localTop = parseFloat(localStorage.getItem("top")) || centredGridOffsets[0];
@@ -38,23 +56,6 @@ const useGame = () => {
 		.getItem("centreDelta")
 		?.split(",")
 		.map((v, _) => parseInt(v)) || [0, 0];
-
-	// Centre of the loaded chunk
-	const [chunkCentre, setChunkCentre] = useState(
-		localStorage
-			.getItem("chunkCentre")
-			?.split(",")
-			.map((v) => parseInt(v)) || [0, 0]
-	);
-	// Grid
-	const [rows, setRows] = useState(calculateGrid(hk, chunkCentre));
-	const [loading, setLoading] = useState(false);
-	const [selectedBlock, setSelectedBlock] = useState(
-		localStorage
-			.getItem("chunkCentre")
-			?.split(",")
-			.map((v) => parseInt(v)) || [0, 0]
-	);
 
 	// Utility Functions
 	const calculateCentre = (top, left) => {
@@ -74,10 +75,25 @@ const useGame = () => {
 		return false;
 	};
 
+	// Centre of the loaded chunk
+	const [chunkCentre, setChunkCentre] = useState(
+		localStorage
+			.getItem("chunkCentre")
+			?.split(",")
+			.map((v) => parseInt(v)) || [0, 0]
+	);
+	// Grid
+	const [loading, setLoading] = useState(false);
+	const [selectedBlock, setSelectedBlock] = useState(
+		localStorage
+			.getItem("chunkCentre")
+			?.split(",")
+			.map((v) => parseInt(v)) || [0, 0]
+	);
+
 	// HOOKS
 	useEffect(() => {
 		localStorage.setItem("chunkCentre", chunkCentre);
-		setRows(calculateGrid(hk, chunkCentre));
 		setLoading(false);
 	}, [chunkCentre]);
 
@@ -125,6 +141,7 @@ const useGame = () => {
 				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
 				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
 			});
+			loadGridFromCentre(...chunkCentre);
 		},
 		{ initial: () => [left.get(), top.get()] }
 	);
@@ -187,7 +204,14 @@ const useGame = () => {
 	};
 
 	// Misc Functions
+	const [loadGrid, { loading: gridLoading, data: gridData }] = useLazyQuery(GET_LANDS_QUERY);
+
+	const loadGridFromCentre = (x, y) => {
+		loadGrid({ variables: { x1: x - 15, x2: x + 15, y1: y - 15, y2: y + 15 } });
+	};
+
 	const teleport = (x = 0, y = 0) => {
+		loadGridFromCentre(...chunkCentre);
 		centreApi.set({
 			top: centredGridOffsets[0],
 			left: centredGridOffsets[1],
@@ -235,7 +259,7 @@ const useGame = () => {
 		backgroundColor,
 		miniMenuApi,
 		cellSize,
-		rows,
+		gridData,
 		isMiniOpen,
 		setIsMiniOpen,
 		miniModal,

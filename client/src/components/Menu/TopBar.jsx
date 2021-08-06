@@ -3,17 +3,13 @@ import { Web3Context } from "../../context/Web3Context";
 import manageNumbers from "../../utils/manageNumbers";
 
 const TopBar = () => {
-	const {
-		account,
-		getWeb3ModalProvider,
-		balances: { FE, AU, TI, CU, AL, MLO },
-	} = useContext(Web3Context);
+	const { account, getWeb3ModalProvider, balances } = useContext(Web3Context);
 
 	return (
 		<div className="topbar bar">
 			<div className="item Fe">
 				<div className="value">
-					<h1>{manageNumbers(FE)}</h1>
+					<h1>{manageNumbers(balances?.fe)}</h1>
 				</div>
 				<div className="key">
 					<h3>Fe</h3>
@@ -21,7 +17,7 @@ const TopBar = () => {
 			</div>
 			<div className="item Au">
 				<div className="value">
-					<h1>{manageNumbers(AU)}</h1>
+					<h1>{manageNumbers(balances?.au)}</h1>
 				</div>
 				<div className="key">
 					<h3>Au</h3>
@@ -29,7 +25,7 @@ const TopBar = () => {
 			</div>
 			<div className="item Ti">
 				<div className="value">
-					<h1>{manageNumbers(TI)}</h1>
+					<h1>{manageNumbers(balances?.ti)}</h1>
 				</div>
 				<div className="key">
 					<h3>Ti</h3>
@@ -37,7 +33,7 @@ const TopBar = () => {
 			</div>
 			<div className="item Cu">
 				<div className="value">
-					<h1>{manageNumbers(CU)}</h1>
+					<h1>{manageNumbers(balances?.cu)}</h1>
 				</div>
 				<div className="key">
 					<h3>Cu</h3>
@@ -45,7 +41,7 @@ const TopBar = () => {
 			</div>
 			<div className="item Al">
 				<div className="value">
-					<h1>{manageNumbers(AL)}</h1>
+					<h1>{manageNumbers(balances?.al)}</h1>
 				</div>
 				<div className="key">
 					<h3>Al</h3>
@@ -58,7 +54,7 @@ const TopBar = () => {
 					<span className="cta">
 						<span className="bal">Balance</span>
 						<span className="main">
-							{manageNumbers(MLO)}
+							{manageNumbers(balances?.mlo)}
 							<span>MLO</span>
 						</span>
 					</span>

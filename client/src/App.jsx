@@ -14,10 +14,9 @@ const App = () => {
 		top,
 		left,
 		cellSize,
-		// centreDelta,
 		miniMenuStyles,
 		xy,
-		// backgroundColor,
+		chunkCentre,
 		miniMenuApi,
 		rows,
 		isMiniOpen,
@@ -39,6 +38,7 @@ const App = () => {
 				}`}
 				</style>
 				<Grid
+					chunkCentre={chunkCentre}
 					dragBind={dragBind}
 					rows={rows}
 					handlePlotClick={handlePlotClick}
@@ -63,19 +63,40 @@ const App = () => {
 		</Web3ContextProvider>
 	);
 };
+
 // Game Grid Component
-const Grid = ({ dragBind, rows, handlePlotClick, top, left }) => {
+const Grid = ({ chunkCentre, dragBind, gridData, handlePlotClick, top, left }) => {
+	const templateGridArray = Array.from({ length: 31 }, (_, y) => {
+		if (y < 5 || y >= 26)
+			return Array.from({ length: 31 }, () => {
+				return { seed: -1 };
+			});
+		return Array.from({ length: 31 }, (_, x) => {
+			if (x < 5 || x >= 26) return { seed: -1 };
+			return { seed: 0 };
+		});
+	});
+
 	return (
 		<animated.div className="grid-container" {...dragBind()}>
 			<animated.div className="grid" style={{ top, left }}>
-				{rows.map((row, row_ind) => {
+				{templateGridArray.map((row, row_ind) => {
 					return (
 						<div className="row" key={row_ind}>
-							{row.map((cell, ind) => {
-								return cell.length !== 1 ? (
-									<MemoPlot handlePlotClick={handlePlotClick} cell={cell} key={ind} />
+							{row.map((cell, col_ind) => {
+								return cell.seed !== -1 ? (
+									<MemoPlot
+										handlePlotClick={handlePlotClick}
+										cellData={
+											gridData?.[`${col_ind - 15 + chunkCentre[0]}`]?.[
+												`${-row_ind + 15 + chunkCentre[1]}`
+											] || cell
+										}
+										block={[col_ind, row_ind]}
+										key={[col_ind, row_ind]}
+									/>
 								) : (
-									<MemoCloud key={ind} />
+									<MemoCloud key={col_ind} />
 								);
 							})}
 						</div>

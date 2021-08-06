@@ -2,20 +2,10 @@ import { useEffect, useState } from "react";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import Portis from "@portis/web3";
-import mloInterface from "../contracts/MarsMello.json";
-import ironInterface from "../contracts/Iron.json";
-import goldInterface from "../contracts/Gold.json";
-import titaniumInterface from "../contracts/Titanium.json";
-import copperInterface from "../contracts/Copper.json";
-import aluminiumInterface from "../contracts/Aluminium.json";
+import gameInterface from "../contracts/MarsmelloGame.json";
 
 const contractAddresses = {
-	MLO: "0xD031d08B536FdB33004227b645b0FCda2c37A825",
-	FE: "0x18e6675C49fc3ceF6c6eFE54C5C91021dE1F1485",
-	AU: "0x0b07167AC158A83DABD05AF3b3942B87679AACD1",
-	TI: "0x58Fb06Fdf8c97bD7937005493b97c3d14A5dc639",
-	CU: "0x9a21Fc5BA9D3BC66d761E8240aAA9cfcc4d5841F",
-	AL: "0xC98984bdcb6feC081e0b0aba7104e7817Ead40A9",
+	game: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3",
 };
 
 const useWeb3 = () => {
@@ -30,28 +20,21 @@ const useWeb3 = () => {
 	};
 	const web3Modal = new Web3Modal({
 		// network: "mainnet",
-		network: { chainId: 8001, nodeUrl: "https://matic-mumbai.chainstacklabs.com" },
+		// network: { chainId: 8001, nodeUrl: "https://matic-mumbai.chainstacklabs.com" },
 		// network: { chainId: 1377, nodeUrl: "http://127.0.0.1:9545" },
+		network: { chainId: 1377, nodeUrl: "http://127.0.0.1:8545" },
 		cacheProvider: true,
 		providerOptions,
 		theme: "dark",
 	});
+	const decimals = 18;
+
+	const [provider, setProvider] = useState();
+	const [providerName, setProviderName] = useState("None");
+	const [gameContract, setGameContract] = useState();
+	const [web3, setWeb3] = useState(new Web3());
 
 	const [account, setAccount] = useState();
-	const [balances, setBalances] = useState({ MLO: 0, FE: 0, AU: 0, TI: 0, CU: 0, AL: 0 });
-	const [provider, setProvider] = useState();
-	const [providerName, setProviderName] = useState();
-	const [contracts, setContracts] = useState({
-		marsMelloContract: {},
-		ironContract: {},
-		goldContract: {},
-		titaniumContract: {},
-		copperContract: {},
-		aluminiumContract: {},
-	});
-
-	const [web3, setWeb3] = useState(new Web3());
-	const decimals = 18;
 
 	// Toggle Modal And Ask for Connection
 	const getWeb3ModalProvider = async () => {
@@ -72,45 +55,11 @@ const useWeb3 = () => {
 		web3Modal.clearCachedProvider();
 	};
 
-	const getBalances = async () => {
-		console.log("Getting Balances, account", account);
-		if (account) {
-			const newBal = {};
-			await contracts.marsMelloContract.methods
-				.balanceOf(account)
-				.call()
-				.then((balance) => (newBal.MLO = balance / 10 ** decimals));
-			await contracts.ironContract.methods
-				.balanceOf(account)
-				.call()
-				.then((balance) => (newBal.FE = balance / 10 ** decimals));
-			await contracts.goldContract.methods
-				.balanceOf(account)
-				.call()
-				.then((balance) => (newBal.AU = balance / 10 ** decimals));
-			await contracts.titaniumContract.methods
-				.balanceOf(account)
-				.call()
-				.then((balance) => (newBal.TI = balance / 10 ** decimals));
-			await contracts.copperContract.methods
-				.balanceOf(account)
-				.call()
-				.then((balance) => (newBal.CU = balance / 10 ** decimals));
-			await contracts.aluminiumContract.methods
-				.balanceOf(account)
-				.call()
-				.then((balance) => (newBal.AL = balance / 10 ** decimals));
-
-			return newBal;
-		}
-		return { MLO: 0, FE: 0, AU: 0, TI: 0, CU: 0, AL: 0 };
-	};
-
 	useEffect(() => {
 		if (web3.currentProvider)
 			(async () => {
 				const accounts = await web3.eth.getAccounts();
-				setAccount(accounts[0]);
+				setAccount(accounts[0].toLowerCase());
 			})();
 	}, [provider, web3]);
 
@@ -121,21 +70,13 @@ const useWeb3 = () => {
 				provider._portis.showPortis();
 			} else setProviderName("metamask");
 
-			setContracts({
-				marsMelloContract: new web3.eth.Contract(mloInterface.abi, contractAddresses.MLO),
-				ironContract: new web3.eth.Contract(ironInterface.abi, contractAddresses.FE),
-				goldContract: new web3.eth.Contract(goldInterface.abi, contractAddresses.AU),
-				titaniumContract: new web3.eth.Contract(titaniumInterface.abi, contractAddresses.TI),
-				copperContract: new web3.eth.Contract(copperInterface.abi, contractAddresses.CU),
-				aluminiumContract: new web3.eth.Contract(aluminiumInterface.abi, contractAddresses.AL),
-			});
+			setGameContract(new web3.eth.Contract(gameInterface.abi, contractAddresses.game));
 
 			console.log("provider", provider);
-
 			// Subscribe to accounts change
 			provider.on("accountsChanged", async (accounts) => {
 				console.log("Provider Listener: Account Change");
-				setAccount(accounts[0]);
+				setAccount(accounts[0].toLowerCase());
 			});
 
 			// Subscribe to chainId change
@@ -158,24 +99,16 @@ const useWeb3 = () => {
 
 	// Account Changed Hook
 	useEffect(() => {
-		console.log("account", account);
-		(async () => {
-			setBalances(await getBalances());
-		})();
+		console.log("changed account", account);
 	}, [account]);
-
-	// Changed Balances
-	useEffect(() => {
-		console.log("Balances", balances);
-	}, [balances]);
 
 	return {
 		web3,
 		provider,
 		account,
-		balances,
+		decimals,
+		gameContract,
 		providerName,
-		contracts,
 		getWeb3ModalProvider,
 		disconnectProvider,
 	};
