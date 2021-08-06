@@ -116,29 +116,24 @@ body {
 		transform: translate(-50%, -50%);
 	}
 	.btns {
-		img {
+		margin-left: 0.75rem;
+		margin-top: 0.5rem;
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 4rem;
+		.img-btn {
 			cursor: pointer;
-			position: absolute;
 			width: 35%;
 			height: 35%;
+			img {
+				width: 4rem;
+				height: 4rem;
+			}
 		}
-		#buy,
-		#sell {
-			top: -6%;
-			left: -7%;
-		}
-		#info {
-			top: -6%;
-			right: -7%;
-		}
-		#exit {
-			bottom: -6%;
-			right: -7%;
-		}
-		#add,
-		#rmv {
-			bottom: -6%;
-			left: -7%;
+		.hover-info::before {
+			top: 200%;
 		}
 	}
 }
@@ -147,7 +142,6 @@ body {
 		content: attr(data-name);
 		position: absolute;
 		width: fit-content;
-		bottom: 1rem;
 		background: $color-modal-bg;
 		border: 1px ridge $color-modal-border;
 		color: white;
@@ -157,6 +151,7 @@ body {
 		opacity: 0;
 		pointer-events: none;
 		font-size: 0.8rem;
+		text-align: center;
 	}
 	&:hover::before {
 		opacity: 1;
