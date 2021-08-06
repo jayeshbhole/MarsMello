@@ -69,11 +69,12 @@ const Grid = ({ chunkCentre, dragBind, gridData, handlePlotClick, top, left }) =
 	const templateGridArray = Array.from({ length: 31 }, (_, y) => {
 		if (y < 5 || y >= 26)
 			return Array.from({ length: 31 }, (x) => {
-				return { seed: -1, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
+				return { cloud: true, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
 			});
 		return Array.from({ length: 31 }, (_, x) => {
-			if (x < 5 || x >= 26) return { seed: -1 };
-			return { seed: 0, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
+			if (x < 5 || x >= 26)
+				return { cloud: true, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
+			return { seed: null, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
 		});
 	});
 
@@ -84,7 +85,7 @@ const Grid = ({ chunkCentre, dragBind, gridData, handlePlotClick, top, left }) =
 					return (
 						<div className="row" key={row_ind}>
 							{row.map((cell, col_ind) => {
-								return cell.seed !== -1 ? (
+								return !cell.cloud ? (
 									<MemoPlot
 										handlePlotClick={handlePlotClick}
 										cellData={

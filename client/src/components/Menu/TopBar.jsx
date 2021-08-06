@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Web3Context } from "../../context/Web3Context";
 import manageNumbers from "../../utils/manageNumbers";
 

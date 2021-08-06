@@ -14,8 +14,9 @@ import "../../styles/menu.scss";
 
 const MemoisedBottomBar = memo(BottomBar);
 const MemoisedTopBar = memo(TopBar);
+const MemoisedSideBar = memo(SideBar);
 
-const Menu = ({ xy, teleport }) => {
+const Menu = ({ xy, teleport, selectedBlock }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [avatar, setAvatar] = useState(0);
 	const [x, setX] = useState("");
@@ -40,7 +41,7 @@ const Menu = ({ xy, teleport }) => {
 		<div className="menu">
 			<MemoisedTopBar iron={0} gold={0} copper={0} titanium={0} aluminium={0} />
 			<MemoisedBottomBar xy={xy} setModal={setIsTeleModal} />
-			<SideBar handleClick={handleClick} avatar={avatar} />
+			<MemoisedSideBar handleClick={handleClick} avatar={avatar} />
 			{/* Modals */}
 			{modalVisible && (
 				<Modal modalVisible={modalVisible} setIsOpen={setModalVisible}>

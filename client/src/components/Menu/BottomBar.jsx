@@ -1,5 +1,4 @@
 import { animated } from "@react-spring/web";
-import React from "react";
 import ImgButton from "../Auxillary/ImgButton";
 
 const BottomBar = ({ xy, setModal }) => {

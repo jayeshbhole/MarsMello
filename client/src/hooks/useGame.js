@@ -25,16 +25,6 @@ function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Placeholders
-const placeHolderLandData = {
-	id: null,
-	x: 0,
-	y: 0,
-	owner: null,
-	factory: null,
-	seed: null,
-};
-
 const useGame = () => {
 	const windowHeight = window.innerHeight;
 	const windowWidth = window.innerWidth;
@@ -231,7 +221,6 @@ const useGame = () => {
 	// Event Handlers
 	const handlePlotClick = (block, id) => {
 		if (top.idle && left.idle) {
-			console.log(block);
 			// Centre Menu at these Co-ordinates
 			const menuCentre = calculateCoOrdinates(block[0], block[1]);
 			setSelectedBlock(block);

@@ -1,7 +1,7 @@
 import { animated } from "@react-spring/web";
 import { memo } from "react";
 
-const getImage = () => {
+const getImage = (seed) => {
 	//
 	return "locked";
 };
@@ -10,8 +10,8 @@ const Plot = ({ handlePlotClick, cellData, block }) => {
 	return (
 		<div
 			onClick={() => handlePlotClick(block, cellData?.id)}
-			className={`cell plot ${(cellData[0] + cellData[1]) % 2 ? "" : "bright"}`}>
-			{cellData.seed === 0 ? (
+			className={`cell plot ${(cellData.x + cellData.y) % 2 ? "" : "bright"}`}>
+			{!cellData.seed ? (
 				<img draggable="false" src="./assets/img/locked.png" alt="locked.png" />
 			) : cellData.x === 0 && cellData.y === 0 ? (
 				<img draggable="false" src="./assets/img/spawn.png" alt="spawn.png" />
@@ -22,7 +22,7 @@ const Plot = ({ handlePlotClick, cellData, block }) => {
 					alt="spawn.png"
 				/>
 			)}
-			<h1>{[cellData.x, cellData.y].toString()}</h1>
+			{/* <h1>{[cellData.x, cellData.y].toString()}</h1> */}
 		</div>
 	);
 };
