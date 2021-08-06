@@ -1,27 +1,21 @@
 import { animated } from "@react-spring/web";
 import { memo } from "react";
 
-const getImage = (seed) => {
+const getImage = (cellData) => {
 	//
-	return "locked";
+	if (cellData.seed == 0) return "locked";
+	if (cellData.x == 0 && cellData.y == 0) return "spawn";
+	return `pixplot_${cellData.seed % 5}.png`;
 };
 // Cell
 const Plot = ({ handlePlotClick, cellData, block }) => {
+	const image = getImage(cellData);
 	return (
 		<div
 			onClick={() => handlePlotClick(block, cellData?.id)}
 			className={`cell plot ${(cellData.x + cellData.y) % 2 ? "" : "bright"}`}>
-			{!cellData.seed ? (
-				<img draggable="false" src="./assets/img/locked.png" alt="locked.png" />
-			) : cellData.x === 0 && cellData.y === 0 ? (
-				<img draggable="false" src="./assets/img/spawn.png" alt="spawn.png" />
-			) : (
-				<img
-					draggable="false"
-					src={`./assets/img/${getImage(cellData.seed)}.png`}
-					alt="spawn.png"
-				/>
-			)}
+			<img draggable="false" src={`./assets/img/${image}.png`} alt={`${image}.png`} />
+
 			{/* <h1>{[cellData.x, cellData.y].toString()}</h1> */}
 		</div>
 	);
