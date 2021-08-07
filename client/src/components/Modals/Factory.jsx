@@ -92,10 +92,6 @@ const Factory = () => {
 				</div>
 			) : (
 				<div className="content market">
-					<div className="ingame">
-						<button className="buy-btn">Buy a New Factory</button>
-					</div>
-
 					<Card className="owned-2">
 						<section className="card-left">
 							<img src="./assets/facticon/facticon2.png" alt="" />
@@ -104,21 +100,16 @@ const Factory = () => {
 							</span>
 						</section>
 						<section className="card-right">
-							<div className="name">
-								<span className="label">Name:</span>
-								<span className="value">Factory1</span>
-							</div>
-							<div className="produce">
-								<span className="label">Produce:</span>
-								<span className="value">Fe</span>
-							</div>
+							<span className="title"></span>
 							<div className="cords">
 								<span className="x-label label">X:</span>
 								<span className="x-value value">0</span>
 								<span className="y-label label">Y:</span>
 								<span className="y-value value">5</span>
 							</div>
-							<button className="bid">Bid</button>
+							<button onClick={() => buyFactory()} className="bid">
+								Buy
+							</button>
 						</section>
 					</Card>
 				</div>
