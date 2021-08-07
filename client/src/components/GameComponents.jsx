@@ -1,5 +1,7 @@
 import { animated } from "@react-spring/web";
 import { memo } from "react";
+import { Web3Context } from "../context/Web3Context";
+import { useContext } from "react";
 
 const getImage = (cellData) => {
 	//
@@ -9,17 +11,17 @@ const getImage = (cellData) => {
 	return `pixplot_${parseInt(cellData.seed) % 5}`;
 };
 // Cell
-const Plot = ({ handlePlotClick, cellData, block }) => {
+const Plot = ({ handlePlotClick, owned, cellData, block }) => {
+	// const { account } = useContext(Web3Context);
 	const image = getImage(cellData);
 	return (
 		<div
 			onClick={() => handlePlotClick(cellData)}
-			className={`cell plot ${
-				(cellData.x + cellData.y) % 2 ? "" : "bright"
-			} owned-${!!cellData.owned}`}>
+			className={`cell plot ${(cellData.x + cellData.y) % 2 ? "" : "bright"} owned-${owned}`}>
 			<img draggable="false" src={`./assets/img/${image}.png`} alt={`${image}.png`} />
 
 			{/* <h1>{[cellData.x, cellData.y].toString()}</h1> */}
+			{/* <h1>{cellData?.owner?.id}</h1> */}
 		</div>
 	);
 };

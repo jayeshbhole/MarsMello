@@ -10,7 +10,7 @@ const MiniMenu = () => {
 		closeMiniMenu,
 		setIsMiniOpen,
 	} = useContext(GameContext);
-
+	console.log(selectedBlock);
 	return (
 		<animated.div className="mini" style={styles}>
 			<img className="ring" draggable="false" src="./assets/img/circle.png" alt="circle" />
