@@ -15,7 +15,7 @@ const MiniMenu = () => {
 		<animated.div className="mini" style={styles}>
 			<img className="ring" draggable="false" src="./assets/img/circle.png" alt="circle" />
 			<span id="label">
-				{selectedBlock.x},{selectedBlock.y}
+				{selectedBlock?.x},{selectedBlock?.y}
 			</span>
 			<div className="btns">
 				<ImgButton
