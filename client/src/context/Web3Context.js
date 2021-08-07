@@ -5,9 +5,10 @@ import Web3 from "web3";
 import Web3Modal from "web3modal";
 import Portis from "@portis/web3";
 import gameInterface from "../contracts/MarsmelloGame.json";
+import useInterval from "../hooks/useInterval";
 
 const contractAddresses = {
-	game: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3"
+	game: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3",
 };
 
 const Web3Context = createContext({
@@ -16,11 +17,11 @@ const Web3Context = createContext({
 	getWeb3ModalProvider: () => {},
 	disconnectProvider: () => {},
 	balances: { mlo: 0, fe: 0, au: 0, ti: 0, cu: 0, al: 0 },
-	providerName: "none"
+	providerName: "none",
 });
 
 const GET_USER = gql`
-	query GetBalances($userId: String!) {
+	query GetUser($userId: String!) {
 		user(id: $userId) {
 			mlo
 			fe
@@ -28,8 +29,14 @@ const GET_USER = gql`
 			cu
 			au
 			ti
+			lastclaimed
 			factories {
 				id
+				x
+				y
+				name
+				type
+				efficiency
 			}
 			lands {
 				id
@@ -59,9 +66,9 @@ const providerOptions = {
 		package: Portis,
 		options: {
 			id: "4d7e97a1-076d-46e5-b777-d0c5b92d000f", // Portis DAPP ID
-			infuraId: "006a04f7400849fb8689353c7da198a0"
-		}
-	}
+			infuraId: "006a04f7400849fb8689353c7da198a0",
+		},
+	},
 };
 const web3Modal = new Web3Modal({
 	// network: "mainnet",
@@ -70,7 +77,7 @@ const web3Modal = new Web3Modal({
 	network: { chainId: 1377, nodeUrl: "http://127.0.0.1:8545" },
 	cacheProvider: true,
 	providerOptions,
-	theme: "dark"
+	theme: "dark",
 });
 const Web3ContextProvider = (props) => {
 	const decimals = 18;
@@ -135,18 +142,28 @@ const Web3ContextProvider = (props) => {
 			// Subscribe to provider disconnection
 			provider.on("disconnect", (error) => {
 				console.log("Provider Listener: Disconnect", error);
-				setAccount([]);
+				setAccount();
 			});
 		}
 	}, [provider, web3]);
 
+	const [loadUserData, { data: userData }] = useLazyQuery(GET_USER);
+
 	// Account Changed Hook
 	useEffect(() => {
 		console.log("changed account", account);
+		if (account) loadUserData({ variables: { userId: account } });
 	}, [account]);
 
+	useInterval(() => {
+		if (account) loadUserData({ variables: { userId: account } });
+	}, 30000);
+
 	useEffect(() => {
-		//1040604010000000000000
+		console.log(userData);
+	}, [userData]);
+
+	useEffect(() => {
 		console.log("test");
 		if (gameContract) {
 			getLandPrice().then((data) => console.log("data: ", data));
@@ -165,35 +182,24 @@ const Web3ContextProvider = (props) => {
 		return gameContract.methods.mintLand(x, y).send({ from: account });
 	};
 
-	const [loadUserData, { data: userData }] = useLazyQuery(GET_USER, {
-		variables: { userId: account }
-	});
-
-	useEffect(() => {
-		loadUserData({ variables: { userId: account } });
-	}, [account]);
-
-	useEffect(() => {
-		console.log(userData);
-	}, [userData]);
-
 	return (
 		<Web3Context.Provider
 			value={{
 				account,
 				provider,
 				providerName,
-				lastClaimed: userData?.lastClaimed,
+				lastClaimed: userData?.user?.lastclaimed,
+				factories: userData?.user?.factories,
 				balances: {
 					mlo: userData?.user?.mlo,
 					fe: userData?.user?.fe,
 					al: userData?.user?.al,
 					au: userData?.user?.au,
 					cu: userData?.user?.cu,
-					ti: userData?.user?.ti
+					ti: userData?.user?.ti,
 				},
 				getWeb3ModalProvider,
-				disconnectProvider
+				disconnectProvider,
 			}}>
 			{props.children}
 		</Web3Context.Provider>

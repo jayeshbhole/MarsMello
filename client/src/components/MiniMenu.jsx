@@ -6,9 +6,7 @@ import ImgButton from "./Auxillary/ImgButton";
 
 const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
 	const { miniMenuStyles: styles, selectedBlock, closeMiniMenu } = useContext(GameContext);
-	// console.log(selectedBlock);
 	const { account } = useContext(Web3Context);
-	// console.log("account", account);
 
 	const handleClick = (e) => {
 		setMiniModalType(e.target.id);
