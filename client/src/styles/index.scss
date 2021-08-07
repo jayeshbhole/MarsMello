@@ -55,13 +55,16 @@ body {
 				position: relative;
 				background: rgb(245, 193, 134);
 				overflow: visible;
-				opacity: 0.75;
+				opacity: 0.8;
 				&.bright {
 					background: rgb(233, 180, 121);
 					opacity: 1;
 				}
 				&.owned-true {
-					filter: hue-rotate(20deg);
+					filter: brightness(1.1);
+					&.bright {
+						opacity: 0.95;
+					}
 				}
 				img {
 					width: 100%;

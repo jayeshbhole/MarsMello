@@ -130,25 +130,27 @@ const GameContextProvider = (props) => {
 				centreApi.stop();
 				calculateCentre(top.goal, left.goal);
 				return;
-			} else if (last) {
+			} else {
+				miniMenuApi.set({
+					top: -2 * cellSize,
+					left: -2 * cellSize,
+				});
+			}
+			if (last) {
 				handleDragEnd(top.goal, left.goal);
 				return;
+			} else {
+				centreApi.start({
+					top: my,
+					left: mx,
+				});
+				const newCentreDelta = calculateCentre(top.goal, left.goal);
+				centreApi.set({
+					centreDelta: newCentreDelta,
+					xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
+					backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
+				});
 			}
-
-			// miniMenuApi.set({
-			// 	top: -2 * cellSize,
-			// 	left: -2 * cellSize,
-			// });
-			centreApi.start({
-				top: my,
-				left: mx,
-			});
-			const newCentreDelta = calculateCentre(top.goal, left.goal);
-			centreApi.set({
-				centreDelta: newCentreDelta,
-				xy: [chunkCentre[0] + newCentreDelta[0], chunkCentre[1] + newCentreDelta[1]],
-				backgroundColor: isOutOfBounds(top.goal, left.goal) ? "red" : "white",
-			});
 		},
 		{ initial: () => [left.get(), top.get()] }
 	);
@@ -213,7 +215,6 @@ const GameContextProvider = (props) => {
 	};
 
 	// Querying Data
-	const { account } = useContext(Web3Context);
 
 	const [loadGrid, { loading: gridLoading, data: gridData }] = useLazyQuery(GET_LANDS_QUERY);
 
@@ -222,7 +223,6 @@ const GameContextProvider = (props) => {
 	};
 
 	useEffect(() => {
-		console.log("Initialise Grid");
 		loadGridFromCentre(...chunkCentre);
 	}, []);
 	const [grid, setGrid] = useState();
@@ -248,7 +248,6 @@ const GameContextProvider = (props) => {
 	}, [gridData]);
 
 	const teleport = (x = 0, y = 0) => {
-		console.log("tp: ", chunkCentre);
 		closeMiniMenu();
 		loadGridFromCentre(x, y);
 		centreApi.set({
@@ -279,7 +278,6 @@ const GameContextProvider = (props) => {
 		}
 	};
 	const closeMiniMenu = () => {
-		console.log("CLosing");
 		setSelectedBlock();
 		miniMenuApi.set({
 			top: -2 * cellSize,

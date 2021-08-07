@@ -160,6 +160,7 @@ const Web3ContextProvider = (props) => {
 	useEffect(() => {
 		console.log(userData);
 	}, [userData]);
+
 	return (
 		<Web3Context.Provider
 			value={{
