@@ -21,7 +21,7 @@ const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
 				{selectedBlock?.seed === -1 ? (
 					<ImgButton
 						id="buy"
-						dataname="But Land"
+						dataname="Buy Land"
 						className="buy"
 						src="./assets/img/plot-buy-v3.png"
 						alt="buy-land-button"
