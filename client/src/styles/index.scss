@@ -60,6 +60,9 @@ body {
 					background: rgb(233, 180, 121);
 					opacity: 1;
 				}
+				&.owned-true {
+					filter: hue-rotate(20deg);
+				}
 				img {
 					width: 100%;
 					image-rendering: pixelated;

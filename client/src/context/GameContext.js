@@ -1,8 +1,9 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { useDrag } from "react-use-gesture";
 import { useSpring, config } from "@react-spring/web";
 import { useQuery, useLazyQuery, gql } from "@apollo/client";
 import useInterval from "../hooks/useInterval";
+import { Web3Context } from "./Web3Context";
 
 const initWindowHeight = window.innerHeight;
 const initWindowWidth = window.innerWidth;
@@ -211,18 +212,24 @@ const GameContextProvider = (props) => {
 		}
 	};
 
-	// Misc Functions
+	// Querying Data
+	const { account } = useContext(Web3Context);
+
 	const [loadGrid, { loading: gridLoading, data: gridData }] = useLazyQuery(GET_LANDS_QUERY);
 
 	const loadGridFromCentre = (x, y) => {
 		loadGrid({ variables: { x1: x - 10, x2: x + 10, y1: y - 10, y2: y + 10 } });
 	};
 
+	useEffect(() => {
+		console.log("Initialise Grid");
+		loadGridFromCentre(...chunkCentre);
+	}, []);
 	const [grid, setGrid] = useState();
 
 	useInterval(() => {
 		loadGridFromCentre(...chunkCentre);
-	}, 10000);
+	}, 30000);
 
 	useEffect(() => {
 		if (gridData)
@@ -230,6 +237,7 @@ const GameContextProvider = (props) => {
 				const newGrid = {};
 				for (const cell of gridData.lands) {
 					newGrid[cell.id] = cell;
+					if (cell.owner.id === account) cell.owned = true;
 				}
 				console.log(newGrid);
 				return newGrid;
@@ -260,14 +268,12 @@ const GameContextProvider = (props) => {
 	};
 
 	// Event Handlers
-	const handlePlotClick = (block, id) => {
+	const handlePlotClick = (cellData, id) => {
 		if (top.idle && left.idle) {
 			// Centre Menu at these Co-ordinates
-			const menuCentre = calculateBlockOffsets(block[0], block[1]);
-			console.log(menuCentre);
-			setSelectedBlock(block);
+			const menuCentre = calculateBlockOffsets(cellData.x, cellData.y);
+			setSelectedBlock(cellData);
 			miniMenuApi.set({
-				block: block,
 				top: top.get() - menuCentre[1] + windowHeight / 2,
 				left: left.get() - menuCentre[0] + windowWidth / 2,
 			});
@@ -275,7 +281,7 @@ const GameContextProvider = (props) => {
 	};
 	const closeMiniMenu = () => {
 		console.log("CLosing");
-		setSelectedBlock([]);
+		setSelectedBlock();
 		miniMenuApi.set({
 			top: -2 * cellSize,
 			left: -2 * cellSize,

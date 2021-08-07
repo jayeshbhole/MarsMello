@@ -10,12 +10,13 @@ const getImage = (cellData) => {
 };
 // Cell
 const Plot = ({ handlePlotClick, cellData, block }) => {
-	// console.log(cellData);
 	const image = getImage(cellData);
 	return (
 		<div
-			onClick={() => handlePlotClick(block, cellData?.id)}
-			className={`cell plot ${(cellData.x + cellData.y) % 2 ? "" : "bright"}`}>
+			onClick={() => handlePlotClick(cellData)}
+			className={`cell plot ${
+				(cellData.x + cellData.y) % 2 ? "" : "bright"
+			} owned-${!!cellData.owned}`}>
 			<img draggable="false" src={`./assets/img/${image}.png`} alt={`${image}.png`} />
 
 			{/* <h1>{[cellData.x, cellData.y].toString()}</h1> */}
