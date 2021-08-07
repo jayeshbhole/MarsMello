@@ -2,6 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import { useDrag } from "react-use-gesture";
 import { useSpring, config } from "@react-spring/web";
 import { useQuery, useLazyQuery, gql } from "@apollo/client";
+import useInterval from "../hooks/useInterval";
 
 const initWindowHeight = window.innerHeight;
 const initWindowWidth = window.innerWidth;
@@ -219,14 +220,15 @@ const GameContextProvider = (props) => {
 
 	const [grid, setGrid] = useState();
 
+	useInterval(() => {
+		loadGridFromCentre(...chunkCentre);
+	}, 10000);
+
 	useEffect(() => {
 		if (gridData)
 			setGrid(() => {
-				console.log("new ", chunkCentre);
-
 				const newGrid = {};
-				for (const cell in gridData.lands) {
-					// console.log("cell ", cell);
+				for (const cell of gridData.lands) {
 					newGrid[cell.id] = cell;
 				}
 				console.log(newGrid);

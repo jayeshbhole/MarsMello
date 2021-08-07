@@ -153,8 +153,6 @@ const Web3ContextProvider = (props) => {
 		loadUserData({ variables: { userId: account } });
 	}, [account]);
 
-	useEffect(() => console.log("Re-render"));
-
 	useEffect(() => {
 		console.log(userData);
 	}, [userData]);
