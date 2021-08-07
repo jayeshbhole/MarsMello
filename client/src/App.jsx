@@ -1,38 +1,20 @@
 // import { useState, useEffect, useContext } from "react";
 import "./styles/index.scss";
-import { animated } from "@react-spring/web";
-import { MemoPlot, MemoCloud } from "./components/GameComponents";
 import Menu from "./components/Menu/";
-import MiniMenu from "./components/MiniMenu";
-import MiniModal from "./components/MiniModals";
+import LandGrid from "./components/LandGrid";
 import { Web3ContextProvider } from "./context/Web3Context";
-import useGame from "./hooks/useGame";
+import { GameContext, GameContextProvider } from "./context/GameContext";
+import { useContext } from "react";
 
 const App = () => {
-	const {
-		teleport,
-		top,
-		left,
-		cellSize,
-		miniMenuStyles,
-		xy,
-		chunkCentre,
-		miniMenuApi,
-		gridData,
-		isMiniOpen,
-		setIsMiniOpen,
-		miniModal,
-		selectedBlock,
-		handlePlotClick,
-		handleMiniClick,
-		dragBind
-	} = useGame();
+	const { cellSize } = useContext(GameContext);
 
 	return (
 		<Web3ContextProvider>
-			<div className="App">
-				<style>
-					{`.cell{
+			<GameContextProvider>
+				<div className="App">
+					<style>
+						{`.cell{
 					height:${cellSize}px;
 					width:${cellSize}px;
 				}`}
@@ -47,19 +29,8 @@ const App = () => {
 					left={left}
 				/>
 				{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}
-				<MiniMenu
-					styles={miniMenuStyles}
-					selectedBlock={selectedBlock}
-					miniMenuApi={miniMenuApi}
-					openMini={handleMiniClick}
-				/>
-				{isMiniOpen && (
-					<MiniModal setIsMiniOpen={setIsMiniOpen}>
-						<h1>{miniModal}</h1>
-					</MiniModal>
-				)}
-				<Menu xy={xy} teleport={teleport} />
 			</div>
+					<Menu />
 		</Web3ContextProvider>
 	);
 };
