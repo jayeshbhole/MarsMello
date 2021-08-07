@@ -33,6 +33,7 @@ const GameContext = createContext({
 	isMiniOpen: false,
 	miniModal: "",
 	miniMenuApi: {},
+	closeMiniMenu: () => {},
 	selectedBlock: () => {},
 	handlePlotClick: () => {},
 	handleMiniClick: () => {},
@@ -70,7 +71,7 @@ const GameContextProvider = (props) => {
 			-Math.floor((-top - paddingSize + windowHeight / 2) / cellSize) + 10,
 		];
 	};
-	const calculateCoOrdinates = (x, y) => {
+	const calculateBlockOffsets = (x, y) => {
 		[x, y] = [x - chunkCentre[0], y - chunkCentre[1]];
 		return [windowWidth / 2 - (x + 15.5) * cellSize, windowHeight / 2 + (y - 15.5) * cellSize];
 	};
@@ -118,7 +119,6 @@ const GameContextProvider = (props) => {
 		block: [0, 0],
 		top: centredGridOffsets[1],
 		left: centredGridOffsets[0],
-		display: "none",
 	}));
 	const dragBind = useDrag(
 		({ movement: [mx, my], tap, last }) => {
@@ -133,11 +133,10 @@ const GameContextProvider = (props) => {
 				return;
 			}
 
-			// miniMenuApi.set({
-			// 	display: "none",
-			// 	top: 0,
-			// 	left: 0,
-			// });
+			miniMenuApi.set({
+				top: -2 * cellSize,
+				left: -2 * cellSize,
+			});
 			centreApi.start({
 				top: my,
 				left: mx,
@@ -241,7 +240,8 @@ const GameContextProvider = (props) => {
 
 	const teleport = (x = 0, y = 0) => {
 		console.log("tp: ", chunkCentre);
-		loadGridFromCentre(...chunkCentre);
+		closeMiniMenu();
+		loadGridFromCentre(x, y);
 		centreApi.set({
 			top: centredGridOffsets[0],
 			left: centredGridOffsets[1],
@@ -250,7 +250,7 @@ const GameContextProvider = (props) => {
 			backgroundColor: "white",
 		});
 		setChunkCentre([x, y]);
-		miniMenuApi.set({ top: 0, left: 0, display: "none" });
+		miniMenuApi.set({});
 
 		localStorage.setItem("top", centredGridOffsets[0]);
 		localStorage.setItem("left", centredGridOffsets[1]);
@@ -261,15 +261,23 @@ const GameContextProvider = (props) => {
 	const handlePlotClick = (block, id) => {
 		if (top.idle && left.idle) {
 			// Centre Menu at these Co-ordinates
-			const menuCentre = calculateCoOrdinates(block[0], block[1]);
+			const menuCentre = calculateBlockOffsets(block[0], block[1]);
+			console.log(menuCentre);
 			setSelectedBlock(block);
 			miniMenuApi.set({
-				display: "block",
 				block: block,
 				top: top.get() - menuCentre[1] + windowHeight / 2,
 				left: left.get() - menuCentre[0] + windowWidth / 2,
 			});
 		}
+	};
+	const closeMiniMenu = () => {
+		console.log("CLosing");
+		setSelectedBlock([]);
+		miniMenuApi.set({
+			top: -2 * cellSize,
+			left: -2 * cellSize,
+		});
 	};
 
 	// handle mini menu click
@@ -293,6 +301,7 @@ const GameContextProvider = (props) => {
 				cellSize,
 				gridData: grid,
 				isMiniOpen,
+				closeMiniMenu,
 				setIsMiniOpen,
 				miniModal,
 				selectedBlock,

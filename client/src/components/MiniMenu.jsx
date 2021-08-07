@@ -6,19 +6,11 @@ import ImgButton from "./Auxillary/ImgButton";
 const MiniMenu = () => {
 	const {
 		miniMenuStyles: styles,
-		cellSize,
 		selectedBlock,
-		miniMenuApi,
+		closeMiniMenu,
 		openMini,
 	} = useContext(GameContext);
 
-	const closeMiniMenu = () => {
-		miniMenuApi.set({
-			display: "none",
-			top: -2 * cellSize,
-			left: -2 * cellSize,
-		});
-	};
 	return (
 		<animated.div className="mini" style={styles}>
 			<img className="ring" draggable="false" src="./assets/img/circle.png" alt="circle" />

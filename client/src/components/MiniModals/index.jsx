@@ -1,7 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
+import { GameContext } from "../../context/GameContext";
 import "../../styles/minimodal.scss";
 
-const MiniModal = ({ children, setIsMiniOpen }) => {
+const MiniModal = ({ children }) => {
+	const { setIsMiniOpen } = useContext(GameContext);
 	const checkIfClickedOutside = (e) => {
 		// If the menu is open and the clicked target is not within the menu,
 		// then close the menu

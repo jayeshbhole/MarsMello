@@ -3,7 +3,7 @@ import { memo } from "react";
 
 const getImage = (cellData) => {
 	//
-	if (cellData.x == 0 && cellData.y == 0) return "spawn";
+	if (cellData.x === 0 && cellData.y === 0) return "spawn";
 	if (cellData.seed === -1) return "locked";
 
 	return `pixplot_${cellData.seed % 5}.png`;
