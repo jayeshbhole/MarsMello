@@ -118,20 +118,32 @@ body {
 	.btns {
 		width: 100%;
 		height: 100%;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 35%;
 		.img-btn {
-			cursor: pointer;
-			width: 35%;
-			height: 35%;
-			img {
-				width: 330%;
-				height: 330%;
-			}
+			position: absolute;
+			width: 40%;
+			height: 40%;
+		}
+		div.buy,
+		div.sell {
+			top: -4%;
+			right: -4%;
+		}
+		div.add,
+		div.rmv {
+			bottom: -4%;
+			left: -4%;
+		}
+		div.exit {
+			bottom: -4%;
+			right: -4%;
+		}
+		div.info {
+			top: -4%;
+			left: -4%;
 		}
 		.hover-info::before {
-			top: 200%;
+			top: 100%;
+			font-size: 0.7rem;
 		}
 	}
 }
