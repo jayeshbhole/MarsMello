@@ -1,33 +1,47 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { useDrag } from "react-use-gesture";
 import { useSpring, config } from "@react-spring/web";
 import { useQuery, useLazyQuery, gql } from "@apollo/client";
 
-// Queries
-const GET_LANDS_QUERY = gql`
-	query GetLands($x1: Int!, $x2: Int!, $y1: Int!, $y2: Int!) {
-		lands(where: { x_gte: $x1, x_lte: $x2, y_gte: $y1, y_lte: $y2 }) {
-			id
-			x
-			y
-			owner {
-				id
-			}
-			seed
-			factory {
-				id
-				type
-			}
-		}
-	}
-`;
+const initWindowHeight = window.innerHeight;
+const initWindowWidth = window.innerWidth;
+const initCellSize = Math.max(initWindowWidth, initWindowHeight) / 10;
+const initGridSize = initCellSize * 31;
+const initLocalCentreDelta = localStorage
+	.getItem("centreDelta")
+	?.split(",")
+	.map((v, _) => parseInt(v)) || [0, 0];
+const initChunkCentre = localStorage
+	.getItem("chunkCentre")
+	?.split(",")
+	.map((v) => parseInt(v)) || [0, 0];
+const centredGridOffsets = [
+	-((initGridSize - initWindowHeight) / 2),
+	-((initGridSize - initWindowWidth) / 2),
+];
 
-// Utils
-function sleep(ms) {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
+const GameContext = createContext({
+	top: parseFloat(localStorage.getItem("top")) || centredGridOffsets[1],
+	left: parseFloat(localStorage.getItem("left")) || centredGridOffsets[0],
+	centreDelta: initLocalCentreDelta,
+	chunkCentre: initChunkCentre,
+	miniMenuStyles: {},
+	xy: [initChunkCentre[0] + initLocalCentreDelta[0], initChunkCentre[1] + initLocalCentreDelta[1]],
+	backgroundColor: "white",
+	cellSize: initCellSize,
+	gridData: {},
+	isMiniOpen: false,
+	miniModal: "",
+	miniMenuApi: {},
+	selectedBlock: () => {},
+	handlePlotClick: () => {},
+	handleMiniClick: () => {},
+	dragBind: () => {},
+	setIsMiniOpen: () => {},
+	teleport: () => {},
+});
 
-const useGame = () => {
+const GameContextProvider = (props) => {
 	const windowHeight = window.innerHeight;
 	const windowWidth = window.innerWidth;
 	const cellSize = Math.max(windowWidth, windowHeight) / 10;
@@ -94,7 +108,7 @@ const useGame = () => {
 		top: localTop,
 		left: localLeft,
 		centreDelta: localCentreDelta,
-		xy: [chunkCentre[0] + localCentreDelta[1], chunkCentre[1] + localCentreDelta[1]],
+		xy: [chunkCentre[0] + localCentreDelta[0], chunkCentre[1] + localCentreDelta[1]],
 		backgroundColor: "white",
 		config: { restVelocity: 1, ...config.slow },
 	}));
@@ -118,11 +132,12 @@ const useGame = () => {
 				handleDragEnd(top.goal, left.goal);
 				return;
 			}
-			miniMenuApi.set({
-				display: "none",
-				top: 0,
-				left: 0,
-			});
+
+			// miniMenuApi.set({
+			// 	display: "none",
+			// 	top: 0,
+			// 	left: 0,
+			// });
 			centreApi.start({
 				top: my,
 				left: mx,
@@ -235,7 +250,7 @@ const useGame = () => {
 			backgroundColor: "white",
 		});
 		setChunkCentre([x, y]);
-		miniMenuApi.set({ display: "none" });
+		miniMenuApi.set({ top: 0, left: 0, display: "none" });
 
 		localStorage.setItem("top", centredGridOffsets[0]);
 		localStorage.setItem("left", centredGridOffsets[1]);
@@ -263,26 +278,55 @@ const useGame = () => {
 		setIsMiniOpen(true);
 	};
 
-	return {
-		teleport,
-		top,
-		left,
-		centreDelta,
-		chunkCentre,
-		miniMenuStyles,
-		xy,
-		backgroundColor,
-		miniMenuApi,
-		cellSize,
-		gridData: grid,
-		isMiniOpen,
-		setIsMiniOpen,
-		miniModal,
-		selectedBlock,
-		handlePlotClick,
-		handleMiniClick,
-		dragBind,
-	};
+	return (
+		<GameContext.Provider
+			value={{
+				teleport,
+				top,
+				left,
+				centreDelta,
+				chunkCentre,
+				miniMenuStyles,
+				xy,
+				backgroundColor,
+				miniMenuApi,
+				cellSize,
+				gridData: grid,
+				isMiniOpen,
+				setIsMiniOpen,
+				miniModal,
+				selectedBlock,
+				handlePlotClick,
+				handleMiniClick,
+				dragBind,
+			}}>
+			{props.children}
+		</GameContext.Provider>
+	);
 };
 
-export default useGame;
+// Queries
+const GET_LANDS_QUERY = gql`
+	query GetLands($x1: Int!, $x2: Int!, $y1: Int!, $y2: Int!) {
+		lands(where: { x_gte: $x1, x_lte: $x2, y_gte: $y1, y_lte: $y2 }) {
+			id
+			x
+			y
+			owner {
+				id
+			}
+			seed
+			factory {
+				id
+				type
+			}
+		}
+	}
+`;
+
+// Utils
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export { GameContext, GameContextProvider };

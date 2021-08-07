@@ -61,9 +61,7 @@ const useWeb3 = () => {
 				const accounts = await web3.eth.getAccounts();
 				setAccount(accounts[0].toLowerCase());
 			})();
-	}, [provider, web3]);
 
-	useEffect(() => {
 		if (!!provider) {
 			if (provider?._portis) {
 				setProviderName("portis");
@@ -95,7 +93,7 @@ const useWeb3 = () => {
 				setAccount([]);
 			});
 		}
-	}, [provider]);
+	}, [provider, web3]);
 
 	// Account Changed Hook
 	useEffect(() => {

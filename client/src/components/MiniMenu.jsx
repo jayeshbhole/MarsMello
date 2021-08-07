@@ -1,11 +1,22 @@
 import { animated } from "@react-spring/web";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { GameContext } from "../context/GameContext";
 import ImgButton from "./Auxillary/ImgButton";
 
-const MiniMenu = ({ styles, selectedBlock, miniMenuApi, openMini }) => {
+const MiniMenu = () => {
+	const {
+		miniMenuStyles: styles,
+		cellSize,
+		selectedBlock,
+		miniMenuApi,
+		openMini,
+	} = useContext(GameContext);
+
 	const closeMiniMenu = () => {
 		miniMenuApi.set({
 			display: "none",
+			top: -2 * cellSize,
+			left: -2 * cellSize,
 		});
 	};
 	return (
