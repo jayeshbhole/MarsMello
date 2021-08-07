@@ -3,14 +3,14 @@ import React, { useContext } from "react";
 import { GameContext } from "../context/GameContext";
 import ImgButton from "./Auxillary/ImgButton";
 
-const MiniMenu = () => {
-	const {
-		miniMenuStyles: styles,
-		selectedBlock,
-		closeMiniMenu,
-		setIsMiniModal,
-	} = useContext(GameContext);
+const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
+	const { miniMenuStyles: styles, selectedBlock, closeMiniMenu } = useContext(GameContext);
 	console.log(selectedBlock);
+
+	const handleClick = (e) => {
+		setMiniModalType(e.target.id);
+		setIsMiniModal(true);
+	};
 	return (
 		<animated.div className="mini" style={styles}>
 			<img className="ring" draggable="false" src="./assets/img/circle.png" alt="circle" />
@@ -25,7 +25,7 @@ const MiniMenu = () => {
 						className="buy"
 						src="./assets/img/plot-buy-v3.png"
 						alt="buy-land-button"
-						onClick={setIsMiniModal}
+						onClick={handleClick}
 					/>
 				) : (
 					<ImgButton
@@ -34,7 +34,7 @@ const MiniMenu = () => {
 						className="sell"
 						src="./assets/img/plot-sell-v3.png"
 						alt="buy-land-button"
-						onClick={setIsMiniModal}
+						onClick={handleClick}
 					/>
 				)}
 				<ImgButton
@@ -51,7 +51,7 @@ const MiniMenu = () => {
 					className="info"
 					src="./assets/img/plot-info-v3.png"
 					alt="info-land-button"
-					onClick={setIsMiniModal}
+					onClick={handleClick}
 				/>
 				{!selectedBlock?.factory ? (
 					<ImgButton
@@ -60,7 +60,7 @@ const MiniMenu = () => {
 						className="add"
 						src="./assets/img/fact-add.png"
 						alt="info-land-button"
-						onClick={setIsMiniModal}
+						onClick={handleClick}
 						disabled={selectedBlock?.seed === -1}
 					/>
 				) : (
@@ -70,7 +70,7 @@ const MiniMenu = () => {
 						className="rmv"
 						src="./assets/img/fact-destroy.png"
 						alt="sell-land-button"
-						onClick={setIsMiniModal}
+						onClick={handleClick}
 					/>
 				)}
 			</div>

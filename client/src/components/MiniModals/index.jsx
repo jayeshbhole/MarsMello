@@ -21,7 +21,11 @@ const MiniModal = ({ children, setIsMiniModal }) => {
 	return (
 		<div className="modal-bg">
 			<div className="mini-modal" ref={modalRef}>
-				<button onClick={() => setIsMiniModal(false)} className="close">
+				<button
+					onClick={() => {
+						setIsMiniModal(false);
+					}}
+					className="close">
 					[X]
 				</button>
 				{children}

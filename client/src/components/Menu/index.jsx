@@ -1,17 +1,27 @@
-import { useContext } from "react";
-import { GameContext } from "../../context/GameContext";
+import { useState } from "react";
 import Docks from "./Docks";
 import MiniMenu from "../MiniMenu";
 import MiniModal from "../MiniModals";
+import Add from "../MiniModals/Add";
+import Info from "../MiniModals/Info";
+import Remove from "../MiniModals/Remove";
+import Buy from "../MiniModals/Buy";
+import Sell from "../MiniModals/Sell";
 const Menu = () => {
-	const { isMiniOpen, setIsMiniModal, miniModal } = useContext(GameContext);
+	const [miniModal, setMiniModalType] = useState("");
+	const [isMiniOpen, setIsMiniModal] = useState(false);
+
 	return (
 		<>
 			<Docks />
-			<MiniMenu />
+			<MiniMenu setMiniModalType={setMiniModalType} setIsMiniModal={setIsMiniModal} />
 			{isMiniOpen && (
 				<MiniModal setIsMiniModal={setIsMiniModal}>
-					<h1>{miniModal}</h1>
+					{miniModal === "info" && <Info />}
+					{miniModal === "add" && <Add />}
+					{miniModal === "rmv" && <Remove />}
+					{miniModal === "buy" && <Buy />}
+					{miniModal === "sell" && <Sell />}
 				</MiniModal>
 			)}
 		</>
