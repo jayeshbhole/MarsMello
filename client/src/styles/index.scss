@@ -55,8 +55,9 @@ body {
 				position: relative;
 				background: rgb(245, 193, 134);
 				overflow: visible;
-				opacity: 0.8;
+				opacity: 0.85;
 				z-index: 1;
+
 				&.bright {
 					background: rgb(233, 180, 121);
 					opacity: 1;
@@ -77,10 +78,16 @@ body {
 					left: 0%;
 					margin: auto;
 					text-align: center;
-					// width: 70%;
 					font-size: 1rem;
 					color: aliceblue;
 					background-color: black;
+				}
+				.factory {
+					width: 90%;
+					height: 90%;
+					position: absolute;
+					top: 0%;
+					left: 0%;
 				}
 				&.cloud {
 					background-color: rgb(255, 255, 255);

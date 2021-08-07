@@ -61,6 +61,7 @@ const TopBar = () => {
 	useEffect(() => {
 		console.log(lastClaimed);
 	}, [lastClaimed]);
+
 	useInterval(() => {
 		const random = randomBetweenFiftyHun();
 		borderStylesApi.start({
