@@ -228,7 +228,7 @@ const GameContextProvider = (props) => {
 
 	useInterval(() => {
 		loadGridFromCentre(...chunkCentre);
-	}, 30000);
+	}, 10000);
 
 	useEffect(() => {
 		if (gridData)
