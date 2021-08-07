@@ -1,10 +1,17 @@
 .img-btn {
 	background: none;
 	border: none;
+	font-family: inherit;
 	display: flex;
 	position: relative;
 	justify-content: center;
 	align-items: center;
+	&[disabled] {
+		opacity: 0.5;
+		img {
+			cursor: url(../assets/img/disabled.png), auto !important;
+		}
+	}
 	img {
 		cursor: pointer;
 		width: 100%;
