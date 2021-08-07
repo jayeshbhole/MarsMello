@@ -4,7 +4,7 @@ import { GameContext } from "../../context/GameContext";
 const Sell = () => {
 	const { selectedBlock } = useContext(GameContext);
 	return (
-		<div className="sell-content">
+		<div className="sell-content content">
 			<span className="prompt">
 				Do you want to sell land at
 				<span className="cords">{`(${selectedBlock?.x}, ${selectedBlock?.y})`}</span>
