@@ -8,7 +8,7 @@ import gameInterface from "../contracts/MarsmelloGame.json";
 import useInterval from "../hooks/useInterval";
 
 const contractAddresses = {
-	game: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3",
+	game: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3"
 };
 
 const Web3Context = createContext({
@@ -17,7 +17,7 @@ const Web3Context = createContext({
 	getWeb3ModalProvider: () => {},
 	disconnectProvider: () => {},
 	balances: { mlo: 0, fe: 0, au: 0, ti: 0, cu: 0, al: 0 },
-	providerName: "none",
+	providerName: "none"
 });
 
 const GET_USER = gql`
@@ -66,9 +66,9 @@ const providerOptions = {
 		package: Portis,
 		options: {
 			id: "4d7e97a1-076d-46e5-b777-d0c5b92d000f", // Portis DAPP ID
-			infuraId: "006a04f7400849fb8689353c7da198a0",
-		},
-	},
+			infuraId: "006a04f7400849fb8689353c7da198a0"
+		}
+	}
 };
 const web3Modal = new Web3Modal({
 	// network: "mainnet",
@@ -77,7 +77,7 @@ const web3Modal = new Web3Modal({
 	network: { chainId: 1377, nodeUrl: "http://127.0.0.1:8545" },
 	cacheProvider: true,
 	providerOptions,
-	theme: "dark",
+	theme: "dark"
 });
 const Web3ContextProvider = (props) => {
 	const decimals = 18;
@@ -182,6 +182,34 @@ const Web3ContextProvider = (props) => {
 		return gameContract.methods.mintLand(x, y).send({ from: account });
 	};
 
+	const buyFactory = (name, type) => {
+		return gameContract.methods.mintFactory(name, type).send({ from: account });
+	};
+
+	const changeFactoryName = (fid, name) => {
+		return gameContract.methods.changeFactoryName(fid, name).send({ from: account });
+	};
+
+	const removeFactory = (fid) => {
+		return gameContract.methods.removeFactory(fid).send({ from: account });
+	};
+
+	const placeFactory = (fid, x, y) => {
+		return gameContract.methods.placeFactory(fid, x, y).send({ from: account });
+	};
+
+	const transferLand = (to, x, y) => {
+		return gameContract.methods.transferLand(to, x, y).send({ from: account });
+	};
+
+	const transferFactory = (to, fid) => {
+		return gameContract.methods.transferFactory(to, fid).send({ from: account });
+	};
+
+	const claimAll = () => {
+		return gameContract.methods.claimAll().send({ from: account });
+	};
+
 	return (
 		<Web3Context.Provider
 			value={{
@@ -196,10 +224,10 @@ const Web3ContextProvider = (props) => {
 					al: userData?.user?.al,
 					au: userData?.user?.au,
 					cu: userData?.user?.cu,
-					ti: userData?.user?.ti,
+					ti: userData?.user?.ti
 				},
 				getWeb3ModalProvider,
-				disconnectProvider,
+				disconnectProvider
 			}}>
 			{props.children}
 		</Web3Context.Provider>
