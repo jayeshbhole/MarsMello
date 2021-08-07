@@ -22,7 +22,7 @@ const Profile = ({ avatar, setAvatar }) => {
 			<div className="data">
 				<h1>
 					<span>Wallet Address </span>
-					{`${account ? account?.slice(0, 6) : "0x0000"}...`}
+					{`${account}`}
 				</h1>
 				<h1>
 					<span>Wallet Provider</span>

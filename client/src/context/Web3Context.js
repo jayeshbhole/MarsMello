@@ -149,16 +149,20 @@ const Web3ContextProvider = (props) => {
 		//1040604010000000000000
 		console.log("test");
 		if (gameContract) {
-			// getLandPrice().then("land price: ", console.log);
-			gameContract.methods
-				.getLandPrice()
-				.call()
-				.then(console.log);
+			getLandPrice().then((data) => console.log("data: ", data));
+			// gameContract.methods
+			// 	.getLandPrice()
+			// 	.call()
+			// 	.then(console.log);
 		}
 	}, [gameContract]);
 
 	const getLandPrice = () => {
 		return gameContract.methods.getLandPrice().call();
+	};
+
+	const buyLand = (x, y) => {
+		return gameContract.methods.mintLand(x, y).send({ from: account });
 	};
 
 	const [loadUserData, { data: userData }] = useLazyQuery(GET_USER, {

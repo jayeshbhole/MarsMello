@@ -102,7 +102,7 @@ contract MarsmelloGame is Ownable {
 
     event FactoryNameChange(uint64 indexed id, string name);
     event Claim(address indexed claimer, uint256 time);
-    event FlowChange(address indexed user, uint128[] flows);
+    event FlowChange(address indexed user, uint128[] flows, uint64 lastclaimed);
 
     function chechUser(address a) public {
         while (users[a].flows.length < tokens.length) {
@@ -249,6 +249,7 @@ contract MarsmelloGame is Ownable {
         Factory storage f = factories[fid];
         if (f.x != 0 || f.y != 0) {
             Land storage l = lands[f.x][f.y];
+            User storage u = users[msg.sender];
             claimAll();
             for (
                 uint256 i = 0;
@@ -257,7 +258,7 @@ contract MarsmelloGame is Ownable {
             ) {
                 Resource memory r = factory_types[f.ftype].resources[i];
                 if (r.rate < 0) {
-                    users[msg.sender].flows[r.id] +=
+                    u.flows[r.id] +=
                         uint128(-1 * r.rate) *
                         uint128(f.efficiency);
                 } else {
@@ -265,15 +266,15 @@ contract MarsmelloGame is Ownable {
                         f.efficiency *
                         getLandRate(l.seed, f.ftype)) / 100;
                     require(
-                        users[msg.sender].flows[r.id] > rate,
+                        u.flows[r.id] > rate,
                         "Removing Factory will remove resource stream which is being used !"
                     );
-                    users[msg.sender].flows[r.id] -= rate;
+                    u.flows[r.id] -= rate;
                 }
             }
             emit LandE(f.x, f.y, msg.sender, 0, l.seed);
             emit FactoryE(fid, f.owner, f.ftype, f.efficiency, 0, 0, f.name);
-            emit FlowChange(msg.sender, users[msg.sender].flows);
+            emit FlowChange(msg.sender, u.flows, u.lastclaimed);
             f.x = 0;
             f.y = 0;
             l.factory = 0;
@@ -290,6 +291,7 @@ contract MarsmelloGame is Ownable {
         Factory storage f = factories[fid];
         if (l.factory != 0) removeFactory(l.factory);
         removeFactory(fid);
+        User storage u = users[msg.sender];
 
         l.factory = fid;
         f.x = x;
@@ -298,15 +300,12 @@ contract MarsmelloGame is Ownable {
             Resource memory r = factory_types[f.ftype].resources[i];
             if (r.rate < 0) {
                 require(
-                    users[msg.sender].flows[r.id] >
-                        uint128(-1 * r.rate) * f.efficiency,
+                    u.flows[r.id] > uint128(-1 * r.rate) * f.efficiency,
                     "Not enough resource stream to place factory !"
                 );
-                users[msg.sender].flows[r.id] -=
-                    uint128(-1 * r.rate) *
-                    uint128(f.efficiency);
+                u.flows[r.id] -= uint128(-1 * r.rate) * uint128(f.efficiency);
             } else {
-                users[msg.sender].flows[r.id] +=
+                u.flows[r.id] +=
                     (uint128(r.rate) *
                         uint128(f.efficiency) *
                         getLandRate(lands[x][y].seed, f.ftype)) /
@@ -315,7 +314,7 @@ contract MarsmelloGame is Ownable {
         }
         emit LandE(x, y, l.owner, l.factory, l.seed);
         emit FactoryE(fid, f.owner, f.ftype, f.efficiency, f.x, f.y, f.name);
-        emit FlowChange(msg.sender, users[msg.sender].flows);
+        emit FlowChange(msg.sender, u.flows, u.lastclaimed);
     }
 
     function transferLand(
@@ -324,15 +323,14 @@ contract MarsmelloGame is Ownable {
         int32 y
     ) public landOwner(x, y) {
         Land storage l = lands[x][y];
+        User storage u = users[msg.sender];
+
         removeFactory(l.factory);
         if (l.factory != 0) l.factory = 0;
         l.owner = to;
-        for (uint256 i = 0; i < users[msg.sender].lands.length; i++) {
-            if (
-                users[msg.sender].lands[i].x == x &&
-                users[msg.sender].lands[i].y == y
-            ) {
-                users[msg.sender].lands[i] = CoOrdinates(0, 0);
+        for (uint256 i = 0; i < u.lands.length; i++) {
+            if (u.lands[i].x == x && u.lands[i].y == y) {
+                u.lands[i] = CoOrdinates(0, 0);
                 break;
             }
         }
@@ -345,15 +343,17 @@ contract MarsmelloGame is Ownable {
         factoryOwner(factory_id)
     {
         Factory storage f = factories[factory_id];
+        User storage u = users[msg.sender];
+
         removeFactory(factory_id);
         if (f.x != 0 || f.y != 0) {
             f.x = 0;
             f.y = 0;
         }
         f.owner = to;
-        for (uint256 i = 0; i < users[msg.sender].factories.length; i++) {
-            if (users[msg.sender].factories[i] == factory_id) {
-                users[msg.sender].factories[i] == 0;
+        for (uint256 i = 0; i < u.factories.length; i++) {
+            if (u.factories[i] == factory_id) {
+                u.factories[i] == 0;
                 break;
             }
         }
@@ -362,8 +362,9 @@ contract MarsmelloGame is Ownable {
     }
 
     function claimAll() public {
-        uint128[] memory amounts = users[msg.sender].flows;
-        uint128 t = uint128(block.timestamp) - users[msg.sender].lastclaimed;
+        User storage u = users[msg.sender];
+        uint128[] memory amounts = u.flows;
+        uint128 t = uint128(block.timestamp) - u.lastclaimed;
         if (t > 86400) t = 86400;
         for (uint256 i = 0; i < amounts.length; i++) {
             amounts[i] *= t;
@@ -372,7 +373,7 @@ contract MarsmelloGame is Ownable {
             if (amounts[i] > 0)
                 require(ERC20I(tokens[i]).mintTo(msg.sender, amounts[i]));
         }
-        users[msg.sender].lastclaimed = uint64(block.timestamp);
+        u.lastclaimed = uint64(block.timestamp);
         emit Claim(msg.sender, block.timestamp);
     }
 

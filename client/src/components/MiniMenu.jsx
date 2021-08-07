@@ -1,11 +1,14 @@
 import { animated } from "@react-spring/web";
 import React, { useContext } from "react";
 import { GameContext } from "../context/GameContext";
+import { Web3Context } from "../context/Web3Context";
 import ImgButton from "./Auxillary/ImgButton";
 
 const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
 	const { miniMenuStyles: styles, selectedBlock, closeMiniMenu } = useContext(GameContext);
-	console.log(selectedBlock);
+	// console.log(selectedBlock);
+	const { account } = useContext(Web3Context);
+	// console.log("account", account);
 
 	const handleClick = (e) => {
 		setMiniModalType(e.target.id);
@@ -30,11 +33,12 @@ const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
 				) : (
 					<ImgButton
 						id="sell"
-						dataname="Sell Land"
+						dataname="Transfer Land"
 						className="sell"
 						src="./assets/img/plot-sell-v3.png"
 						alt="buy-land-button"
 						onClick={handleClick}
+						disabled={selectedBlock?.owner?.id !== account}
 					/>
 				)}
 				<ImgButton

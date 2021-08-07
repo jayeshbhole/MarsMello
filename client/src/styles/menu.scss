@@ -168,3 +168,19 @@
 		}
 	}
 }
+.modal-bg {
+	.mini-modal {
+		.content {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			justify-content: space-around;
+			font-size: 1.5rem;
+			.high {
+				color: orange;
+			}
+		}
+	}
+}
