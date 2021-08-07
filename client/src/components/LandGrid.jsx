@@ -42,7 +42,7 @@ const LandGrid = () => {
 										owned={account && cell?.owner?.id === account}
 									/>
 								) : (
-									<MemoCloud key={[row_ind, col_ind]} />
+									<MemoCloud key={[row_ind - col_ind]} />
 								);
 							})}
 						</div>
