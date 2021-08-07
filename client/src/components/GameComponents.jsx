@@ -21,23 +21,15 @@ const Plot = ({ handlePlotClick, owned, cellData }) => {
 			onClick={() => handlePlotClick(cellData)}
 			className={`cell plot ${(cellData.x + cellData.y) % 2 ? "" : "bright"} owned-${owned}`}>
 			<img draggable="false" src={`./assets/img/${image}.png`} alt={`${image}.png`} />
-			{
-				cellData?.factory ? (
-					<img
-						draggable="false"
-						className="factory"
-						style={{ top: `${seed[1]}%`, left: `${seed[0]}%` }}
-						src={`./assets/img/factories/factory_${cellData.factory.type}.gif`}
-						alt={`${"factory"}.png`}
-					/>
-				) : null
-				// <img
-				// 	draggable="false"
-				// 	className="factory"
-				// 	src={`./assets/img/factories/factory_0.gif`}
-				// 	alt={`${"factory"}.png`}
-				// />
-			}
+			{cellData?.factory ? (
+				<img
+					draggable="false"
+					className="factory"
+					style={{ top: `${seed[1]}%`, left: `${seed[0]}%` }}
+					src={`./assets/img/factories/factory_${cellData.factory.type}.gif`}
+					alt={`${"factory"}.png`}
+				/>
+			) : null}
 			{/* <h1>{cellData?.owner?.id}</h1> */}
 		</div>
 	);
