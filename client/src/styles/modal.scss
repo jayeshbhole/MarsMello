@@ -220,6 +220,13 @@
 							background-position-y: 0.65rem;
 							background-size: contain;
 						}
+						.sell {
+							background: url(../assets/img/forSell.png);
+							background-repeat: no-repeat;
+							background-position-y: 0.5rem;
+							background-size: contain;
+							color: white;
+						}
 						.btns {
 							display: flex;
 							justify-content: space-between;
