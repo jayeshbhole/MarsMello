@@ -35,8 +35,8 @@ const useGame = () => {
 	const paddingSize = cellSize * 5;
 
 	// Mini modal States
-	const [isMiniOpen, setIsMiniOpen] = useState(false);
-	const [miniModal, setMiniModal] = useState("");
+	const [isMiniOpen, setIsMiniModal] = useState(false);
+	const [miniModal, setMiniModalType] = useState("");
 
 	const centredGridOffsets = [-((gridSize - windowHeight) / 2), -((gridSize - windowWidth) / 2)];
 
@@ -259,8 +259,8 @@ const useGame = () => {
 
 	// handle mini menu click
 	const handleMiniClick = (e) => {
-		setMiniModal(e.target.id);
-		setIsMiniOpen(true);
+		setMiniModalType(e.target.id);
+		setIsMiniModal(true);
 	};
 
 	return {
@@ -276,7 +276,7 @@ const useGame = () => {
 		cellSize,
 		gridData: grid,
 		isMiniOpen,
-		setIsMiniOpen,
+		setIsMiniModal,
 		miniModal,
 		selectedBlock,
 		handlePlotClick,

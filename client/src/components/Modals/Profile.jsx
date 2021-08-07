@@ -39,7 +39,7 @@ const Profile = ({ avatar, setAvatar }) => {
 				</button>
 			</div>
 			{isSelectOpen && (
-				<MiniModal setIsMiniOpen={setIsSelectOpen}>
+				<MiniModal setIsMiniModal={setIsSelectOpen}>
 					<span>Choose a avatar</span>
 					<div className="options">
 						<ImgButton

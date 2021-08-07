@@ -4,13 +4,13 @@ import Docks from "./Docks";
 import MiniMenu from "../MiniMenu";
 import MiniModal from "../MiniModals";
 const Menu = () => {
-	const { isMiniOpen, setIsMiniOpen, miniModal } = useContext(GameContext);
+	const { isMiniOpen, setIsMiniModal, miniModal } = useContext(GameContext);
 	return (
 		<>
 			<Docks />
 			<MiniMenu />
 			{isMiniOpen && (
-				<MiniModal setIsMiniOpen={setIsMiniOpen}>
+				<MiniModal setIsMiniModal={setIsMiniModal}>
 					<h1>{miniModal}</h1>
 				</MiniModal>
 			)}

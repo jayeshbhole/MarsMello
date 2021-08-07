@@ -55,7 +55,7 @@ const Docks = () => {
 			)}
 			){/* Teleport Modal */}
 			{isTeleModal && (
-				<MiniModal setIsMiniOpen={setIsTeleModal}>
+				<MiniModal setIsMiniModal={setIsTeleModal}>
 					<form>
 						<div className="x input">
 							<label>X: </label>

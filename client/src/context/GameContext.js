@@ -40,7 +40,7 @@ const GameContext = createContext({
 	handlePlotClick: () => {},
 	handleMiniClick: () => {},
 	dragBind: () => {},
-	setIsMiniOpen: () => {},
+	setIsMiniModal: () => {},
 	teleport: () => {},
 });
 
@@ -52,8 +52,8 @@ const GameContextProvider = (props) => {
 	const paddingSize = cellSize * 5;
 
 	// Mini modal States
-	const [isMiniOpen, setIsMiniOpen] = useState(false);
-	const [miniModal, setMiniModal] = useState("");
+	const [isMiniOpen, setIsMiniModal] = useState(false);
+	const [miniModal, setMiniModalType] = useState("");
 
 	const centredGridOffsets = [-((gridSize - windowHeight) / 2), -((gridSize - windowWidth) / 2)];
 
@@ -135,10 +135,10 @@ const GameContextProvider = (props) => {
 				return;
 			}
 
-			miniMenuApi.set({
-				top: -2 * cellSize,
-				left: -2 * cellSize,
-			});
+			// miniMenuApi.set({
+			// 	top: -2 * cellSize,
+			// 	left: -2 * cellSize,
+			// });
 			centreApi.start({
 				top: my,
 				left: mx,
@@ -237,7 +237,6 @@ const GameContextProvider = (props) => {
 				const newGrid = {};
 				for (const cell of gridData.lands) {
 					newGrid[cell.id] = cell;
-					if (cell.owner.id === account) cell.owned = true;
 				}
 				console.log(newGrid);
 				return newGrid;
@@ -290,8 +289,8 @@ const GameContextProvider = (props) => {
 
 	// handle mini menu click
 	const handleMiniClick = (e) => {
-		setMiniModal(e.target.id);
-		setIsMiniOpen(true);
+		setMiniModalType(e.target.id);
+		setIsMiniModal(true);
 	};
 
 	return (
@@ -310,7 +309,7 @@ const GameContextProvider = (props) => {
 				gridData: grid,
 				isMiniOpen,
 				closeMiniMenu,
-				setIsMiniOpen,
+				setIsMiniModal,
 				miniModal,
 				selectedBlock,
 				handlePlotClick,

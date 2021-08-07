@@ -2,12 +2,12 @@ import React, { useRef, useEffect, useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import "../../styles/minimodal.scss";
 
-const MiniModal = ({ children, setIsMiniOpen }) => {
+const MiniModal = ({ children, setIsMiniModal }) => {
 	const checkIfClickedOutside = (e) => {
 		// If the menu is open and the clicked target is not within the menu,
 		// then close the menu
 		if (!modalRef.current.contains(e.target)) {
-			setIsMiniOpen(false);
+			setIsMiniModal(false);
 		}
 	};
 	useEffect(() => {
@@ -21,7 +21,7 @@ const MiniModal = ({ children, setIsMiniOpen }) => {
 	return (
 		<div className="modal-bg">
 			<div className="mini-modal" ref={modalRef}>
-				<button onClick={() => setIsMiniOpen(false)} className="close">
+				<button onClick={() => setIsMiniModal(false)} className="close">
 					[X]
 				</button>
 				{children}
