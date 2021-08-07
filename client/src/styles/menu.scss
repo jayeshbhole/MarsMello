@@ -178,8 +178,59 @@
 			text-align: center;
 			justify-content: space-around;
 			font-size: 1.5rem;
+			padding: 1rem;
 			.high {
 				color: orange;
+			}
+
+			.cost {
+				font-size: 2.5rem;
+				.high {
+					margin-left: 1rem;
+				}
+			}
+			select {
+				padding: 1rem;
+				font-family: inherit;
+				background-color: lighten($color-modal-bg, 5%);
+				border: 1px ridge $color-modal-border;
+				border-radius: 0.25rem;
+				color: white;
+				width: 60%;
+			}
+			button {
+				cursor: pointer;
+				margin: 0 auto;
+				width: fit-content;
+				font-size: 1.2rem;
+				font-family: inherit;
+				padding: 0.75rem;
+				background: none;
+				border: none;
+				&.place-factory,
+				&.buy-land {
+					background-image: url(../assets/img/forBid.png);
+					background-repeat: no-repeat;
+					background-size: contain;
+					background-position-y: 50%;
+				}
+				&.rmv-factory,
+				&.sell-land {
+					background-image: url(../assets/img/forSell.png);
+					background-repeat: no-repeat;
+					background-size: contain;
+					background-position-x: 30%;
+					background-position-y: 30%;
+					color: white;
+				}
+				&.buy-fact {
+					padding: 1.5rem 1rem;
+					background-image: url(../assets/img/forBuy.png);
+					background-repeat: no-repeat;
+					background-size: contain;
+					background-position-x: 30%;
+					background-position-y: 50%;
+				}
 			}
 		}
 	}

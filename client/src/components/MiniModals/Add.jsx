@@ -1,17 +1,34 @@
 import React, { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
+import { Web3Context } from "../../context/Web3Context";
 
 const Add = () => {
 	const { selectedBlock } = useContext(GameContext);
-	return selectedBlock?.factory ? (
+	const { factories } = useContext(Web3Context);
+	// console.log("factories", factories);
+
+	return factories ? (
 		<div className="add-content content">
 			<span className="prompt">
-				Do you want to place a factory at
-				<span className="cords">{`(${selectedBlock?.x}, ${selectedBlock?.y})`}</span>
+				Choose Factory to place at
+				<span className="high">{` (${selectedBlock?.x}, ${selectedBlock?.y})`}</span>
 			</span>
 			<span className="select">
 				<select name="factory" id="factory-list">
-					<option value="fact01">Test</option>
+					<optgroup label="Inventory">
+						{factories.map(({ x, y, name }) => {
+							if (x === 0 || y === 0 || !x || !y) {
+								return <option value={name}>{name}</option>;
+							}
+						})}
+					</optgroup>
+					<optgroup label="Teleport">
+						{factories.map(({ x, y, name }) => {
+							if (x !== 0 || y !== 0 || x || y) {
+								return <option value={name}>{name}</option>;
+							}
+						})}
+					</optgroup>
 				</select>
 			</span>
 			<button className="place-factory">Place</button>
@@ -19,7 +36,7 @@ const Add = () => {
 	) : (
 		<div className="add-content content">
 			<span className="prompt">No Factories in Inventory to place.</span>
-			<button>Buy a factory</button>
+			<button className="buy-fact">Buy a factory</button>
 		</div>
 	);
 };
