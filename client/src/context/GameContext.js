@@ -129,6 +129,7 @@ const GameContextProvider = (props) => {
 				calculateCentre(top.goal, left.goal);
 				return;
 			} else {
+				setSelectedBlock();
 				miniMenuApi.set({
 					top: -2 * cellSize,
 					left: -2 * cellSize,
@@ -213,7 +214,7 @@ const GameContextProvider = (props) => {
 	};
 
 	// Querying Data
-
+	const { account } = useContext(Web3Context);
 	const [loadGrid, { loading: gridLoading, data: gridData }] = useLazyQuery(GET_LANDS_QUERY);
 
 	const loadGridFromCentre = (x, y) => {
@@ -222,7 +223,7 @@ const GameContextProvider = (props) => {
 
 	useEffect(() => {
 		loadGridFromCentre(...chunkCentre);
-	}, []);
+	}, [account]);
 	const [grid, setGrid] = useState();
 
 	useInterval(() => {

@@ -49,7 +49,7 @@
 		transform: translateX(-50%);
 		background-image: url(../assets/img/TopBar.png);
 		background-size: contain;
-		background-position-x: 1rem;
+		background-position-x: 50%;
 		padding: 0 1rem;
 		.item {
 			display: flex;
@@ -115,6 +115,25 @@
 					font-size: 0.75rem;
 					color: rgba(white, 0.6);
 				}
+			}
+		}
+		.claim-progress {
+			width: calc(90% - 0.4rem);
+			border: 0.2rem ridge rgb(63, 63, 63);
+			border-top: none;
+			border-radius: 50rem;
+			height: 0.75rem;
+			margin-top: -2.7rem;
+			background-color: rgba(175, 175, 175, 0.5);
+			display: flex;
+			justify-content: center;
+			.progress {
+				width: 60%;
+				height: 0.35rem;
+				border: 0.2rem outset;
+				border-color: green;
+				border-radius: 50rem;
+				background: green;
 			}
 		}
 	}

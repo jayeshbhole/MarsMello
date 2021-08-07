@@ -167,6 +167,7 @@ const Web3ContextProvider = (props) => {
 				account,
 				provider,
 				providerName,
+				lastClaimed: userData?.lastClaimed,
 				balances: {
 					mlo: userData?.user?.mlo,
 					fe: userData?.user?.fe,

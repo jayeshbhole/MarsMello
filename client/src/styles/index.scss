@@ -56,15 +56,16 @@ body {
 				background: rgb(245, 193, 134);
 				overflow: visible;
 				opacity: 0.8;
+				z-index: 1;
 				&.bright {
 					background: rgb(233, 180, 121);
 					opacity: 1;
 				}
 				&.owned-true {
+					z-index: 2;
 					filter: brightness(1.1);
-					&.bright {
-						opacity: 0.95;
-					}
+					box-shadow: 0 0 0px 2px red;
+					opacity: 1;
 				}
 				img {
 					width: 100%;
@@ -106,6 +107,7 @@ body {
 	position: absolute;
 	transform: translate(-50%, -50%);
 	display: block;
+	z-index: 2;
 	#label {
 		color: white;
 		position: absolute;

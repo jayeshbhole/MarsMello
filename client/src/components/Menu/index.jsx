@@ -13,8 +13,8 @@ const Menu = () => {
 
 	return (
 		<>
-			<Docks />
 			<MiniMenu setMiniModalType={setMiniModalType} setIsMiniModal={setIsMiniModal} />
+			<Docks />
 			{isMiniOpen && (
 				<MiniModal setIsMiniModal={setIsMiniModal}>
 					{miniModal === "info" && <Info />}
