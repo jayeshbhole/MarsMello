@@ -32,7 +32,7 @@ module.exports = async function(deployer) {
     await mmg.addResource(au.address);
     await mmg.addResource(ti.address);
     await mmg.addFactoryType(500, true, ["0"], ["27777777777777778"]);
-    await mmg.addFactoryType(8000, true, ["1"], ["13888888888888889"]);
+    await mmg.addFactoryType(800, true, ["1"], ["13888888888888889"]);
     await mmg.addFactoryType(1000, true, ["2"], ["5555555555555556"]);
     await mmg.addFactoryType(1200, true, ["3"], ["2777777777777778"]);
     await mmg.addFactoryType(1500, true, ["4"], ["1388888888888889"]);
