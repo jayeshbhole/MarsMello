@@ -4,9 +4,12 @@ import { GameContext } from "../context/GameContext";
 import ImgButton from "./Auxillary/ImgButton";
 
 const MiniMenu = () => {
-	const { miniMenuStyles: styles, selectedBlock, closeMiniMenu, setIsMiniModal } = useContext(
-		GameContext
-	);
+	const {
+		miniMenuStyles: styles,
+		selectedBlock,
+		closeMiniMenu,
+		setIsMiniModal,
+	} = useContext(GameContext);
 	console.log(selectedBlock);
 	return (
 		<animated.div className="mini" style={styles}>
@@ -41,7 +44,6 @@ const MiniMenu = () => {
 					className="exit"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="remove-factory-button"
-					// onClick={}
 				/>
 				<ImgButton
 					id="info"
