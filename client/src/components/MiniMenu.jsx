@@ -4,12 +4,9 @@ import { GameContext } from "../context/GameContext";
 import ImgButton from "./Auxillary/ImgButton";
 
 const MiniMenu = () => {
-	const {
-		miniMenuStyles: styles,
-		selectedBlock,
-		closeMiniMenu,
-		setIsMiniModal,
-	} = useContext(GameContext);
+	const { miniMenuStyles: styles, selectedBlock, closeMiniMenu, setIsMiniModal } = useContext(
+		GameContext
+	);
 	console.log(selectedBlock);
 	return (
 		<animated.div className="mini" style={styles}>
@@ -18,22 +15,25 @@ const MiniMenu = () => {
 				{selectedBlock?.x},{selectedBlock?.y}
 			</span>
 			<div className="btns">
-				<ImgButton
-					id="buy"
-					dataname="But Land"
-					className="buy"
-					src="./assets/img/plot-buy-v3.png"
-					alt="buy-land-button"
-					onClick={setIsMiniModal}
-				/>
-				{/* <ImgButton
-					id="sell"
-					dataname="Sell Land"
-					className="sell"
-					src="./assets/img/plot-sell-v3.png"
-					alt="buy-land-button"
-					onClick={setIsMiniModal}
-				/> */}
+				{selectedBlock?.seed === -1 ? (
+					<ImgButton
+						id="buy"
+						dataname="But Land"
+						className="buy"
+						src="./assets/img/plot-buy-v3.png"
+						alt="buy-land-button"
+						onClick={setIsMiniModal}
+					/>
+				) : (
+					<ImgButton
+						id="sell"
+						dataname="Sell Land"
+						className="sell"
+						src="./assets/img/plot-sell-v3.png"
+						alt="buy-land-button"
+						onClick={setIsMiniModal}
+					/>
+				)}
 				<ImgButton
 					onClick={closeMiniMenu}
 					id="exit"
@@ -43,14 +43,6 @@ const MiniMenu = () => {
 					alt="remove-factory-button"
 					// onClick={}
 				/>
-				{/* <ImgButton
-					id="rmv"
-					dataname="Remove Factory"
-					className="rmv"
-					src="./assets/img/plot-rmv-v3.png"
-					alt="sell-land-button"
-					onClick={setIsMiniModal}
-				/> */}
 				<ImgButton
 					id="info"
 					dataname="Info"
@@ -59,14 +51,26 @@ const MiniMenu = () => {
 					alt="info-land-button"
 					onClick={setIsMiniModal}
 				/>
-				<ImgButton
-					id="add"
-					dataname="Place Factory"
-					className="add"
-					src="./assets/img/fact-add.png"
-					alt="info-land-button"
-					onClick={setIsMiniModal}
-				/>
+				{!selectedBlock?.factory ? (
+					<ImgButton
+						id="add"
+						dataname="Place Factory"
+						className="add"
+						src="./assets/img/fact-add.png"
+						alt="info-land-button"
+						onClick={setIsMiniModal}
+						disabled={selectedBlock?.seed === -1}
+					/>
+				) : (
+					<ImgButton
+						id="rmv"
+						dataname="Remove Factory"
+						className="rmv"
+						src="./assets/img/fact-destroy.png"
+						alt="sell-land-button"
+						onClick={setIsMiniModal}
+					/>
+				)}
 			</div>
 		</animated.div>
 	);
