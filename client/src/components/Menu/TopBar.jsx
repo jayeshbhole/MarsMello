@@ -52,24 +52,30 @@ const randomBetweenFiftyHun = () => {
 const TopBar = () => {
 	const { account, getWeb3ModalProvider, balances, lastClaimed } = useContext(Web3Context);
 	const [borderStyles, borderStylesApi] = useSpring(() => ({
-		borderColor: numberToColorHsl(50),
-		background: numberToColorHsl(50),
+		borderColor: numberToColorHsl(50, 0.3, 0.7),
+		background: numberToColorHsl(50, 0.3, 0.7),
 		width: "50%",
 		config: config.molasses,
 	}));
 
-	useEffect(() => {
-		console.log(lastClaimed);
-	}, [lastClaimed]);
-
 	useInterval(() => {
-		const random = randomBetweenFiftyHun();
-		borderStylesApi.start({
-			borderColor: numberToColorHsl((100 - random) / 100, 0.3, 0.7),
-			background: numberToColorHsl((100 - random) / 100, 0.3, 0.7),
-			width: `${Math.floor(random / 2 + 50)}%`,
-		});
-	}, 2000);
+		if (!account) {
+			const random = randomBetweenFiftyHun();
+			borderStylesApi.start({
+				borderColor: numberToColorHsl((100 - random) / 100, 0.3, 0.7),
+				background: numberToColorHsl((100 - random) / 100, 0.3, 0.7),
+				width: `${Math.floor(random / 2 + 50)}%`,
+			});
+		} else {
+			const hoursPassedPercent = (Date.now() - parseInt(lastClaimed) * 1000) / 86400 / 24;
+			borderStylesApi.start({
+				borderColor: numberToColorHsl((100 - hoursPassedPercent) / 100, 0.3, 0.7),
+				background: numberToColorHsl((100 - hoursPassedPercent) / 100, 0.3, 0.7),
+				width: `${Math.floor(hoursPassedPercent / 2 + 50)}%`,
+			});
+		}
+	}, 5000);
+
 	return (
 		<div className="topbar bar">
 			<div className="item Fe">
