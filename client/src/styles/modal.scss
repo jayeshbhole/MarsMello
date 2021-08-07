@@ -117,6 +117,9 @@
 							cursor: pointer;
 							width: 20%;
 						}
+						.hover-info::before {
+							top: 100%;
+						}
 					}
 				}
 			}
