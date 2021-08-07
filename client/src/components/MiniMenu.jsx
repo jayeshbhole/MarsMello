@@ -8,7 +8,7 @@ const MiniMenu = () => {
 		miniMenuStyles: styles,
 		selectedBlock,
 		closeMiniMenu,
-		openMini,
+		setIsMiniOpen,
 	} = useContext(GameContext);
 
 	return (
@@ -22,7 +22,7 @@ const MiniMenu = () => {
 					className="buy"
 					src="./assets/img/plot-buy-v3.png"
 					alt="buy-land-button"
-					onClick={openMini}
+					onClick={setIsMiniOpen}
 				/>
 				{/* <ImgButton
 					id="sell"
@@ -30,7 +30,7 @@ const MiniMenu = () => {
 					className="sell"
 					src="./assets/img/plot-sell-v3.png"
 					alt="buy-land-button"
-					onClick={openMini}
+					onClick={setIsMiniOpen}
 				/> */}
 				<ImgButton
 					onClick={closeMiniMenu}
@@ -47,7 +47,7 @@ const MiniMenu = () => {
 					className="rmv"
 					src="./assets/img/plot-rmv-v3.png"
 					alt="sell-land-button"
-					onClick={openMini}
+					onClick={setIsMiniOpen}
 				/> */}
 				<ImgButton
 					id="info"
@@ -55,7 +55,7 @@ const MiniMenu = () => {
 					className="info"
 					src="./assets/img/plot-info-v3.png"
 					alt="info-land-button"
-					onClick={openMini}
+					onClick={setIsMiniOpen}
 				/>
 				<ImgButton
 					id="add"
@@ -63,7 +63,7 @@ const MiniMenu = () => {
 					className="add"
 					src="./assets/img/fact-add.png"
 					alt="info-land-button"
-					onClick={openMini}
+					onClick={setIsMiniOpen}
 				/>
 			</div>
 		</animated.div>
