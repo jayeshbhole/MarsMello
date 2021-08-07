@@ -18,7 +18,6 @@ const LandGrid = () => {
 			return { seed: -1, x: x - 15 + chunkCentre[0], y: -y + 15 + chunkCentre[1] };
 		});
 	});
-	// console.log(templateGridArray);
 
 	return (
 		<animated.div className="grid-container" {...dragBind()}>
@@ -30,7 +29,7 @@ const LandGrid = () => {
 								return !cell.cloud ? (
 									<MemoPlot
 										handlePlotClick={handlePlotClick}
-										cellData={gridData?.[`${cell.x}`]?.[`${cell.y}`] || cell}
+										cellData={gridData?.[`${cell.x},${cell.y}`] || cell}
 										block={[cell.x, cell.y]}
 										key={[cell.x, cell.y]}
 									/>

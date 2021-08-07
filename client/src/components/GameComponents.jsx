@@ -6,7 +6,7 @@ const getImage = (cellData) => {
 	if (cellData.x === 0 && cellData.y === 0) return "spawn";
 	if (cellData.seed === -1) return "locked";
 
-	return `pixplot_${cellData.seed % 5}.png`;
+	return `pixplot_${parseInt(cellData.seed) % 5}`;
 };
 // Cell
 const Plot = ({ handlePlotClick, cellData, block }) => {
