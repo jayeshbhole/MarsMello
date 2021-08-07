@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Web3Context } from "../../context/Web3Context";
 import Card from "../Auxillary/Card";
 
 const Factory = () => {
 	const [page, setPage] = useState(0);
+	const { web3, contract } = useContext(Web3Context);
 
 	return (
 		<div className="factory">
