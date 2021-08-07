@@ -5,6 +5,38 @@ import Card from "../Auxillary/Card";
 const Factory = () => {
 	const [page, setPage] = useState(0);
 	const { web3, contract } = useContext(Web3Context);
+	const factories = [
+		{
+			type: 0,
+			produce: "fe",
+			name: "Iron Mine",
+			rates: [50, 100],
+		},
+		{
+			type: 1,
+			produce: "al",
+			name: "Aluminium Quarry",
+			rates: [25, 50],
+		},
+		{
+			type: 2,
+			produce: "cu",
+			name: "Copper Well",
+			rates: [10, 20],
+		},
+		{
+			type: 3,
+			produce: "au",
+			name: "Gold Mine",
+			rates: [5, 10],
+		},
+		{
+			type: 4,
+			produce: "ti",
+			name: "Titanium Quarry",
+			rates: [2, 5],
+		},
+	];
 
 	return (
 		<div className="factory">
