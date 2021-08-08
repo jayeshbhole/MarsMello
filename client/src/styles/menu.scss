@@ -176,6 +176,14 @@
 			&.add-content {
 				padding: 0;
 			}
+			&.rmv-content {
+				justify-content: center;
+				.prompt {
+					width: 50%;
+					margin: 0 auto;
+					margin-bottom: 2rem;
+				}
+			}
 			height: 100%;
 			display: flex;
 			flex-direction: column;
