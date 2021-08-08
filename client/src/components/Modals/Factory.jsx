@@ -29,30 +29,33 @@ const Factory = () => {
 			{page === 0 ? (
 				<div className="content owned">
 					{factories ? (
-						factories.map((factory) => {
+						factories.map(({ name, id, x, y, type, efficiency }) => {
 							return (
-								<Card className="owned-2" key={factory.id}>
+								<Card key={id}>
 									<section className="card-left">
-										<img src={`./assets/img/factories/factory_${factory.type}.png`} alt="" />
+										<img src={`./assets/img/factories/factory_${type}.png`} alt="" />
 
 										<span className="rate">
-											10<span className="unit">/hr</span>
+											{`${efficiency}% `}
+											<span className="unit">efficient</span>
 										</span>
 									</section>
 									<section className="card-right">
 										<div className="name">
-											<span className="label">Name:</span>
-											<span className="value">{factory.name}</span>
+											<span className="value">{name}</span>
 										</div>
 										<div className="produce">
 											<span className="label">Produce:</span>
-											<span className="value">{factoriesList[factory.type].produce}</span>
+											<span className="high">{factoriesList[type].produce}</span>
 										</div>
-										<div className="cords">
-											<span className="x-label label">X:</span>
-											<span className="x-value value">{factory.x}</span>{" "}
-											<span className="y-label label">Y:</span>
-											<span className="y-value value">{factory.y}</span>
+										<div className="placed">
+											{x && y ? (
+												<span>
+													Factory place at <span className="high">{`(${x}, ${y})`}</span>
+												</span>
+											) : (
+												<span>factory not placed</span>
+											)}
 										</div>
 										<div className="btns">
 											<button className="sell" title="Sell the factory">

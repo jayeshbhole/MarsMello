@@ -211,16 +211,20 @@
 							font-size: 1.2rem;
 						}
 						.produce {
-							font-size: 0.8rem;
+							.label {
+								font-size: 0.8rem;
+							}
 							.high {
 								color: orange;
 							}
 						}
 						.placed {
-							font-size: 0.8rem;
-							.high {
-								display: inline-block;
-								color: orange;
+							span {
+								font-size: 0.8rem;
+								.high {
+									display: block;
+									color: orange;
+								}
 							}
 						}
 						.price {

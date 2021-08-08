@@ -52,7 +52,7 @@ const Plots = () => {
 								<span className="y-label label">Y:</span>
 								<span className="y-value value">5</span>
 							</div>
-							<button className="sell">Sell</button>
+							<button className="sell">send</button>
 						</section>
 					</Card>
 				</div>
