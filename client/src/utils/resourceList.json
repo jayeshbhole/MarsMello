@@ -1,0 +1,22 @@
+{
+    "0":{
+        "name":"Iron",
+        "symbol":"FE"
+    } ,
+    "1":{
+        "name":"Aluminium",
+        "symbol":"AL"
+    }  ,
+    "2":{
+        "name":"Copper",
+        "symbol":"CU"
+    }  ,
+    "3":{
+        "name":"Gold",
+        "symbol":"AU"
+    } , 
+    "4":{
+        "name":"Titanium",
+        "symbol":"TI"
+    }  
+}
