@@ -7,6 +7,7 @@ const Add = ({ setIsOpen }) => {
 	const { selectedBlock } = useContext(GameContext);
 	const { factories, placeFactory } = useContext(Web3Context);
 	const [fid, setFid] = useState("");
+
 	// console.log("factories", factories);
 
 	return factories ? (
