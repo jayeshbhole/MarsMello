@@ -12,8 +12,9 @@
 	.modal {
 		position: fixed;
 		z-index: 999;
-		width: 100%;
+		width: 90%;
 		max-width: 80ch;
+		padding: 2rem;
 		.close {
 			cursor: pointer;
 			background: none;
@@ -160,9 +161,8 @@
 			.content {
 				display: flex;
 				flex-wrap: wrap;
-				width: calc(100%-2rem);
+				// width: calc(100%-2rem);
 				height: 90%;
-				padding: 1rem;
 				background: lighten($color-modal-bg, 10%);
 				.card {
 					&.plot-card {
@@ -304,8 +304,8 @@
 		.resos {
 			margin: 0 6.5%;
 			h1 {
-				margin-top: 3rem;
-				margin-bottom: 4rem;
+				padding-top: 3rem;
+				padding-bottom: 4rem;
 			}
 			.content {
 				width: 100%;

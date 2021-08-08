@@ -8,7 +8,7 @@ import gameInterface from "../contracts/MarsmelloGame.json";
 import useInterval from "../hooks/useInterval";
 
 const contractAddresses = {
-	game: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3",
+	game: "0x1f438E2E3967cDA191bFE8406b4753C20C5f8637",
 };
 
 const Web3Context = createContext({
@@ -151,7 +151,7 @@ const Web3ContextProvider = (props) => {
 
 	// Account Changed Hook
 	useEffect(() => {
-		console.log("changed account", account);
+		console.log("==> Changed account", account);
 		if (account) loadUserData({ variables: { userId: account } });
 	}, [account]);
 
