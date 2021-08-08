@@ -54,7 +54,7 @@ const Info = () => {
 				) : null}
 			</div>
 		</div>
-	) : selectedBlock?.x !== 0 && selectedBlock?.y !== 0 ? (
+	) : (selectedBlock?.x !== 0 && selectedBlock?.y) !== 0 ? (
 		<div className="info-content content">
 			<div className="info">
 				<span className="cords">
