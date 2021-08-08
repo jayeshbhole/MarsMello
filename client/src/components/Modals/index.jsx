@@ -2,7 +2,7 @@ import { animated } from "@react-spring/web";
 import React, { useRef, useEffect } from "react";
 import "../../styles/modal.scss";
 
-const Modal = ({ children, setIsOpen, modalVisible }) => {
+const Modal = ({ children, setIsOpen, modalVisible, className }) => {
 	const checkIfClickedOutside = (e) => {
 		// If the menu is open and the clicked target is not within the menu,
 		// then close the menu
@@ -20,7 +20,7 @@ const Modal = ({ children, setIsOpen, modalVisible }) => {
 	const modalRef = useRef();
 	return (
 		<animated.div className="modal-bg">
-			<div className="modal" ref={modalRef}>
+			<div className={`modal ${className}`} ref={modalRef}>
 				<button onClick={() => setIsOpen(false)} className="close">
 					[X]
 				</button>

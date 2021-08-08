@@ -4,13 +4,13 @@ import { GameContext } from "../context/GameContext";
 import { Web3Context } from "../context/Web3Context";
 import ImgButton from "./Auxillary/ImgButton";
 
-const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
+const MiniMenu = ({ setModalType, setIsModalOpen }) => {
 	const { miniMenuStyles: styles, selectedBlock, closeMiniMenu } = useContext(GameContext);
 	const { account } = useContext(Web3Context);
 
 	const handleClick = (e) => {
-		setMiniModalType(e.target.id);
-		setIsMiniModal(true);
+		setModalType(e.target.id);
+		setIsModalOpen(true);
 	};
 	return (
 		<animated.div className="mini" style={styles}>

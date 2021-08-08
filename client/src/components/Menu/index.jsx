@@ -1,28 +1,28 @@
 import { useState } from "react";
 import Docks from "./Docks";
 import MiniMenu from "../MiniMenu";
-import MiniModal from "../MiniModals";
 import Add from "../MiniModals/Add";
 import Info from "../MiniModals/Info";
 import Remove from "../MiniModals/Remove";
 import Buy from "../MiniModals/Buy";
 import Sell from "../MiniModals/Sell";
+import Modal from "../Modals/index";
 const Menu = () => {
-	const [miniModal, setMiniModalType] = useState("");
-	const [isMiniOpen, setIsMiniModal] = useState(false);
+	const [modal, setModalType] = useState("");
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
 		<>
-			<MiniMenu setMiniModalType={setMiniModalType} setIsMiniModal={setIsMiniModal} />
+			<MiniMenu setModalType={setModalType} setIsModalOpen={setIsModalOpen} />
 			<Docks />
-			{isMiniOpen && (
-				<MiniModal setIsMiniModal={setIsMiniModal}>
-					{miniModal === "info" && <Info />}
-					{miniModal === "add" && <Add />}
-					{miniModal === "rmv" && <Remove />}
-					{miniModal === "buy" && <Buy />}
-					{miniModal === "sell" && <Sell />}
-				</MiniModal>
+			{isModalOpen && (
+				<Modal className="mini-menu-modal" setIsOpen={setIsModalOpen}>
+					{modal === "info" && <Info setIsOpen={setIsModalOpen} />}
+					{modal === "add" && <Add setIsOpen={setIsModalOpen} />}
+					{modal === "rmv" && <Remove setIsOpen={setIsModalOpen} />}
+					{modal === "buy" && <Buy setIsOpen={setIsModalOpen} />}
+					{modal === "sell" && <Sell setIsOpen={setIsModalOpen} />}
+				</Modal>
 			)}
 		</>
 	);

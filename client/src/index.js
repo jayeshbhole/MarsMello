@@ -4,9 +4,20 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
+const defaultOptions = {
+	watchQuery: {
+		fetchPolicy: "no-cache",
+		errorPolicy: "ignore",
+	},
+	query: {
+		fetchPolicy: "no-cache",
+		errorPolicy: "all",
+	},
+};
 const client = new ApolloClient({
 	uri: "http://localhost:8000/subgraphs/name/MarsMello",
 	cache: new InMemoryCache(),
+	defaultOptions: defaultOptions,
 });
 ReactDOM.render(
 	<React.StrictMode>

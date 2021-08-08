@@ -12,6 +12,7 @@
 	.modal {
 		position: fixed;
 		z-index: 999;
+		width: 100%;
 		max-width: 80ch;
 		.close {
 			cursor: pointer;
@@ -184,7 +185,7 @@
 							height: 60%;
 						}
 						.rate {
-							font-size: 2rem;
+							font-size: 1.2rem;
 							.unit {
 								font-size: 0.8rem;
 								color: rgba(white, 0.6);
@@ -203,15 +204,18 @@
 						div {
 							margin: 0.2rem 0;
 						}
-						.label {
-							color: rgba(white, 0.6);
-							font-size: 0.8rem;
+						.title {
+							margin-bottom: 0.5rem;
+							font-size: 1.2rem;
 						}
-						.value {
-							margin-left: 0.5rem;
-						}
-						.y-label {
-							margin-left: 1rem;
+						.price {
+							margin-bottom: 0.5rem;
+							font-size: 1.5rem;
+							.token {
+								color: orange;
+								font-size: 1.2rem;
+								margin-left: 0.5rem;
+							}
 						}
 						button {
 							text-align: center;

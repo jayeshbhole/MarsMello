@@ -1,42 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Web3Context } from "../../context/Web3Context";
+import { factories } from "../../utils/factoriesList";
 import Card from "../Auxillary/Card";
 
 const Factory = () => {
 	const [page, setPage] = useState(0);
-	const { web3, contract } = useContext(Web3Context);
-	const factories = [
-		{
-			type: 0,
-			produce: "fe",
-			name: "Iron Mine",
-			rates: [50, 100],
-		},
-		{
-			type: 1,
-			produce: "al",
-			name: "Aluminium Quarry",
-			rates: [25, 50],
-		},
-		{
-			type: 2,
-			produce: "cu",
-			name: "Copper Well",
-			rates: [10, 20],
-		},
-		{
-			type: 3,
-			produce: "au",
-			name: "Gold Mine",
-			rates: [5, 10],
-		},
-		{
-			type: 4,
-			produce: "ti",
-			name: "Titanium Quarry",
-			rates: [2, 5],
-		},
-	];
+	const { web3, contract, buyFactory } = useContext(Web3Context);
 
 	return (
 		<div className="factory">
@@ -92,26 +61,27 @@ const Factory = () => {
 				</div>
 			) : (
 				<div className="content market">
-					<Card className="owned-2">
-						<section className="card-left">
-							<img src="./assets/facticon/facticon2.png" alt="" />
-							<span className="rate">
-								10<span className="unit">/hr</span>
-							</span>
-						</section>
-						<section className="card-right">
-							<span className="title"></span>
-							<div className="cords">
-								<span className="x-label label">X:</span>
-								<span className="x-value value">0</span>
-								<span className="y-label label">Y:</span>
-								<span className="y-value value">5</span>
-							</div>
-							<button onClick={() => buyFactory()} className="bid">
-								Buy
-							</button>
-						</section>
-					</Card>
+					{factories.map(({ type, name, rates, price }) => (
+						<Card key={type} className="owned-2">
+							<section className="card-left">
+								<img src={`./assets/img/factories/factory_${type}.png`} alt="" />
+								<span className="rate">
+									{rates[0]}-{rates[1]}
+									<span className="unit">/hr</span>
+								</span>
+							</section>
+							<section className="card-right">
+								<span className="title">{name}</span>
+								<span className="price">
+									{price}
+									<span className="token">MLO</span>
+								</span>
+								<button onClick={() => buyFactory(name, type)} className="bid">
+									Buy
+								</button>
+							</section>
+						</Card>
+					))}
 				</div>
 			)}
 		</div>

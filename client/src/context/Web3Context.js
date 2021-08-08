@@ -217,6 +217,13 @@ const Web3ContextProvider = (props) => {
 				provider,
 				providerName,
 				buyFactory,
+				buyLand,
+				changeFactoryName,
+				removeFactory,
+				placeFactory,
+				transferLand,
+				transferFactory,
+				claimAll,
 				lastClaimed: userData?.user?.lastclaimed,
 				factories: userData?.user?.factories,
 				balances: {

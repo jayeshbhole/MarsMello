@@ -169,34 +169,128 @@
 	}
 }
 .modal-bg {
-	.mini-modal {
+	.mini-menu-modal {
+		overflow-y: hidden;
+		overflow-x: auto;
 		.content {
-			width: 100%;
+			&.add-content {
+				padding: 0;
+			}
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			text-align: center;
-			justify-content: space-around;
 			font-size: 1.5rem;
-			padding: 1rem;
+			padding: 1.5rem;
 			.high {
 				color: orange;
 			}
-
 			.cost {
 				font-size: 2.5rem;
 				.high {
 					margin-left: 1rem;
 				}
 			}
-			select {
-				padding: 1rem;
-				font-family: inherit;
-				background-color: lighten($color-modal-bg, 5%);
-				border: 1px ridge $color-modal-border;
-				border-radius: 0.25rem;
-				color: white;
-				width: 60%;
+			.prompt {
+				margin-top: 1rem;
+			}
+			.select {
+				height: 75%;
+				display: flex;
+				justify-content: space-between;
+				background: lighten($color-modal-bg, 5%);
+				border-radius: 0.5rem;
+				overflow-x: hidden;
+				overflow-y: auto !important;
+				margin: 1.5rem 0;
+
+				div {
+					display: flex;
+					flex-direction: column;
+					width: 50%;
+
+					.select-title {
+						margin: 0 auto;
+						margin-top: 1.5rem;
+						font-size: 2rem;
+						color: rgba(white, 0.6);
+						background: lighten($color-modal-bg, 5%);
+					}
+					&.select-inv {
+						border-right: 1px ridge $color-modal-border;
+					}
+
+					.select-cards {
+						width: 100%;
+						.card {
+							cursor: pointer;
+							margin: 0 auto;
+							margin-top: 1.5rem;
+							width: 80%;
+							background: lighten($color-modal-bg, 18%);
+							border-radius: 0.5rem;
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							padding: 1rem;
+							.card-left {
+								display: flex;
+								flex-direction: column;
+								justify-content: space-between;
+								align-items: center;
+								width: min(40%, 15rem);
+								img {
+									width: 80%;
+									height: 80%;
+								}
+							}
+							.card-right {
+								width: 60%;
+								height: 80%;
+								display: flex;
+								flex-direction: column;
+								justify-content: space-around;
+								align-items: flex-start;
+								margin-left: 1rem;
+								.title {
+									font-size: 1.5rem;
+								}
+								.rate {
+									font-size: 1.2rem;
+									.unit {
+										font-size: 0.8rem;
+										color: rgba(white, 0.6);
+										margin-left: 0.25rem;
+									}
+								}
+								.cords {
+									width: 100%;
+									display: flex;
+									flex-direction: row;
+									align-items: center;
+									font-size: 1rem;
+									.cords-label {
+										width: 30%;
+										font-size: 0.8rem;
+										color: rgba(white, 0.75);
+									}
+									.cords-val {
+										width: 70%;
+										color: orange;
+										font-size: 1.2rem;
+									}
+								}
+							}
+							transition: all 150ms ease;
+							&:hover {
+								box-shadow: 0px 0px 10px 3px rgba(white, 0.4);
+							}
+							&#active {
+								box-shadow: 0px 0px 10px 3px rgba(rgb(10, 216, 10), 0.8);
+							}
+						}
+					}
+				}
 			}
 			button {
 				cursor: pointer;
