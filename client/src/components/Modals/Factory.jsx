@@ -5,7 +5,7 @@ import Card from "../Auxillary/Card";
 
 const Factory = () => {
 	const [page, setPage] = useState(0);
-	const { userData, buyFactory } = useContext(Web3Context);
+	const { factories, buyFactory } = useContext(Web3Context);
 
 	return (
 		<div className="factory">
@@ -28,12 +28,13 @@ const Factory = () => {
 			</div>
 			{page === 0 ? (
 				<div className="content owned">
-					{userData?.factories ? (
-						userData?.factories.map((factory) => {
+					{factories ? (
+						factories.map((factory) => {
 							return (
-								<Card className="owned-2">
+								<Card className="owned-2" key={factory.id}>
 									<section className="card-left">
-										<img src="./assets/facticon/facticon2.png" alt="" />
+										<img src={`./assets/img/factories/factory_${factory.type}.png`} alt="" />
+
 										<span className="rate">
 											10<span className="unit">/hr</span>
 										</span>
