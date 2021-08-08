@@ -44,18 +44,15 @@ const GET_USER = gql`
 		}
 	}
 `;
-const GET_LAND = gql`
-	query GetLand($x: Int!, $y: Int!) {
-		lands(where: { x: $x1, y: $y1 }) {
-			id
-			x
-			y
-			owner
-			seed
-			flows
-			factory {
+const GET_USER_LANDS = gql`
+	query GetUserLands($userId: String!) {
+		user(id: $userId) {
+			lands {
 				id
-				type
+				seed
+				factory
+				x
+				y
 			}
 		}
 	}
@@ -148,6 +145,9 @@ const Web3ContextProvider = (props) => {
 	}, [provider, web3]);
 
 	const [loadUserData, { data: userData }] = useLazyQuery(GET_USER);
+	const [loadUserLandData, { data: userLandData }] = useLazyQuery(GET_USER_LANDS, {
+		variables: { userId: account },
+	});
 
 	// Account Changed Hook
 	useEffect(() => {
@@ -219,6 +219,7 @@ const Web3ContextProvider = (props) => {
 				account,
 				provider,
 				providerName,
+				userLandData,
 				buyFactory,
 				buyLand,
 				changeFactoryName,
@@ -228,6 +229,8 @@ const Web3ContextProvider = (props) => {
 				transferFactory,
 				claimAll,
 				getLandPrice,
+				loadUserLandData,
+				getUserLands: {},
 				lastClaimed: userData?.user?.lastclaimed,
 				factories: userData?.user?.factories,
 				balances,
