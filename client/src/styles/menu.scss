@@ -87,7 +87,6 @@
 			margin-top: 1.2rem;
 			padding: 0.5rem 0;
 			background: url("../assets/img/TopBar.png") no-repeat;
-			background-position: 50% 100%;
 			background-size: 100% 140%;
 			background-repeat: no-repeat;
 			&.connected {
@@ -175,6 +174,14 @@
 		.content {
 			&.add-content {
 				padding: 0;
+			}
+			&.rmv-content {
+				justify-content: center;
+				.prompt {
+					width: 50%;
+					margin: 0 auto;
+					margin-bottom: 2rem;
+				}
 			}
 			height: 100%;
 			display: flex;

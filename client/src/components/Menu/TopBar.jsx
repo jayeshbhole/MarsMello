@@ -1,5 +1,5 @@
 import { useSpring, animated, config } from "@react-spring/web";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Web3Context } from "../../context/Web3Context";
 import useInterval from "../../hooks/useInterval";
 import manageNumbers from "../../utils/manageNumbers";
@@ -60,6 +60,7 @@ const TopBar = () => {
 
 	useInterval(() => {
 		if (!account) {
+			borderStylesApi.stop();
 			const random = randomBetweenFiftyHun();
 			borderStylesApi.start({
 				borderColor: numberToColorHsl((100 - random) / 100, 0.3, 0.7),
@@ -67,12 +68,21 @@ const TopBar = () => {
 				width: `${Math.floor(random / 2 + 50)}%`,
 			});
 		} else {
-			const hoursPassedPercent = (Date.now() - parseInt(lastClaimed) * 1000) / 86400 / 24;
-			borderStylesApi.start({
-				borderColor: numberToColorHsl((100 - hoursPassedPercent) / 100, 0.3, 0.7),
-				background: numberToColorHsl((100 - hoursPassedPercent) / 100, 0.3, 0.7),
-				width: `${Math.floor(hoursPassedPercent / 2 + 50)}%`,
-			});
+			if (lastClaimed) {
+				borderStylesApi.stop();
+				const hoursPassedPercent = (Date.now() - parseInt(lastClaimed) * 1000) / 86400 / 24;
+				borderStylesApi.start({
+					borderColor: numberToColorHsl((100 - hoursPassedPercent) / 100, 0.3, 0.7),
+					background: numberToColorHsl((100 - hoursPassedPercent) / 100, 0.3, 0.7),
+					width: `${Math.floor(hoursPassedPercent / 2 + 50)}%`,
+				});
+			} else {
+				borderStylesApi.start({
+					borderColor: numberToColorHsl(100, 0.3, 0.7),
+					background: numberToColorHsl(100, 0.3, 0.7),
+					width: `${Math.floor(50)}%`,
+				});
+			}
 		}
 	}, 5000);
 
