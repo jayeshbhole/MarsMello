@@ -81,7 +81,7 @@ const Add = ({ setIsOpen }) => {
 		</div>
 	) : (
 		<div className="add-content content">
-			<span className="prompt">No Factories in Inventory to place.</span>
+			<span className="prompt">No Factories in Inventory.</span>
 			<button className="buy-fact">Buy a factory</button>
 		</div>
 	);

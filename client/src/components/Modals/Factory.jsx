@@ -5,8 +5,7 @@ import Card from "../Auxillary/Card";
 
 const Factory = () => {
 	const [page, setPage] = useState(0);
-	const { web3, contract, buyFactory, factories } = useContext(Web3Context);
-	const factoryTypes = ["Fe", "Au", "Cu", "Al", "Ti"];
+	const { userData, buyFactory } = useContext(Web3Context);
 
 	return (
 		<div className="factory">
@@ -29,43 +28,49 @@ const Factory = () => {
 			</div>
 			{page === 0 ? (
 				<div className="content owned">
-					{factories.map(({ id, name, x, y, type, efficiency }) => (
-						<Card id={id} key={id}>
-							<section className="card-left">
-								<img src={`./assets/img/factories/factory_${type}.png`} alt="" />
-								<span className="efficiency">
-									{`${efficiency}% `}
-									<span className="unit">efficient</span>
-								</span>
-							</section>
-							<section className="card-right">
-								<div className="title">{name}</div>
-								<div className="produce">
-									<span>
-										Produces <span className="high">{factoryTypes[type]}</span>
-									</span>
-								</div>
-								<div className="placed">
-									{x && y ? (
-										<span>
-											Factory place at <span className="high">{`(${x}, ${y})`}</span>
+					{userData?.factories ? (
+						userData?.factories.map((factory) => {
+							return (
+								<Card className="owned-2">
+									<section className="card-left">
+										<img src="./assets/facticon/facticon2.png" alt="" />
+										<span className="rate">
+											10<span className="unit">/hr</span>
 										</span>
-									) : (
-										"Factory not placed"
-									)}
-								</div>
-								<div className="btns">
-									<button className="sell">Send</button>
-									<button className="place">Place</button>
-								</div>
-							</section>
-						</Card>
-					))}
+									</section>
+									<section className="card-right">
+										<div className="name">
+											<span className="label">Name:</span>
+											<span className="value">{factory.name}</span>
+										</div>
+										<div className="produce">
+											<span className="label">Produce:</span>
+											<span className="value">{factoriesList[factory.type].produce}</span>
+										</div>
+										<div className="cords">
+											<span className="x-label label">X:</span>
+											<span className="x-value value">{factory.x}</span>{" "}
+											<span className="y-label label">Y:</span>
+											<span className="y-value value">{factory.y}</span>
+										</div>
+										<div className="btns">
+											<button className="sell" title="Sell the factory">
+												Sell
+											</button>
+											<button className="place">Place</button>
+										</div>
+									</section>
+								</Card>
+							);
+						})
+					) : (
+						<h1>Cricket Noises...</h1>
+					)}
 				</div>
 			) : (
 				<div className="content market">
 					{factoriesList.map(({ type, name, rates, price }) => (
-						<Card key={type}>
+						<Card key={type} className="owned-2">
 							<section className="card-left">
 								<img src={`./assets/img/factories/factory_${type}.png`} alt="" />
 								<span className="rate">

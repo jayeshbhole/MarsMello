@@ -33,10 +33,12 @@ const Docks = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		teleport(x, y);
-		setIsTeleModal(false);
-		setX("");
-		setY("");
+		if (isNaN(x) || isNaN(y)) {
+			teleport(x, y);
+			setIsTeleModal(false);
+			setX("");
+			setY("");
+		}
 	};
 
 	return (

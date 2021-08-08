@@ -161,7 +161,7 @@
 			.content {
 				display: flex;
 				flex-wrap: wrap;
-				// width: calc(100%-2rem);
+				justify-content: center;
 				height: 90%;
 				background: lighten($color-modal-bg, 10%);
 				.card {
@@ -171,6 +171,7 @@
 					background: lighten($color-modal-bg, 18%);
 					border-radius: 0.5rem;
 					display: flex;
+					align-self: flex-start;
 					align-items: center;
 					margin: 1rem;
 
