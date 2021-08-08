@@ -4,7 +4,7 @@ import manageNumbers from "../../utils/manageNumbers";
 import resourceList from "../../utils/resourceList.json";
 
 const Resources = () => {
-	const { balances, claimAll, userData } = useContext(Web3Context);
+	const { balances, claimAll, userData, lastClaimed } = useContext(Web3Context);
 	return (
 		<div className="resos">
 			<h1>Resources</h1>
@@ -12,7 +12,7 @@ const Resources = () => {
 				<div className="container">
 					<button onClick={claimAll}>Claim all Resources</button>
 					<span>
-						Last Claimed {(Date.now() - parseInt(userData.lastClaimed) * 1000) / 86400} hours ago
+						Last Claimed {Math.round((Date.now() - parseInt(lastClaimed) * 1000) / 86400)} hours ago
 					</span>
 				</div>
 				<h3>Your Resources</h3>
