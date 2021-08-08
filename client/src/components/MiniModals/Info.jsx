@@ -7,7 +7,7 @@ import resourceList from "../../utils/resourceList.json";
 const Info = () => {
 	const { selectedBlock } = useContext(GameContext);
 	const { account } = useContext(Web3Context);
-	console.log("selected Block", selectedBlock);
+	// console.log("selected Block", selectedBlock);
 	return selectedBlock?.seed !== -1 ? (
 		<div className="info-content content">
 			<div className="preview-container">

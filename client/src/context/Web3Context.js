@@ -9,7 +9,7 @@ import useInterval from "../hooks/useInterval";
 import { useSpring } from "@react-spring/web";
 
 const contractAddresses = {
-	game: "0xdd62d64a9FE4aECA71cBAB1b8bD3AC35Fc57A696"
+	game: "0xdd62d64a9FE4aECA71cBAB1b8bD3AC35Fc57A696",
 };
 
 const Web3Context = createContext({
@@ -18,7 +18,7 @@ const Web3Context = createContext({
 	getWeb3ModalProvider: () => {},
 	disconnectProvider: () => {},
 	balances: { mlo: 0, fe: 0, au: 0, ti: 0, cu: 0, al: 0 },
-	providerName: "none"
+	providerName: "none",
 });
 
 const GET_USER = gql`
@@ -67,19 +67,20 @@ const providerOptions = {
 	portis: {
 		package: Portis,
 		options: {
-			id: "4d7e97a1-076d-46e5-b777-d0c5b92d000f", // Portis DAPP ID
-			infuraId: "006a04f7400849fb8689353c7da198a0"
-		}
-	}
+			// id: "4d7e97a1-076d-46e5-b777-d0c5b92d000f", // Portis DAPP ID
+			id: "4b5b1582-418d-4d8a-887c-48a40b69b241", // Production Portis DAPP ID
+			infuraId: "006a04f7400849fb8689353c7da198a0",
+		},
+	},
 };
 const web3Modal = new Web3Modal({
 	// network: "mainnet",
-	// network: { chainId: 8001, nodeUrl: "https://matic-mumbai.chainstacklabs.com" },
+	network: { chainId: 8001, nodeUrl: "https://matic-mumbai.chainstacklabs.com" },
 	// network: { chainId: 1377, nodeUrl: "http://127.0.0.1:9545" },
-	network: { chainId: 1377, nodeUrl: "http://127.0.0.1:8545" },
+	// network: { chainId: 1377, nodeUrl: "http://127.0.0.1:8545" },
 	cacheProvider: true,
 	providerOptions,
-	theme: "dark"
+	theme: "dark",
 });
 const Web3ContextProvider = (props) => {
 	const decimals = 18;
@@ -124,7 +125,7 @@ const Web3ContextProvider = (props) => {
 
 			setGameContract(new web3.eth.Contract(gameInterface.abi, contractAddresses.game));
 
-			console.log("provider", provider);
+			// console.log("provider", provider);
 			// Subscribe to accounts change
 			provider.on("accountsChanged", async (accounts) => {
 				console.log("Provider Listener: Account Change");
@@ -151,7 +152,7 @@ const Web3ContextProvider = (props) => {
 
 	const [loadUserData, { data: userData }] = useLazyQuery(GET_USER);
 	const [loadUserLandData, { data: userLandData }] = useLazyQuery(GET_USER_LANDS, {
-		variables: { userId: account }
+		variables: { userId: account },
 	});
 
 	// Account Changed Hook
@@ -172,16 +173,16 @@ const Web3ContextProvider = (props) => {
 			al: userData?.user?.al,
 			au: userData?.user?.au,
 			cu: userData?.user?.cu,
-			ti: userData?.user?.ti
+			ti: userData?.user?.ti,
 		});
 	}, [userData]);
 
 	const [{ landPrice }, setLandPrice] = useSpring(() => ({
-		landPrice: 0
+		landPrice: 0,
 	}));
 	const getLandPrice = useCallback(async () => {
 		const price = await gameContract.methods.getLandPrice().call();
-		console.log(price);
+		// console.log(price);
 		setLandPrice.start({ landPrice: parseFloat((price / 10 ** decimals).toFixed(2)) });
 	}, [gameContract]);
 
@@ -244,7 +245,7 @@ const Web3ContextProvider = (props) => {
 				factories: userData?.user?.factories,
 				balances,
 				getWeb3ModalProvider,
-				disconnectProvider
+				disconnectProvider,
 			}}>
 			{props.children}
 		</Web3Context.Provider>

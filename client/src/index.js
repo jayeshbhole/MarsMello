@@ -16,7 +16,7 @@ const defaultOptions = {
 	},
 };
 const client = new ApolloClient({
-	uri: "http://localhost:8000/subgraphs/name/MarsMello",
+	uri: "https://api.studio.thegraph.com/query/3055/marsmello/1",
 	cache: new InMemoryCache(),
 	defaultOptions: defaultOptions,
 });

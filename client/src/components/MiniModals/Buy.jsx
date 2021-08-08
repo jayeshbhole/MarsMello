@@ -7,7 +7,7 @@ const Buy = () => {
 	const { selectedBlock } = useContext(GameContext);
 	const { buyLand, getLandPrice, landPrice } = useContext(Web3Context);
 	getLandPrice();
-	console.log(landPrice);
+	// console.log(landPrice);
 	return (
 		<div className="buy-content content">
 			<span className="prompt">

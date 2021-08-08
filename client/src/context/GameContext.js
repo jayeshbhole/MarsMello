@@ -235,7 +235,7 @@ const GameContextProvider = (props) => {
 				for (const cell of gridData.lands) {
 					newGrid[cell.id] = cell;
 				}
-				console.log(newGrid);
+				// console.log(newGrid);
 				return newGrid;
 			});
 	}, [gridData]);
