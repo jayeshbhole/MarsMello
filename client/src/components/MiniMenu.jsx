@@ -1,5 +1,5 @@
 import { animated } from "@react-spring/web";
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { GameContext } from "../context/GameContext";
 import { Web3Context } from "../context/Web3Context";
 import ImgButton from "./Auxillary/ImgButton";
@@ -79,4 +79,5 @@ const MiniMenu = ({ setModalType, setIsModalOpen }) => {
 		</animated.div>
 	);
 };
-export default MiniMenu;
+const MemoMiniMenu = memo(MiniMenu);
+export default MemoMiniMenu;

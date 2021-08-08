@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useCallback } from "react";
 // import useWeb3 from "../hooks/useWeb3";
 import { useQuery, useLazyQuery, gql } from "@apollo/client";
 import Web3 from "web3";
@@ -85,7 +85,7 @@ const Web3ContextProvider = (props) => {
 	const [providerName, setProviderName] = useState("None");
 	const [gameContract, setGameContract] = useState();
 	const [web3, setWeb3] = useState(new Web3());
-
+	const [balances, setBalances] = useState({});
 	const [account, setAccount] = useState();
 
 	// Toggle Modal And Ask for Connection
@@ -157,30 +157,33 @@ const Web3ContextProvider = (props) => {
 
 	useInterval(() => {
 		if (account) loadUserData({ variables: { userId: account } });
-	}, 30000);
+	}, 10000);
 
 	useEffect(() => {
 		console.log(userData);
+		setBalances({
+			mlo: userData?.user?.mlo,
+			fe: userData?.user?.fe,
+			al: userData?.user?.al,
+			au: userData?.user?.au,
+			cu: userData?.user?.cu,
+			ti: userData?.user?.ti,
+		});
 	}, [userData]);
 
-	useEffect(() => {
-		console.log("test");
-		if (gameContract) {
-			getLandPrice().then((data) => console.log("data: ", data));
-			// gameContract.methods
-			// 	.getLandPrice()
-			// 	.call()
-			// 	.then(console.log);
-		}
+	const getLandPrice = useCallback(async () => {
+		const price = await gameContract.methods.getLandPrice().call();
+		console.log(price);
+		return price;
 	}, [gameContract]);
 
-	const getLandPrice = () => {
-		return gameContract.methods.getLandPrice().call();
-	};
-
-	const buyLand = (x, y) => {
-		return gameContract.methods.mintLand(x, y).send({ from: account });
-	};
+	const buyLand = useCallback(
+		(x, y) => {
+			console.log(x, y);
+			if (x && y) return gameContract.methods.mintLand(x, y).send({ from: account });
+		},
+		[gameContract, account]
+	);
 
 	const buyFactory = (name, type) => {
 		return gameContract.methods.mintFactory(name, type).send({ from: account });
@@ -224,16 +227,10 @@ const Web3ContextProvider = (props) => {
 				transferLand,
 				transferFactory,
 				claimAll,
+				getLandPrice,
 				lastClaimed: userData?.user?.lastclaimed,
 				factories: userData?.user?.factories,
-				balances: {
-					mlo: userData?.user?.mlo,
-					fe: userData?.user?.fe,
-					al: userData?.user?.al,
-					au: userData?.user?.au,
-					cu: userData?.user?.cu,
-					ti: userData?.user?.ti,
-				},
+				balances,
 				getWeb3ModalProvider,
 				disconnectProvider,
 			}}>
