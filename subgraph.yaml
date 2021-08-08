@@ -29,7 +29,7 @@ dataSources:
                 handler: handleFactoryNameChange
               - event: Claim(indexed address,uint256)
                 handler: handleClaim
-              - event: FlowChange(indexed address,uint128[])
+              - event: FlowChange(indexed address,uint128[],uint64)
                 handler: handleFlowChange
           file: ./src/marsmellogame.ts
     - kind: ethereum/contract

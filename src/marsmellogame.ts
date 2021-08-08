@@ -53,5 +53,6 @@ export function handleClaim(event: Claim): void {
 export function handleFlowChange(event: FlowChange): void {
     let u = new User(event.params.user.toHex());
     u.flows = event.params.flows;
+    u.lastclaimed = event.params.lastclaimed;
     u.save();
 }

@@ -116,6 +116,10 @@ export class FlowChange__Params {
   get flows(): Array<BigInt> {
     return this._event.parameters[1].value.toBigIntArray();
   }
+
+  get lastclaimed(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
 }
 
 export class LandE extends ethereum.Event {
