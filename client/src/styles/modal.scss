@@ -12,6 +12,7 @@
 	.modal {
 		position: fixed;
 		z-index: 999;
+		width: 100%;
 		max-width: 80ch;
 		.close {
 			cursor: pointer;

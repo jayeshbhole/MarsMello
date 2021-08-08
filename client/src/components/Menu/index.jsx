@@ -17,11 +17,11 @@ const Menu = () => {
 			<Docks />
 			{isModalOpen && (
 				<Modal className="mini-menu-modal" setIsOpen={setIsModalOpen}>
-					{modal === "info" && <Info />}
-					{modal === "add" && <Add />}
-					{modal === "rmv" && <Remove />}
-					{modal === "buy" && <Buy />}
-					{modal === "sell" && <Sell />}
+					{modal === "info" && <Info setIsOpen={setIsModalOpen} />}
+					{modal === "add" && <Add setIsOpen={setIsModalOpen} />}
+					{modal === "rmv" && <Remove setIsOpen={setIsModalOpen} />}
+					{modal === "buy" && <Buy setIsOpen={setIsModalOpen} />}
+					{modal === "sell" && <Sell setIsOpen={setIsModalOpen} />}
 				</Modal>
 			)}
 		</>

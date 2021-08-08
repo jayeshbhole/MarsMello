@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import "../../styles/card.scss";
 
-const Card = ({className, children}) => {
-    return (
-        <div className={`card ${className}`}>
-            {children}
-        </div>
-    )
-}
+const Card = ({ className, id, children, onClick }) => {
+	return (
+		<div className={`card ${className}`} id={id} onClick={onClick}>
+			{children}
+		</div>
+	);
+};
 
 export default Card;

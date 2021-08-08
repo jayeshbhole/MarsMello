@@ -63,7 +63,7 @@ const MiniMenu = ({ setModalType, setIsModalOpen }) => {
 						src="./assets/img/fact-add.png"
 						alt="info-land-button"
 						onClick={handleClick}
-						// disabled={selectedBlock?.seed === -1}
+						disabled={selectedBlock?.seed === -1}
 					/>
 				) : (
 					<ImgButton
