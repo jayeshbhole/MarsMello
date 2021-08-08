@@ -1,5 +1,5 @@
 import { animated } from "@react-spring/web";
-import React, { useContext, memo, useEffect } from "react";
+import React, { useContext, memo } from "react";
 import { GameContext } from "../../context/GameContext";
 import { Web3Context } from "../../context/Web3Context";
 

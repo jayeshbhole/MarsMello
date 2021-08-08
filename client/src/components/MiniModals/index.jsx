@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect } from "react";
 import "../../styles/minimodal.scss";
 
 const MiniModal = ({ children, setIsMiniModal }) => {
