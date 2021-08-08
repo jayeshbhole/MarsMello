@@ -4,13 +4,13 @@ import { GameContext } from "../context/GameContext";
 import { Web3Context } from "../context/Web3Context";
 import ImgButton from "./Auxillary/ImgButton";
 
-const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
+const MiniMenu = ({ setModalType, setIsModalOpen }) => {
 	const { miniMenuStyles: styles, selectedBlock, closeMiniMenu } = useContext(GameContext);
 	const { account } = useContext(Web3Context);
 
 	const handleClick = (e) => {
-		setMiniModalType(e.target.id);
-		setIsMiniModal(true);
+		setModalType(e.target.id);
+		setIsModalOpen(true);
 	};
 	return (
 		<animated.div className="mini" style={styles}>
@@ -63,7 +63,7 @@ const MiniMenu = ({ setMiniModalType, setIsMiniModal }) => {
 						src="./assets/img/fact-add.png"
 						alt="info-land-button"
 						onClick={handleClick}
-						disabled={selectedBlock?.seed === -1}
+						// disabled={selectedBlock?.seed === -1}
 					/>
 				) : (
 					<ImgButton
