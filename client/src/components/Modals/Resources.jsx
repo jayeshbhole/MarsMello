@@ -4,14 +4,16 @@ import manageNumbers from "../../utils/manageNumbers";
 import resourceList from "../../utils/resourceList.json";
 
 const Resources = () => {
-	const { balances, claimAll } = useContext(Web3Context);
+	const { balances, claimAll, userData } = useContext(Web3Context);
 	return (
 		<div className="resos">
 			<h1>Resources</h1>
 			<div className="content">
 				<div className="container">
 					<button onClick={claimAll}>Claim all Resources</button>
-					<span>last claimed 1hr ago</span>
+					<span>
+						Last Claimed {(Date.now() - parseInt(userData.lastClaimed) * 1000) / 86400} hours ago
+					</span>
 				</div>
 				<h3>Your Resources</h3>
 				<main>
@@ -29,12 +31,12 @@ const Resources = () => {
 					</div>
 					<div className="others">
 						<div className="plots item">
-							<span className="label">plots</span>
-							<span className="value">0</span>
+							<span className="label">Lands</span>
+							<span className="value">{userData?.lands?.length}</span>
 						</div>
 						<div className="factories item">
-							<span className="label">factories</span>
-							<span className="value">0</span>
+							<span className="label">Factories</span>
+							<span className="value">{userData?.factories?.length}</span>
 						</div>
 					</div>
 				</main>

@@ -238,6 +238,7 @@ const Web3ContextProvider = (props) => {
 				claimAll,
 				getLandPrice,
 				loadUserLandData,
+				userData: userData?.user,
 				getUserLands: {},
 				lastClaimed: userData?.user?.lastclaimed,
 				factories: userData?.user?.factories,
