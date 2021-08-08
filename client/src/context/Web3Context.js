@@ -1,14 +1,16 @@
 import { useState, createContext, useEffect, useCallback } from "react";
 // import useWeb3 from "../hooks/useWeb3";
-import { useQuery, useLazyQuery, gql } from "@apollo/client";
+import { useLazyQuery, gql } from "@apollo/client";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import Portis from "@portis/web3";
 import gameInterface from "../contracts/MarsmelloGame.json";
 import useInterval from "../hooks/useInterval";
+import { useSpring } from "@react-spring/web";
+import manageNumbers from "../utils/manageNumbers";
 
 const contractAddresses = {
-	game: "0x358CF90ff99131A67b73243fAAd5ff6f4029AF85"
+	game: "0x358CF90ff99131A67b73243fAAd5ff6f4029AF85",
 };
 
 const Web3Context = createContext({
@@ -17,7 +19,7 @@ const Web3Context = createContext({
 	getWeb3ModalProvider: () => {},
 	disconnectProvider: () => {},
 	balances: { mlo: 0, fe: 0, au: 0, ti: 0, cu: 0, al: 0 },
-	providerName: "none"
+	providerName: "none",
 });
 
 const GET_USER = gql`
@@ -67,9 +69,9 @@ const providerOptions = {
 		package: Portis,
 		options: {
 			id: "4d7e97a1-076d-46e5-b777-d0c5b92d000f", // Portis DAPP ID
-			infuraId: "006a04f7400849fb8689353c7da198a0"
-		}
-	}
+			infuraId: "006a04f7400849fb8689353c7da198a0",
+		},
+	},
 };
 const web3Modal = new Web3Modal({
 	// network: "mainnet",
@@ -78,7 +80,7 @@ const web3Modal = new Web3Modal({
 	network: { chainId: 1377, nodeUrl: "http://127.0.0.1:8545" },
 	cacheProvider: true,
 	providerOptions,
-	theme: "dark"
+	theme: "dark",
 });
 const Web3ContextProvider = (props) => {
 	const decimals = 18;
@@ -150,7 +152,7 @@ const Web3ContextProvider = (props) => {
 
 	const [loadUserData, { data: userData }] = useLazyQuery(GET_USER);
 	const [loadUserLandData, { data: userLandData }] = useLazyQuery(GET_USER_LANDS, {
-		variables: { userId: account }
+		variables: { userId: account },
 	});
 
 	// Account Changed Hook
@@ -171,19 +173,21 @@ const Web3ContextProvider = (props) => {
 			al: userData?.user?.al,
 			au: userData?.user?.au,
 			cu: userData?.user?.cu,
-			ti: userData?.user?.ti
+			ti: userData?.user?.ti,
 		});
 	}, [userData]);
 
+	const [{ landPrice }, setLandPrice] = useSpring(() => ({
+		landPrice: 0,
+	}));
 	const getLandPrice = useCallback(async () => {
 		const price = await gameContract.methods.getLandPrice().call();
 		console.log(price);
-		return price;
+		setLandPrice.start({ landPrice: parseFloat((price / 10 ** decimals).toFixed(2)) });
 	}, [gameContract]);
 
 	const buyLand = useCallback(
 		(x, y) => {
-			console.log(x, y);
 			if (x && y) return gameContract.methods.mintLand(x, y).send({ from: account });
 		},
 		[gameContract, account]
@@ -224,6 +228,7 @@ const Web3ContextProvider = (props) => {
 				provider,
 				providerName,
 				userLandData,
+				landPrice,
 				buyFactory,
 				buyLand,
 				changeFactoryName,
@@ -239,7 +244,7 @@ const Web3ContextProvider = (props) => {
 				factories: userData?.user?.factories,
 				balances,
 				getWeb3ModalProvider,
-				disconnectProvider
+				disconnectProvider,
 			}}>
 			{props.children}
 		</Web3Context.Provider>

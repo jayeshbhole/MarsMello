@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useContext } from "react";
-import { GameContext } from "../../context/GameContext";
 import "../../styles/minimodal.scss";
 
 const MiniModal = ({ children, setIsMiniModal }) => {
