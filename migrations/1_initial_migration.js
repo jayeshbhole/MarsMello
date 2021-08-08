@@ -1,4 +1,4 @@
-const Migrations = artifacts.require("Migrations");
+// const Migrations = artifacts.require("Migrations");
 const Iron = artifacts.require("Iron");
 const Aluminium = artifacts.require("Aluminium");
 const Copper = artifacts.require("Copper");
@@ -8,7 +8,8 @@ const Marsmello = artifacts.require("Marsmello");
 const MarsmelloGame = artifacts.require("MarsmelloGame");
 
 module.exports = async function(deployer) {
-    await deployer.deploy(Migrations);
+    // await deployer.deploy(Migrations);
+    console.log(deployer.address);
     await deployer.deploy(Marsmello);
     const mm = await Marsmello.deployed();
 

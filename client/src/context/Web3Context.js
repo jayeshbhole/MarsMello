@@ -8,7 +8,7 @@ import gameInterface from "../contracts/MarsmelloGame.json";
 import useInterval from "../hooks/useInterval";
 
 const contractAddresses = {
-	game: "0x358CF90ff99131A67b73243fAAd5ff6f4029AF85"
+	game: "0xdd62d64a9FE4aECA71cBAB1b8bD3AC35Fc57A696"
 };
 
 const Web3Context = createContext({

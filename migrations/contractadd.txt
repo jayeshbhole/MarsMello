@@ -1,0 +1,26 @@
+/**************  Matic Mumbai TestNet Address  **************/
+
+MarsmelloGame:      0xdd62d64a9FE4aECA71cBAB1b8bD3AC35Fc57A696
+Marsmello:          0xd871109779c48e8261D01A40E47a2d81FEa9D9b1
+Iron:               0x43b0b742B0aa11CB9478A89499475EBc94206Da7
+Aluminium:          0xC445f46dF0d2C78d93b2b839F137207709D063b4
+Copper:             0x937562686a389892B434F93f7378B87452d56aAC
+Gold:               0xc51E72b900D7FB07C46947cd0E012760cCD25263
+Titanium:           0x18327252f4d7d05Af43D409e6Cf0D309b94DC5ee
+
+/************************************************************/
+
+
+
+
+/*****************  Goerli TestNet Address  *****************/
+
+MarsmelloGame:      0xaD4e9758fA1ffA5eA561Bc0237C94cA272FbA184
+Marsmello:          0x6490AB5Ad95DeF809b84eF24C64Eb8290dc5CC07
+Iron:               0x8b0A0fA53372022edbE16b64D0a21290233D5d13
+Aluminium:          0xd9eAb23340c09f3e8Fa9840D9b00AbdBaFaFce21
+Copper:             0xc13acd0a591e1cCf762ee44b60690A09d0B048b7
+Gold:               0xBab8a9E55A75Dee279492B339A3E0FCA0c18E30e
+Titanium:           0x043F89DabEf42d8CdD2B46253Ec5b9236E1557Fc
+
+/************************************************************/

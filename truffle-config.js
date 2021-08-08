@@ -65,6 +65,14 @@ module.exports = {
             timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
             skipDryRun: false, // Skip dry run before migrations? (default: false for public nets )
         },
+        mumbai: {
+            provider: () => new HDWalletProvider(mnemonic, `https://rpc-mumbai.maticvigil.com/v1/5effe505b191f43fdb467ea6b995c3d670cfa991`),
+            network_id: 80001, // Ropsten's id
+            // gas: 29999972, // Ropsten has a lower block limit than mainnet
+            confirmations: 2, // # of confs to wait between deployments. (default: 0)
+            timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+            skipDryRun: false, // Skip dry run before migrations? (default: false for public nets )
+        },
 
         // Another network with more advanced options...
         // advanced: {
