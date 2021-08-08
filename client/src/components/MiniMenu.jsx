@@ -27,6 +27,7 @@ const MiniMenu = ({ setModalType, setIsModalOpen }) => {
 						src="./assets/img/plot-buy-v3.png"
 						alt="buy-land-button"
 						onClick={handleClick}
+						disabled={selectedBlock?.x === 0 && selectedBlock?.y === 0}
 					/>
 				) : (
 					<ImgButton
@@ -63,7 +64,7 @@ const MiniMenu = ({ setModalType, setIsModalOpen }) => {
 						src="./assets/img/fact-add.png"
 						alt="info-land-button"
 						onClick={handleClick}
-						disabled={selectedBlock?.seed === -1}
+						disabled={selectedBlock?.seed === -1 || selectedBlock?.owner?.id !== account}
 					/>
 				) : (
 					<ImgButton

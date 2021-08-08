@@ -172,20 +172,39 @@
 		overflow-y: hidden;
 		overflow-x: auto;
 		.content {
-			&.add-content {
+			.content {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				text-align: center;
+			}
+			.add-content {
 				padding: 0;
 			}
-			&.rmv-content {
-				justify-content: center;
+			.rmv-content,
+			.buy-content {
 				.prompt {
 					width: 50%;
 					margin: 0 auto;
 					margin-bottom: 2rem;
 				}
 			}
+			.info-content {
+				.prompt {
+					font-size: 2rem;
+					margin-top: 2rem;
+				}
+				.prompt-big {
+					display: block;
+					font-size: 3rem;
+					color: orange;
+					margin-top: 2rem;
+				}
+			}
 			height: 100%;
 			display: flex;
 			flex-direction: column;
+			justify-content: center;
 			text-align: center;
 			font-size: 1.5rem;
 			padding: 1.5rem;
@@ -209,7 +228,7 @@
 				border-radius: 0.5rem;
 				overflow-x: hidden;
 				overflow-y: auto !important;
-				margin: 1.5rem 0;
+				margin-top: 1.5rem;
 
 				div {
 					display: flex;
@@ -314,6 +333,7 @@
 					background-repeat: no-repeat;
 					background-size: contain;
 					background-position-y: 50%;
+					margin: 2rem auto;
 				}
 				&.rmv-factory,
 				&.sell-land {

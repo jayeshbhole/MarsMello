@@ -7,6 +7,7 @@ import Remove from "../MiniModals/Remove";
 import Buy from "../MiniModals/Buy";
 import Sell from "../MiniModals/Sell";
 import Modal from "../Modals/index";
+
 const Menu = () => {
 	const [modal, setModalType] = useState("");
 	const [isModalOpen, setIsModalOpen] = useState(false);
