@@ -50,7 +50,11 @@ const GET_USER_LANDS = gql`
 			lands {
 				id
 				seed
-				factory
+				factory {
+					id
+					type
+					name
+				}
 				x
 				y
 			}
