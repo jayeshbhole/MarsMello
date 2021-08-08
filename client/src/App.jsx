@@ -15,9 +15,10 @@ const App = () => {
 				<div className="App">
 					<style>
 						{`.cell{
-					height:${cellSize}px;
-					width:${cellSize}px;
-				}`}
+							height:${cellSize}px;
+							width:${cellSize}px;
+							}
+						`}
 					</style>
 					<LandGrid />
 					{/* <CentreCounter backgroundColor={backgroundColor} centreDelta={centreDelta} /> */}

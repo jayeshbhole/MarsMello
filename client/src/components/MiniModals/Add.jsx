@@ -6,8 +6,11 @@ import Card from "../Auxillary/Card";
 const Add = ({ setIsOpen }) => {
 	const { selectedBlock } = useContext(GameContext);
 	const { factories, placeFactory } = useContext(Web3Context);
-	const [fid, setFid] = useState("");
-
+	const [fid, setFid] = useState();
+	const handlePlaceFactory = () => {
+		placeFactory(fid, selectedBlock?.x, selectedBlock?.y);
+		setIsOpen(false);
+	};
 	// console.log("factories", factories);
 
 	return factories ? (
@@ -72,12 +75,7 @@ const Add = ({ setIsOpen }) => {
 					</div>
 				</div>
 			</div>
-			<button
-				onClick={() => {
-					placeFactory(fid, selectedBlock?.x, selectedBlock?.y);
-					setIsOpen(false);
-				}}
-				className="place-factory">
+			<button disabled={!fid} onClick={handlePlaceFactory} className="place-factory">
 				Place
 			</button>
 		</div>
