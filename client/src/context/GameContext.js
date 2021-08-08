@@ -329,6 +329,7 @@ const GET_LANDS_QUERY = gql`
 			factory {
 				id
 				type
+				name
 			}
 		}
 	}
