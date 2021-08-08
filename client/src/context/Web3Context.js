@@ -1,11 +1,12 @@
 import { useState, createContext, useEffect, useCallback } from "react";
 // import useWeb3 from "../hooks/useWeb3";
-import { useQuery, useLazyQuery, gql } from "@apollo/client";
+import { useLazyQuery, gql } from "@apollo/client";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import Portis from "@portis/web3";
 import gameInterface from "../contracts/MarsmelloGame.json";
 import useInterval from "../hooks/useInterval";
+import { useSpring } from "@react-spring/web";
 
 const contractAddresses = {
 	game: "0xdd62d64a9FE4aECA71cBAB1b8bD3AC35Fc57A696"
@@ -50,7 +51,11 @@ const GET_USER_LANDS = gql`
 			lands {
 				id
 				seed
-				factory
+				factory {
+					id
+					type
+					name
+				}
 				x
 				y
 			}
@@ -171,15 +176,17 @@ const Web3ContextProvider = (props) => {
 		});
 	}, [userData]);
 
+	const [{ landPrice }, setLandPrice] = useSpring(() => ({
+		landPrice: 0
+	}));
 	const getLandPrice = useCallback(async () => {
 		const price = await gameContract.methods.getLandPrice().call();
 		console.log(price);
-		return price;
+		setLandPrice.start({ landPrice: parseFloat((price / 10 ** decimals).toFixed(2)) });
 	}, [gameContract]);
 
 	const buyLand = useCallback(
 		(x, y) => {
-			console.log(x, y);
 			if (x && y) return gameContract.methods.mintLand(x, y).send({ from: account });
 		},
 		[gameContract, account]
@@ -220,6 +227,7 @@ const Web3ContextProvider = (props) => {
 				provider,
 				providerName,
 				userLandData,
+				landPrice,
 				buyFactory,
 				buyLand,
 				changeFactoryName,
@@ -230,6 +238,7 @@ const Web3ContextProvider = (props) => {
 				claimAll,
 				getLandPrice,
 				loadUserLandData,
+				userData: userData?.user,
 				getUserLands: {},
 				lastClaimed: userData?.user?.lastclaimed,
 				factories: userData?.user?.factories,

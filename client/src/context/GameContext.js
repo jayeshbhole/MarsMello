@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { useDrag } from "react-use-gesture";
 import { useSpring, config } from "@react-spring/web";
-import { useQuery, useLazyQuery, gql } from "@apollo/client";
+import { useLazyQuery, gql } from "@apollo/client";
 import useInterval from "../hooks/useInterval";
 import { Web3Context } from "./Web3Context";
 
@@ -50,8 +50,6 @@ const GameContextProvider = (props) => {
 	const paddingSize = cellSize * 5;
 
 	// Mini modal States
-	const [isMiniOpen, setIsMiniModal] = useState(false);
-	const [miniModal, setMiniModalType] = useState("");
 
 	const centredGridOffsets = [-((gridSize - windowHeight) / 2), -((gridSize - windowWidth) / 2)];
 
@@ -215,7 +213,7 @@ const GameContextProvider = (props) => {
 
 	// Querying Data
 	const { account } = useContext(Web3Context);
-	const [loadGrid, { loading: gridLoading, data: gridData }] = useLazyQuery(GET_LANDS_QUERY);
+	const [loadGrid, { data: gridData }] = useLazyQuery(GET_LANDS_QUERY);
 
 	const loadGridFromCentre = (x, y) => {
 		loadGrid({ variables: { x1: x - 10, x2: x + 10, y1: y - 10, y2: y + 10 } });
@@ -285,10 +283,6 @@ const GameContextProvider = (props) => {
 	};
 
 	// handle mini menu click
-	const handleMiniClick = (e) => {
-		setMiniModalType(e.target.id);
-		setIsMiniModal(true);
-	};
 
 	return (
 		<GameContext.Provider
@@ -307,7 +301,6 @@ const GameContextProvider = (props) => {
 				closeMiniMenu,
 				selectedBlock,
 				handlePlotClick,
-				handleMiniClick,
 				dragBind,
 			}}>
 			{props.children}
@@ -329,6 +322,7 @@ const GET_LANDS_QUERY = gql`
 			factory {
 				id
 				type
+				name
 			}
 		}
 	}

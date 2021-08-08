@@ -42,6 +42,7 @@ const Add = ({ setIsOpen }) => {
 										</section>
 									</Card>
 								);
+							return null;
 						})}
 					</div>
 				</div>
@@ -71,6 +72,7 @@ const Add = ({ setIsOpen }) => {
 										</section>
 									</Card>
 								);
+							return null;
 						})}
 					</div>
 				</div>

@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Card from "../Auxillary/Card";
+import { Web3Context } from "../../context/Web3Context";
+import getLandRates from "../../utils/getLandRate";
+import LandPreview from "../Auxillary/LandPreview";
 
 const Plots = () => {
 	const [page, setPage] = useState(0);
+	const { userLandData, loadUserLandData } = useContext(Web3Context);
+
+	useEffect(() => {
+		loadUserLandData();
+	}, []);
+	console.log(userLandData);
 
 	return (
 		<div className="plots">
@@ -25,73 +34,46 @@ const Plots = () => {
 			</div>
 			{page === 0 ? (
 				<div className="content owned">
-					<Card className="plot-card">
-						<section className="card-left">
-							<img src="./assets/facticon/facticon2.png" alt="" />
-							<span className="rate">
-								10<span className="unit">/hr</span>
-							</span>
-						</section>
-						<section className="card-right">
-							<div className="ore">
-								<span className="label">Ore Distribution:</span>
-								<span className="dist fe">fe</span>
-								<span className="val fe">50%</span>
-								<span className="dist au">au</span>
-								<span className="val au">25%</span>
-								<span className="dist cu">cu</span>
-								<span className="val cu">30%</span>
-								<span className="dist ti">ti</span>
-								<span className="val ti">15%</span>
-								<span className="dist al">al</span>
-								<span className="val al">10%</span>
-							</div>
-							<div className="cords">
-								<span className="x-label label">X:</span>
-								<span className="x-value value">0</span>
-								<span className="y-label label">Y:</span>
-								<span className="y-value value">5</span>
-							</div>
-							<button className="sell">send</button>
-						</section>
-					</Card>
+					{userLandData?.user?.lands.map((land) => (
+						<Card className="plot-card" key={land.id}>
+							<section className="card-left">
+								<LandPreview cellData={land} />
+							</section>
+							<section className="card-right">
+								<div className="ore">
+									<span className="label">Ore Distribution:</span>
+									<span className="dist fe">fe</span>
+									<span className="val fe">{`${getLandRates(land.seed, 0)}%`}</span>
+									<span className="dist au">al</span>
+									<span className="val au">{`${getLandRates(land.seed, 1)}%`}</span>
+									<span className="dist cu">cu</span>
+									<span className="val cu">{`${getLandRates(land.seed, 2)}%`}</span>
+									<span className="dist ti">au</span>
+									<span className="val ti">{`${getLandRates(land.seed, 3)}%`}</span>
+									<span className="dist al">ti</span>
+									<span className="val al">{`${getLandRates(land.seed, 4)}%`}</span>
+								</div>
+								<div className="is-factory">
+									{land.factory
+										? `${land.factory.name} with id ${land.factory.id} placed`
+										: "no factory on land"}
+								</div>
+								<div className="cords">
+									<span className="x-label label">X:</span>
+									<span className="x-value value">{land.x}</span>
+									<span className="y-label label">Y:</span>
+									<span className="y-value value">{land.y}</span>
+								</div>
+								<button className="sell">send</button>
+							</section>
+						</Card>
+					))}
 				</div>
 			) : (
 				<div className="content market">
 					<div className="ingame">
-						<button className="buy-btn">Buy a New Factory</button>
+						<button className="buy-btn">Buy a New Land</button>
 					</div>
-
-					<Card className="plot-card">
-						<section className="card-left">
-							<img src="./assets/facticon/facticon2.png" alt="" />
-							<span className="rate">
-								10<span className="unit">/hr</span>
-							</span>
-						</section>
-						<section className="card-right">
-							<div className="ore">
-								<span className="label">Ore Distribution:</span>
-								<span className="dist fe">fe</span>
-								<span className="val fe">50%</span>
-								<span className="dist au">au</span>
-								<span className="val au">25%</span>
-								<span className="dist cu">cu</span>
-								<span className="val cu">30%</span>
-								<span className="dist ti">ti</span>
-								<span className="val ti">15%</span>
-								<span className="dist al">al</span>
-								<span className="val al">10%</span>
-							</div>
-							<div className="cords">
-								<span className="x-label label">X:</span>
-								<span className="x-value value">0</span>
-								<span className="y-label label">Y:</span>
-								<span className="y-value value">5</span>
-							</div>
-							<button className="bid">Bid</button>
-						</section>
-					</Card>
 				</div>
 			)}
 		</div>
