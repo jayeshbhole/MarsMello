@@ -259,12 +259,12 @@ contract MarsmelloGame is Ownable {
                 Resource memory r = factory_types[f.ftype].resources[i];
                 if (r.rate < 0) {
                     u.flows[r.id] +=
-                        uint128(-1 * r.rate) *
-                        uint128(f.efficiency);
+                        (uint128(-1 * r.rate) * uint128(f.efficiency)) /
+                        100;
                 } else {
                     uint128 rate = (uint128(r.rate) *
                         f.efficiency *
-                        getLandRate(l.seed, f.ftype)) / 100;
+                        getLandRate(l.seed, f.ftype)) / 10000;
                     require(
                         u.flows[r.id] > rate,
                         "Removing Factory will remove resource stream which is being used !"
@@ -300,16 +300,18 @@ contract MarsmelloGame is Ownable {
             Resource memory r = factory_types[f.ftype].resources[i];
             if (r.rate < 0) {
                 require(
-                    u.flows[r.id] > uint128(-1 * r.rate) * f.efficiency,
+                    u.flows[r.id] > (uint128(-1 * r.rate) * f.efficiency) / 100,
                     "Not enough resource stream to place factory !"
                 );
-                u.flows[r.id] -= uint128(-1 * r.rate) * uint128(f.efficiency);
+                u.flows[r.id] -=
+                    (uint128(-1 * r.rate) * uint128(f.efficiency)) /
+                    100;
             } else {
                 u.flows[r.id] +=
                     (uint128(r.rate) *
                         uint128(f.efficiency) *
                         getLandRate(lands[x][y].seed, f.ftype)) /
-                    100;
+                    10000;
             }
         }
         emit LandE(x, y, l.owner, l.factory, l.seed);

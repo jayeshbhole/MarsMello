@@ -18,13 +18,13 @@
  *
  */
 
-// const HDWalletProvider = require("@truffle/hdwallet-provider");
-// //
-// const fs = require("fs");
-// const mnemonic = fs
-//     .readFileSync(".secret")
-//     .toString()
-//     .trim();
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+//
+const fs = require("fs");
+const mnemonic = fs
+    .readFileSync(".secret")
+    .toString()
+    .trim();
 
 module.exports = {
     /**
@@ -56,6 +56,14 @@ module.exports = {
             network_id: "5777", // Custom network
             gas: 6721975, // Gas sent with each transaction (default: ~6700000)
             gasPrice: 20000000000, // 20 gwei (in wei) (default: 100 gwei) // Enable EventEmitter interface for web3 (default: false)
+        },
+        goerli: {
+            provider: () => new HDWalletProvider(mnemonic, `https://goerli.infura.io/v3/28f04f9dad31453b8ffe34558f6a3a15`),
+            network_id: 5, // Ropsten's id
+            gas: 29999972, // Ropsten has a lower block limit than mainnet
+            confirmations: 2, // # of confs to wait between deployments. (default: 0)
+            timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+            skipDryRun: false, // Skip dry run before migrations? (default: false for public nets )
         },
 
         // Another network with more advanced options...

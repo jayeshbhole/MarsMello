@@ -6,7 +6,7 @@ dataSources:
       name: MarsmelloGame
       network: mainnet
       source:
-          address: "0x454091B5bb8314a6ab602E28Bd4850B8FC2630F3"
+          address: "0x1f438E2E3967cDA191bFE8406b4753C20C5f8637"
           abi: MarsmelloGame
         #   startBlock: 0
       mapping:
@@ -36,7 +36,7 @@ dataSources:
       name: Marsmello
       network: mainnet
       source:
-          address: "0xF60b076Df90D91aC384e717AF2D4B343bf2E24D6"
+          address: "0x3E6F9A4B7c4FD9ba8d6541D1EF0e730F01Cc2C6C"
           abi: Marsmello
         #   startBlock: 0
       mapping:
@@ -56,7 +56,7 @@ dataSources:
       name: Iron
       network: mainnet
       source:
-          address: "0x1228428beCE96df3748684af58487c456BB02bcC"
+          address: "0xe684CC739847af71CC7Bd11956CC41373bA88D2a"
           abi: Iron
         #   startBlock: 0
       mapping:
@@ -76,7 +76,7 @@ dataSources:
       name: Aluminium
       network: mainnet
       source:
-          address: "0x27699e008f1D3F45Ba3feCB0f7BC84A913d84A37"
+          address: "0x6588d5685Cf44B9505E4beD834C145b508207C17"
           abi: Aluminium
         #   startBlock: 0
       mapping:
@@ -96,7 +96,7 @@ dataSources:
       name: Copper
       network: mainnet
       source:
-          address: "0xe376e6534cC3175DE7434FbA07A034198e75BF19"
+          address: "0x8A98452F03986D5c24191A4167C7f8757A369297"
           abi: Copper
         #   startBlock: 0
       mapping:
@@ -116,7 +116,7 @@ dataSources:
       name: Gold
       network: mainnet
       source:
-          address: "0xDAa51f753cDf95461479B33ba9a1F86C7206f1Bb"
+          address: "0x410B655a10606Bed9c86B58C9e05CDE33c5eCfe4"
           abi: Gold
         #   startBlock: 0
       mapping:
@@ -136,7 +136,7 @@ dataSources:
       name: Titanium
       network: mainnet
       source:
-          address: "0x04b23c324eA361E96fd0F6173B7c8d8e242cAD71"
+          address: "0x7e7827F3b12aDD4fE0e1232e0293d59Ea22eBb5c"
           abi: Titanium
         #   startBlock: 0
       mapping:
