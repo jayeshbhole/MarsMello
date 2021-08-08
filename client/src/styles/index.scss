@@ -25,6 +25,16 @@ body {
 	-webkit-user-drag: none;
 	overflow: hidden;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
 #centre {
 	width: 2.5vw;
 	height: 2.5vw;
