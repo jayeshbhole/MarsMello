@@ -11,7 +11,7 @@ const Plots = () => {
 	useEffect(() => {
 		loadUserLandData();
 	}, []);
-	console.log(userLandData);
+	// console.log(userLandData);
 
 	return (
 		<div className="plots">

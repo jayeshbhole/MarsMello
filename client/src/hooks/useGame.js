@@ -208,24 +208,24 @@ const useGame = () => {
 	useEffect(() => {
 		if (gridData)
 			setGrid(() => {
-				console.log("new ", chunkCentre);
+				// console.log("new ", chunkCentre);
 
 				const newGrid = {};
 				for (const cell in gridData.lands) {
 					// console.log("cell ", cell);
 					newGrid[cell.id] = cell;
 				}
-				console.log(newGrid);
+				// console.log(newGrid);
 				return newGrid;
 			});
 	}, [gridData]);
 
 	useEffect(() => {
-		console.log("Grid Data", gridData?.lands);
+		// console.log("Grid Data", gridData?.lands);
 	}, [gridData]);
 
 	const teleport = (x = 0, y = 0) => {
-		console.log("tp: ", chunkCentre);
+		// console.log("tp: ", chunkCentre);
 		loadGridFromCentre(...chunkCentre);
 		centreApi.set({
 			top: centredGridOffsets[0],
