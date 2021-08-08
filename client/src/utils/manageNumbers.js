@@ -10,7 +10,7 @@ const manageNumbers = (n) => {
 	} else if (n / 1000 >= 1) {
 		return `${Math.floor(n / 100) / 10}K`;
 	} else {
-		return n.toString();
+		return (Math.floor(n * 10) / 10).toString();
 	}
 };
 
