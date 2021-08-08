@@ -54,7 +54,7 @@ const Info = () => {
 				) : null}
 			</div>
 		</div>
-	) : (
+	) : selectedBlock?.x !== 0 && selectedBlock?.y !== 0 ? (
 		<div className="info-content content">
 			<div className="info">
 				<span className="cords">
@@ -63,6 +63,21 @@ const Info = () => {
 				</span>
 				<span className="prompt-big ele">Unclaimed Land</span>
 				<span className="prompt ele">For Sale</span>
+			</div>
+		</div>
+	) : (
+		<div className="info-content content landing">
+			<div className="preview-container">
+				<LandPreview cellData={selectedBlock} />
+			</div>
+			<div className="info ele">
+				<div className="prompt-big ">MarsMello</div>
+				<div className="synopsis ele">
+					#BUIDL Industries on a digital and truly decentralised Mars! <br />
+					<br />
+					Bring Out Your Inner Musk! #BUIDL Industries on a digital and truly decentralised Mars! An
+					Idle-Open World-Strategy-Economy-Simulation Game!
+				</div>
 			</div>
 		</div>
 	);

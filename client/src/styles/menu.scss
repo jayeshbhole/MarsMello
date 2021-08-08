@@ -316,7 +316,7 @@
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					width: 40%;
+					width: 50%;
 					height: 100%;
 					.land-preview {
 						width: 100%;
@@ -350,6 +350,25 @@
 					.produce {
 						.name {
 							color: rgba(white, 0.6);
+						}
+					}
+				}
+				&.landing {
+					.preview-container {
+						width: 40%;
+					}
+					display: flex;
+					flex-direction: row;
+					justify-content: space-around;
+					align-items: center;
+					text-align: center;
+					.info {
+						width: 45%;
+						.ele {
+							margin-top: 2rem;
+						}
+						.synopsis {
+							font-size: 1.5rem;
 						}
 					}
 				}
