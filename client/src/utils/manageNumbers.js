@@ -2,12 +2,13 @@ const manageNumbers = (n) => {
 	if (!n) return 0;
 	const decimals = 18;
 	n /= 10 ** decimals;
+	// console.log("balance: ", n);
 	if (n / 1000000000 >= 1) {
-		return `${(n / 1000000000).toFixed(1)}B`;
+		return `${Math.floor(n / 100000000) / 10}B`;
 	} else if (n / 1000000 >= 1) {
-		return `${(n / 1000000).toFixed(1)}M`;
+		return `${Math.floor(n / 100000) / 10}M`;
 	} else if (n / 1000 >= 1) {
-		return `${(n / 1000).toFixed(1)}K`;
+		return `${Math.floor(n / 100) / 10}K`;
 	} else {
 		return n.toString();
 	}
