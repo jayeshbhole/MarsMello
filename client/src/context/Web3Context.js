@@ -67,8 +67,8 @@ const providerOptions = {
 	portis: {
 		package: Portis,
 		options: {
-			id: "4d7e97a1-076d-46e5-b777-d0c5b92d000f", // Portis DAPP ID
-			// id: "4b5b1582-418d-4d8a-887c-48a40b69b241", // Production Portis DAPP ID
+			// id: "4d7e97a1-076d-46e5-b777-d0c5b92d000f", // Portis DAPP ID
+			id: "4b5b1582-418d-4d8a-887c-48a40b69b241", // Production Portis DAPP ID
 			infuraId: "006a04f7400849fb8689353c7da198a0",
 		},
 	},
@@ -182,7 +182,7 @@ const Web3ContextProvider = (props) => {
 	}));
 	const getLandPrice = useCallback(async () => {
 		const price = await gameContract.methods.getLandPrice().call();
-		console.log(price);
+		// console.log(price);
 		setLandPrice.start({ landPrice: parseFloat((price / 10 ** decimals).toFixed(2)) });
 	}, [gameContract]);
 
