@@ -18,7 +18,7 @@ const MemoisedTopBar = memo(TopBar);
 const MemoisedSideBar = memo(SideBar);
 
 const Docks = () => {
-	const { xy, teleport, selectedBlock } = useContext(GameContext);
+	const { xy, teleport } = useContext(GameContext);
 	const [modalVisible, setModalVisible] = useState(false);
 	const [avatar, setAvatar] = useState(0);
 	const [x, setX] = useState("");

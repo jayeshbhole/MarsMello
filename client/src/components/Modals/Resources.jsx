@@ -1,6 +1,6 @@
 import React from "react";
 
-const Factory = () => {
+const Resources = () => {
 	return (
 		<div className="resos">
 			<h1>Resources</h1>
@@ -49,4 +49,4 @@ const Factory = () => {
 	);
 };
 
-export default Factory;
+export default Resources;
