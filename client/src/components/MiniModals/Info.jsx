@@ -9,16 +9,15 @@ const Info = () => {
 	return selectedBlock?.seed !== -1 ? (
 		<div className="info-content content">
 			<span className="cords">
-				Co-ordinates of this Land are{" "}
-				<span className="high">{`(${selectedBlock?.x}, ${selectedBlock?.x})`}.</span>
+				Co-ordinates of this Land are
+				<span className="high">{` (${selectedBlock?.x}, ${selectedBlock?.x})`}</span>
 			</span>
-			<span>
+			<span className="prompt">
 				This Land is owned by
-				<span className="high">
+				<span className="prompt-big">
 					{selectedBlock?.owner?.id !== account
 						? `${selectedBlock?.owner?.id?.slice(0, 6)}...`
 						: " You"}
-					.
 				</span>
 			</span>
 		</div>
@@ -28,8 +27,8 @@ const Info = () => {
 				Co-ordinates of this Land are{" "}
 				<span className="high">{`(${selectedBlock?.x}, ${selectedBlock?.x})`}</span>
 			</span>
-			<span>Unclaimed-</span>
-			<span>For Sale</span>
+			<span className="prompt-big">Unclaimed Land</span>
+			<span className="prompt">For Sale</span>
 		</div>
 	);
 };
