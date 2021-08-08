@@ -1,4 +1,4 @@
-const getLandrate = (seed, type) => {
+const getLandRate = (seed, type) => {
 	let rate;
 	const base = {
 		0: 100,
@@ -19,4 +19,4 @@ const getLandrate = (seed, type) => {
 	return parseInt((base[type] * rate) / 100);
 };
 
-export default getLandrate;
+export default getLandRate;

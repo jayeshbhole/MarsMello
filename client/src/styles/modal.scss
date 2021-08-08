@@ -165,9 +165,6 @@
 				height: 90%;
 				background: lighten($color-modal-bg, 10%);
 				.card {
-					&.plot-card {
-						width: 100%;
-					}
 					background: lighten($color-modal-bg, 18%);
 					border-radius: 0.5rem;
 					display: flex;
@@ -184,6 +181,7 @@
 						img {
 							width: min(60%, 7rem);
 							height: 60%;
+							align-self: center;
 						}
 						.rate {
 							text-align: center;
@@ -292,6 +290,62 @@
 							}
 							.val {
 								margin-left: 0.4rem;
+							}
+						}
+					}
+					&.plot-card {
+						width: 100%;
+						.card-left {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							width: 20%;
+							height: 100%;
+						}
+						.card-right {
+							.ore {
+								.label {
+									font-size: 0.8rem;
+								}
+
+								.fe {
+									color: rgb(230, 138, 0);
+								}
+								.au {
+									color: gold;
+								}
+								.ti {
+									color: silver;
+								}
+								.cu {
+									color: mediumaquamarine;
+								}
+								.al {
+									color: lightgray;
+								}
+								.dist {
+									color: rgba(white, 0.6);
+									font-size: 0.8rem;
+									margin-left: 1rem;
+									&.fe {
+										margin-left: 0;
+									}
+								}
+							}
+							.is-factory {
+								font-size: 1rem;
+							}
+							.cords {
+								.y-label {
+									margin-left: 2rem;
+								}
+								.value {
+									color: orange;
+								}
+							}
+							.sell {
+								margin-top: 0.25rem;
+								background-position-y: 0.25rem;
 							}
 						}
 					}
