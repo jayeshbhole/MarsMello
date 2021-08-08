@@ -7,7 +7,6 @@ import Portis from "@portis/web3";
 import gameInterface from "../contracts/MarsmelloGame.json";
 import useInterval from "../hooks/useInterval";
 import { useSpring } from "@react-spring/web";
-import manageNumbers from "../utils/manageNumbers";
 
 const contractAddresses = {
 	game: "0x358CF90ff99131A67b73243fAAd5ff6f4029AF85",
