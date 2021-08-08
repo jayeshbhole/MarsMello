@@ -20,6 +20,9 @@ const Info = () => {
 						: " You"}
 				</span>
 			</span>
+			<span className="prompt">
+				Land has <span className="prompt-big">{selectedBlock?.factory}</span>
+			</span>
 		</div>
 	) : (
 		<div className="info-content content">

@@ -1,4 +1,4 @@
-export const factories = [
+export const factoriesList = [
 	{
 		type: 0,
 		produce: "fe",

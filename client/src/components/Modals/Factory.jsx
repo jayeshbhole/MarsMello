@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Web3Context } from "../../context/Web3Context";
-import { factories } from "../../utils/factoriesList";
+import { factoriesList } from "../../utils/factoriesList";
 import Card from "../Auxillary/Card";
 
 const Factory = () => {
@@ -64,8 +64,8 @@ const Factory = () => {
 				</div>
 			) : (
 				<div className="content market">
-					{factories.map(({ type, name, rates, price }) => (
-						<Card key={type} className="owned-2">
+					{factoriesList.map(({ type, name, rates, price }) => (
+						<Card key={type}>
 							<section className="card-left">
 								<img src={`./assets/img/factories/factory_${type}.png`} alt="" />
 								<span className="rate">
