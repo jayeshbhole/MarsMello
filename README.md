@@ -1,6 +1,6 @@
 # MarsMello
 <div align="center">
-  <img src="./client/public/marsmello.png" width=500/>
+    <img src="https://i.imgur.com/pjog8GL.png" width="80%"/>
 </div>
 
 ## The Game Plot
